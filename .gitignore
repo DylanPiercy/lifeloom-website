@@ -1,0 +1,22 @@
+.firebase/
+.firebaserc
+firebase-debug.log*
+firestore-debug.log*
+ui-debug.log*
+node_modules/
+.env
+.env.*
+!.env.example
+
+# Local/environment-specific website configuration
+config/site.local.json
+public/runtime/
+
+# Real brand assets stay local and are copied into public/runtime/ before deploy
+brand-assets/*
+!brand-assets/README.md
+
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
