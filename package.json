@@ -1,0 +1,10 @@
+{
+  "name": "lifeloom-website",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "prepare": "node scripts/prepare-site.mjs",
+    "serve": "npm run prepare && firebase emulators:start --only hosting",
+    "deploy": "npm run prepare && firebase deploy --only hosting"
+  }
+}
