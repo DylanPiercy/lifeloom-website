@@ -294,3 +294,31 @@ p { margin: 0 0 18px; }
   .footer-bottom { display: block; }
   .footer-bottom span { display: block; margin: 6px 0; }
 }
+
+.status-pill,
+.app-status {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  border-radius: 999px;
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.status-pill {
+  margin-top: 18px;
+  padding: 10px 14px;
+  color: var(--text);
+  background: white;
+  border: 1px solid var(--line);
+}
+.app-status {
+  position: absolute;
+  top: 28px;
+  right: 28px;
+  padding: 7px 10px;
+  color: white;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.2);
+}

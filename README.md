@@ -47,7 +47,9 @@ Edit `config/site.local.json` with your local values:
   "supportEmail": "YOUR_SUPPORT_EMAIL",
   "brandAssets": {
     "lifeloom": "lifeloom-mark.svg",
-    "rivalry": "rivalry-mark.svg"
+    "rivalry": "rivalry-mark.svg",
+    "peakLedger": "peak-ledger-mark.svg",
+    "fugitives": "fugitives-mark.svg"
   },
   "storeLinks": {
     "rivalryGooglePlay": "",
@@ -106,7 +108,9 @@ config/
 └── site.local.json           # local values; ignored
 data/
 └── apps/
-    └── rivalry.json           # app content/theme data
+    ├── rivalry.json           # app content/theme data
+    ├── peak-ledger.json       # coming-soon app data
+    └── fugitives.json         # coming-soon app data
 templates/
 ├── app-page.html             # reusable app detail template
 └── apps-index.html           # reusable app catalogue template

@@ -1,0 +1,55 @@
+{
+  "slug": "peak-ledger",
+  "name": "PeakLedger",
+  "brandKey": "peakLedger",
+  "metaDescription": "PeakLedger is a LifeLoom app for discovering mountain peaks on an interactive map and keeping a record of the peaks you have climbed.",
+  "summary": "Discover mountain peaks, explore them on a map and keep a personal record of the summits you have climbed.",
+  "hero": {
+    "eyebrow": "A LifeLoom app",
+    "heading": "Keep a ledger of every summit.",
+    "description": "PeakLedger brings mountain peaks together on an interactive map and gives you a simple way to record the summits you have climbed."
+  },
+  "theme": {
+    "heroBackground": "#0d1713",
+    "heroGlow": "rgba(74,222,128,.22)",
+    "heroTextMuted": "#c2d3c9",
+    "heroAccent": "#86efac",
+    "cardBackgroundStart": "#153126",
+    "cardBackgroundEnd": "#0d1713",
+    "cardGlow": "rgba(74,222,128,.34)",
+    "cardTextMuted": "#c4d7cb"
+  },
+  "preview": {
+    "primaryTitle": "Peak map",
+    "secondaryTitle": "My climbs"
+  },
+  "section": {
+    "eyebrow": "Built for the mountains",
+    "heading": "Discover. Climb. Remember.",
+    "description": "A focused way to explore peaks and build a lasting record of the places you have reached."
+  },
+  "features": [
+    {
+      "title": "Interactive peak map",
+      "description": "Explore mountain peaks geographically and see what is around you."
+    },
+    {
+      "title": "Climb tracking",
+      "description": "Mark peaks as climbed and build your own personal summit record."
+    },
+    {
+      "title": "Peak information",
+      "description": "Keep useful mountain and elevation information together in one place."
+    },
+    {
+      "title": "Personal progress",
+      "description": "See your growing collection of completed peaks as you explore more."
+    }
+  ],
+  "availability": {
+    "status": "coming-soon",
+    "eyebrow": "Availability",
+    "heading": "PeakLedger is coming soon.",
+    "placeholder": "PeakLedger is currently in development."
+  }
+}

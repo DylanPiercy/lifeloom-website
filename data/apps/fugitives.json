@@ -1,0 +1,55 @@
+{
+  "slug": "fugitives",
+  "name": "Fugitives",
+  "brandKey": "fugitives",
+  "metaDescription": "Fugitives is a LifeLoom real-world multiplayer chase game where hunters track fugitives across a defined play area.",
+  "summary": "A real-world multiplayer chase game where hunters track fugitives across a live, geofenced play area.",
+  "hero": {
+    "eyebrow": "A LifeLoom game",
+    "heading": "Turn the real world into the game board.",
+    "description": "Fugitives creates live multiplayer chase games where hunters pursue fugitives across a defined area using location, timing and movement to outplay one another."
+  },
+  "theme": {
+    "heroBackground": "#17110f",
+    "heroGlow": "rgba(249,115,22,.24)",
+    "heroTextMuted": "#d7c7c0",
+    "heroAccent": "#fdba74",
+    "cardBackgroundStart": "#321b13",
+    "cardBackgroundEnd": "#17110f",
+    "cardGlow": "rgba(249,115,22,.38)",
+    "cardTextMuted": "#dccbc3"
+  },
+  "preview": {
+    "primaryTitle": "Live game",
+    "secondaryTitle": "Chase map"
+  },
+  "section": {
+    "eyebrow": "Built for real-world play",
+    "heading": "Run. Hunt. Outsmart.",
+    "description": "Location-aware gameplay turns streets, parks and chosen play areas into a live pursuit."
+  },
+  "features": [
+    {
+      "title": "Hunters vs fugitives",
+      "description": "Split players into opposing roles with different objectives and ways to win."
+    },
+    {
+      "title": "Live location gameplay",
+      "description": "Use player movement and map locations as part of the game itself."
+    },
+    {
+      "title": "Geofenced play areas",
+      "description": "Keep each game inside a defined real-world zone."
+    },
+    {
+      "title": "Timed reveals and captures",
+      "description": "Use controlled location reveals and capture rules to keep every chase moving."
+    }
+  ],
+  "availability": {
+    "status": "coming-soon",
+    "eyebrow": "Availability",
+    "heading": "Fugitives is coming soon.",
+    "placeholder": "Fugitives is currently in development."
+  }
+}

@@ -70,8 +70,15 @@ for (const app of apps) {
     AVAILABILITY_EYEBROW: escapeHtml(app.availability?.eyebrow || 'Availability'),
     AVAILABILITY_HEADING: escapeHtml(app.availability?.heading || `Get ${app.name}.`),
     AVAILABILITY_PLACEHOLDER: escapeHtml(app.availability?.placeholder || 'Store links will appear here when available.'),
-    GOOGLE_PLAY_KEY: escapeHtml(app.availability?.googlePlayKey || ''),
-    APP_STORE_KEY: escapeHtml(app.availability?.appStoreKey || ''),
+    AVAILABILITY_ACTIONS: app.availability?.status === 'coming-soon'
+      ? '<span class="status-pill">Coming Soon</span>'
+      : `<div class="hero-actions"><a class="button button-primary" href="#" data-store-link="${escapeHtml(app.availability?.googlePlayKey || '')}" hidden>Google Play</a><a class="button button-primary" href="#" data-store-link="${escapeHtml(app.availability?.appStoreKey || '')}" hidden>App Store</a></div>`,
+    PRIVACY_ACTION: app.privacyUrl
+      ? `<a class="button button-secondary" href="${escapeHtml(app.privacyUrl)}">Privacy policy</a>`
+      : '',
+    FOOTER_PRIVACY_LINK: app.privacyUrl
+      ? `<a href="${escapeHtml(app.privacyUrl)}">${escapeHtml(app.name)} privacy</a>`
+      : '',
     FOOTER_APP_LINKS: footerAppLinks
   };
 
@@ -92,7 +99,11 @@ const appCards = apps.map((app) => {
     `--app-card-muted:${escapeHtml(theme.cardTextMuted || '#d1d5db')}`
   ].join(';');
 
-  return `<a class="app-card app-themed" style="${style}" href="/apps/${escapeHtml(app.slug)}/"><img class="app-card-icon" src="/assets/img/brand-placeholder.svg" data-brand="${escapeHtml(app.brandKey)}" alt=""><h2>${escapeHtml(app.name)}</h2><p>${escapeHtml(app.summary)}</p><span class="app-card-arrow" aria-hidden="true">→</span></a>`;
+  const status = app.availability?.status === 'coming-soon'
+    ? '<span class="app-status">Coming Soon</span>'
+    : '';
+
+  return `<a class="app-card app-themed" style="${style}" href="/apps/${escapeHtml(app.slug)}/"><img class="app-card-icon" src="/assets/img/brand-placeholder.svg" data-brand="${escapeHtml(app.brandKey)}" alt="">${status}<h2>${escapeHtml(app.name)}</h2><p>${escapeHtml(app.summary)}</p><span class="app-card-arrow" aria-hidden="true">→</span></a>`;
 }).join('');
 
 await fs.writeFile(

@@ -2,6 +2,7 @@
   "slug": "rivalry",
   "name": "Rivalry",
   "brandKey": "rivalry",
+  "privacyUrl": "/legal/apps/rivalry/privacy/",
   "metaDescription": "Rivalry is a private friend-group competition app for races, tennis, padel, poker and more.",
   "summary": "Private friend-group competition across races, tennis, padel, poker and more.",
   "hero": {
@@ -47,6 +48,7 @@
     }
   ],
   "availability": {
+    "status": "available",
     "eyebrow": "Availability",
     "heading": "Get Rivalry.",
     "placeholder": "Store links will appear here when Rivalry is released.",

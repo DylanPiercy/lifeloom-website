@@ -4,7 +4,9 @@
   "supportEmail": "support@example.com",
   "brandAssets": {
     "lifeloom": "lifeloom-mark.svg",
-    "rivalry": "rivalry-mark.svg"
+    "rivalry": "rivalry-mark.svg",
+    "peakLedger": "peak-ledger-mark.svg",
+    "fugitives": "fugitives-mark.svg"
   },
   "storeLinks": {
     "rivalryGooglePlay": "",
