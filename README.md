@@ -22,6 +22,8 @@ Ignored local files:
 - `brand-assets/*` — real LifeLoom/app logos and brand files.
 - `public/runtime/` — generated deployment copies of local configuration/assets.
 
+App detail pages are generated from reusable tracked source files: `templates/app-page.html` + `data/apps/*.json`.
+
 Tracked examples/placeholders:
 
 - `config/site.example.json`
@@ -102,14 +104,21 @@ brand-assets/                 # real local assets; ignored
 config/
 ├── site.example.json         # tracked template
 └── site.local.json           # local values; ignored
+data/
+└── apps/
+    └── rivalry.json           # app content/theme data
+templates/
+├── app-page.html             # reusable app detail template
+└── apps-index.html           # reusable app catalogue template
 scripts/
+├── build-app-pages.mjs
 └── prepare-site.mjs
 public/
 ├── index.html
 ├── 404.html
 ├── apps/
-│   ├── index.html
-│   └── rivalry/index.html
+│   ├── index.html             # generated static output
+│   └── rivalry/index.html     # generated static output
 ├── about/index.html
 ├── support/index.html
 ├── legal/
@@ -122,6 +131,18 @@ public/
     ├── js/main.js
     └── img/brand-placeholder.svg
 ```
+
+
+## Adding another app
+
+App pages use a shared template rather than duplicated hand-written HTML. To add an app:
+
+1. Copy `data/apps/rivalry.json` to a new slug, for example `data/apps/peak-ledger.json`.
+2. Replace the app-specific content, theme, brand key and store-link keys.
+3. Add the matching brand asset/config entries when available.
+4. Run `npm run build:apps` (or `npm run prepare`).
+
+The build regenerates the app catalogue and each `/apps/<slug>/` static page. The generated HTML remains deployable as a normal lightweight static Firebase site.
 
 ## Connect lifeloom.co.uk
 

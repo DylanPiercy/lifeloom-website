@@ -1,0 +1,56 @@
+{
+  "slug": "rivalry",
+  "name": "Rivalry",
+  "brandKey": "rivalry",
+  "metaDescription": "Rivalry is a private friend-group competition app for races, tennis, padel, poker and more.",
+  "summary": "Private friend-group competition across races, tennis, padel, poker and more.",
+  "hero": {
+    "eyebrow": "A LifeLoom app",
+    "heading": "Make friendly competition count.",
+    "description": "Rivalry gives private groups one place to track results, rankings, stats and the competitions that keep coming back."
+  },
+  "theme": {
+    "heroBackground": "#111018",
+    "heroGlow": "rgba(217,70,239,.28)",
+    "heroTextMuted": "#c9bdcf",
+    "heroAccent": "#d8b4fe",
+    "cardBackgroundStart": "#211126",
+    "cardBackgroundEnd": "#111018",
+    "cardGlow": "rgba(217,70,239,.42)",
+    "cardTextMuted": "#c4b5c9"
+  },
+  "preview": {
+    "primaryTitle": "Rivalry",
+    "secondaryTitle": "Leaderboard"
+  },
+  "section": {
+    "eyebrow": "Built for your group",
+    "heading": "Competition without the admin.",
+    "description": "Keep the history, standings and bragging rights in one private space."
+  },
+  "features": [
+    {
+      "title": "Multiple activities",
+      "description": "Track races, tennis, padel and poker within the same group."
+    },
+    {
+      "title": "Rankings and stats",
+      "description": "Turn submitted results into leaderboards, personal records and useful history."
+    },
+    {
+      "title": "Private groups",
+      "description": "Competition stays centred on the people you actually know."
+    },
+    {
+      "title": "Seasons and events",
+      "description": "Keep long-running groups fresh with seasons and special competition periods."
+    }
+  ],
+  "availability": {
+    "eyebrow": "Availability",
+    "heading": "Get Rivalry.",
+    "placeholder": "Store links will appear here when Rivalry is released.",
+    "googlePlayKey": "rivalryGooglePlay",
+    "appStoreKey": "rivalryAppStore"
+  }
+}
