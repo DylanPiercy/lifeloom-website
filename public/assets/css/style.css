@@ -87,7 +87,11 @@ p { margin: 0 0 18px; }
 .brand img { width: 34px; height: 34px; }
 .nav-links { display: flex; align-items: center; gap: 6px; }
 .nav-links a { text-decoration: none; color: #475467; font-weight: 650; font-size: 0.94rem; padding: 10px 13px; border-radius: 11px; }
-.nav-links a.button-primary { color: white; }
+.nav-links .nav-cta,
+.nav-links .nav-cta:link,
+.nav-links .nav-cta:visited,
+.nav-links .nav-cta:focus-visible { color: #fff !important; }
+.nav-links .nav-cta:hover { color: var(--text) !important; }
 .nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--text); background: rgba(255,255,255,0.86); }
 .nav-cta { margin-left: 6px; }
 .menu-button { display: none; border: 0; background: white; border-radius: 12px; width: 44px; height: 44px; box-shadow: 0 2px 12px rgba(17,24,39,.06); }

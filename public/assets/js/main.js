@@ -59,7 +59,7 @@
     });
   };
 
-  fetch('/runtime/site-config.json', { cache: 'no-store' })
+  fetch('/runtime/site-config.json', { cache: 'no-cache' })
     .then((response) => response.ok ? response.json() : null)
     .then((config) => {
       if (config) applyConfig(config);

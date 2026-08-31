@@ -1,11 +1,13 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
+import { readBuildVersion } from './lib/build-version.mjs';
 
 const root = process.cwd();
 const configPath = path.join(root, 'config', 'site.local.json');
 const runtimeDir = path.join(root, 'public', 'runtime');
 const runtimeBrandDir = path.join(runtimeDir, 'brand');
+const assetVersion = await readBuildVersion(root);
 
 async function exists(filePath) {
   try {
@@ -51,7 +53,7 @@ for (const [brandKey, fileName] of Object.entries(localConfig.brandAssets || {})
   const safeName = path.basename(fileName);
   const destination = path.join(runtimeBrandDir, safeName);
   await fs.copyFile(source, destination);
-  runtimeConfig.brandAssets[brandKey] = `/runtime/brand/${safeName}`;
+  runtimeConfig.brandAssets[brandKey] = `/runtime/brand/${safeName}?v=${assetVersion}`;
 }
 
 await fs.writeFile(

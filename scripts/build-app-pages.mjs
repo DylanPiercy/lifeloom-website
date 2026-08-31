@@ -2,12 +2,14 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
 import { escapeHtml, readJson, renderFooterAppLinks, replaceTokens } from './lib/render.mjs';
+import { readBuildVersion } from './lib/build-version.mjs';
 
 const root = process.cwd();
 const appContentDir = path.join(root, 'content', 'apps');
 const appTemplatePath = path.join(root, 'templates', 'app-page.html');
 const appsIndexTemplatePath = path.join(root, 'templates', 'apps-index.html');
 const publicAppsDir = path.join(root, 'public', 'apps');
+const assetVersion = await readBuildVersion(root);
 
 const site = await readJson(path.join(root, 'content', 'site.json'));
 const appsIndex = await readJson(path.join(appContentDir, 'index.json'));
@@ -33,6 +35,7 @@ const appsIndexTemplate = await fs.readFile(appsIndexTemplatePath, 'utf8');
 const footerAppLinks = renderFooterAppLinks(apps);
 
 const shared = {
+  ASSET_VERSION: escapeHtml(assetVersion),
   BRAND_NAME: escapeHtml(site.brandName),
   SLOGAN: escapeHtml(site.slogan),
   DOMAIN: escapeHtml(site.domain),

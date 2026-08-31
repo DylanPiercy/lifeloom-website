@@ -20,3 +20,6 @@ brand-assets/*
 Thumbs.db
 .vscode/
 .idea/
+
+# Generated deployment cache version
+.build-version

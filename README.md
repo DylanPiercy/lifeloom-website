@@ -213,3 +213,7 @@ git status --ignored
 The public canonical domain is `https://lifeloom.co.uk`. During `npm run build`, `content/site.json` generates a small hostname-aware redirect script. Requests opened on `www.lifeloom.co.uk`, `lifeloom-website.web.app`, or `lifeloom-website.firebaseapp.com` are redirected in the browser to the same path on `lifeloom.co.uk`, preserving the query string and fragment.
 
 Canonical `<link>` tags also point to `lifeloom.co.uk`. The redirect is implemented client-side because the same Firebase Hosting configuration serves both the Firebase default domains and the custom domain, so a path-only Hosting redirect would also match the canonical domain.
+
+## Deployment cache behaviour
+
+Each build generates a deployment-specific asset version. HTML and runtime JSON are revalidated, while versioned CSS, JavaScript and image assets can be cached for up to seven days. A new deployment changes the asset URLs automatically, so browsers fetch the new files without sacrificing long-lived caching.

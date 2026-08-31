@@ -2,11 +2,13 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
 import { escapeHtml, readJson, renderFooterAppLinks, renderInfoCards, replaceTokens } from './lib/render.mjs';
+import { readBuildVersion } from './lib/build-version.mjs';
 
 const root = process.cwd();
 const contentDir = path.join(root, 'content');
 const templatesDir = path.join(root, 'templates');
 const publicDir = path.join(root, 'public');
+const assetVersion = await readBuildVersion(root);
 
 const site = await readJson(path.join(contentDir, 'site.json'));
 const appFiles = (await fs.readdir(path.join(contentDir, 'apps')))
@@ -16,6 +18,7 @@ const apps = await Promise.all(appFiles.map((file) => readJson(path.join(content
 const footerAppLinks = renderFooterAppLinks(apps);
 
 const shared = {
+  ASSET_VERSION: escapeHtml(assetVersion),
   BRAND_NAME: escapeHtml(site.brandName),
   SLOGAN: escapeHtml(site.slogan),
   DOMAIN: escapeHtml(site.domain),
