@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{TITLE}}</title>
+  <meta name="description" content="{{META_DESCRIPTION}}">
+  <meta name="theme-color" content="#f7f8fb">
+  <link rel="canonical" href="https://{{DOMAIN}}/">
+  <link rel="icon" href="/assets/img/brand-placeholder.svg" data-brand-icon="lifeloom" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <meta property="og:title" content="{{OG_TITLE}}">
+  <meta property="og:description" content="{{OG_DESCRIPTION}}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://{{DOMAIN}}/">
+</head>
+<body>
+<a class="skip-link" href="#main">{{SKIP_TO_CONTENT}}</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/" aria-label="{{BRAND_NAME}} home"><img src="/assets/img/brand-placeholder.svg" data-brand="lifeloom" alt="">{{BRAND_NAME}}</a>
+    <button class="menu-button" data-menu-button aria-expanded="false" aria-label="{{NAV_OPEN}}"><span></span><span></span><span></span></button>
+    <nav class="nav-links" data-nav-links aria-label="{{NAV_PRIMARY_ARIA}}">
+      <a href="/apps/">{{NAV_APPS}}</a><a href="/about/">{{NAV_ABOUT}}</a><a href="/support/">{{NAV_SUPPORT}}</a>
+      <a class="button button-primary button-small nav-cta" href="/apps/">{{NAV_EXPLORE_APPS}}</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">{{HERO_EYEBROW}}</span>
+        <h1>{{HERO_HEADING}} <span>{{HERO_HEADING_ACCENT}}</span></h1>
+        <p class="lede">{{HERO_DESCRIPTION}}</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="/apps/">{{HERO_PRIMARY_ACTION}} <span aria-hidden="true">→</span></a>
+          <a class="button button-secondary" href="/about/">{{ACTION_ABOUT_LIFELOOM}}</a>
+        </div>
+        <div class="hero-note"><span class="hero-note-dot"></span>{{HERO_NOTE}}</div>
+      </div>
+      <div class="loom-visual" aria-hidden="true">
+        <div class="orbit one"></div><div class="orbit two"></div><div class="orbit-dot"></div>
+        <div class="loom-panel"><div class="loom-mark"><img src="/assets/img/brand-placeholder.svg" data-brand="lifeloom" alt=""></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="apps">
+    <div class="container">
+      <div class="section-heading">
+        <div><span class="eyebrow">{{APPS_EYEBROW}}</span><h2>{{APPS_HEADING}}</h2></div>
+        <p class="muted">{{APPS_DESCRIPTION}}</p>
+      </div>
+      <article class="app-feature">
+        <div class="app-copy">
+          <img class="app-icon" src="/assets/img/brand-placeholder.svg" data-brand="{{FEATURED_APP_SLUG}}" alt="{{FEATURED_APP_NAME}} app icon">
+          <span class="eyebrow">{{FEATURED_EYEBROW}}</span>
+          <h2>{{FEATURED_APP_NAME}}</h2>
+          <p>{{FEATURED_DESCRIPTION}}</p>
+          <div class="app-tags">{{FEATURED_TAGS}}</div>
+          <div><a class="button button-secondary" href="/apps/{{FEATURED_APP_SLUG}}/">{{FEATURED_ACTION}} <span aria-hidden="true">→</span></a></div>
+        </div>
+        <div class="app-art" aria-hidden="true">
+          <div class="phone one"><div class="phone-notch"></div><div class="phone-ui"><div class="mini-title">{{FEATURED_PREVIEW_PRIMARY}}</div><div class="mini-card"></div><div class="mini-row"><div></div><div></div></div></div></div>
+          <div class="phone two"><div class="phone-notch"></div><div class="phone-ui"><div class="mini-title">{{FEATURED_PREVIEW_SECONDARY}}</div><div class="mini-card"></div><div class="mini-card"></div><div class="mini-card"></div></div></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-heading"><div><span class="eyebrow">{{PRINCIPLES_EYEBROW}}</span><h2>{{PRINCIPLES_HEADING}}</h2></div></div>
+      <div class="grid-3">{{PRINCIPLE_CARDS}}</div>
+    </div>
+  </section>
+
+  <section class="section-sm">
+    <div class="container">
+      <div class="about-strip">
+        <div><span class="eyebrow">{{ABOUT_STRIP_EYEBROW}}</span><h2>{{ABOUT_STRIP_HEADING}}</h2><p>{{ABOUT_STRIP_DESCRIPTION}}</p></div>
+        <a class="button button-primary" href="/about/">{{ACTION_LEARN_MORE}}</a>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a class="brand" href="/"><img src="/assets/img/brand-placeholder.svg" data-brand="lifeloom" alt="">{{BRAND_NAME}}</a><p>{{SLOGAN}}</p></div>
+      <div class="footer-col"><h3>{{FOOTER_APPS_HEADING}}</h3><a href="/apps/">{{FOOTER_ALL_APPS}}</a>{{FOOTER_APP_LINKS}}</div>
+      <div class="footer-col"><h3>{{FOOTER_COMPANY_HEADING}}</h3><a href="/about/">{{NAV_ABOUT}}</a><a href="/support/">{{NAV_SUPPORT}}</a></div>
+      <div class="footer-col"><h3>{{FOOTER_LEGAL_HEADING}}</h3><a href="/legal/">{{FOOTER_LEGAL}}</a><a href="/legal/privacy/">{{FOOTER_PRIVACY}}</a></div>
+    </div>
+    <div class="footer-bottom"><span>© <span data-year></span> {{BRAND_NAME}}.</span><span>{{DOMAIN}}</span></div>
+  </div>
+</footer>
+<script src="/assets/js/main.js" defer></script>
+</body>
+</html>

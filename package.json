@@ -3,8 +3,10 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
+    "build:content": "node scripts/build-content-pages.mjs",
     "build:apps": "node scripts/build-app-pages.mjs",
-    "prepare": "npm run build:apps && node scripts/prepare-site.mjs",
+    "build": "npm run build:content && npm run build:apps",
+    "prepare": "npm run build && node scripts/prepare-site.mjs",
     "serve": "npm run prepare && firebase emulators:start --only hosting",
     "deploy": "npm run prepare && firebase deploy --only hosting"
   }

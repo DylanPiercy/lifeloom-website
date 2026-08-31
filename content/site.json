@@ -1,0 +1,43 @@
+{
+  "brandName": "LifeLoom",
+  "slogan": "Built for life beyond the screen.",
+  "domain": "lifeloom.co.uk",
+  "navigation": {
+    "skipToContent": "Skip to content",
+    "apps": "Apps",
+    "about": "About",
+    "support": "Support",
+    "exploreApps": "Explore apps",
+    "openNavigation": "Open navigation",
+    "primaryAriaLabel": "Primary navigation"
+  },
+  "footer": {
+    "appsHeading": "Apps",
+    "allApps": "All apps",
+    "companyHeading": "Company",
+    "legalHeading": "Legal",
+    "legal": "Legal",
+    "privacy": "Privacy",
+    "lifeLoomPrivacy": "LifeLoom privacy",
+    "home": "Home"
+  },
+  "actions": {
+    "aboutLifeLoom": "About LifeLoom",
+    "learnMore": "Learn more",
+    "seeOurApps": "See our apps",
+    "support": "Support",
+    "getSupport": "Get support",
+    "privacyPolicy": "Privacy policy"
+  },
+  "legal": {
+    "lastUpdatedLabel": "Last updated:"
+  },
+  "appUi": {
+    "comingSoon": "Coming Soon",
+    "googlePlay": "Google Play",
+    "appStore": "App Store",
+    "overview": "Overview",
+    "availability": "Availability",
+    "storePlaceholder": "Store links will appear here when available."
+  }
+}

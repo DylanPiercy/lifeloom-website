@@ -1,0 +1,55 @@
+{
+  "seo": {
+    "title": "LifeLoom — Built for life beyond the screen.",
+    "description": "LifeLoom creates mobile apps designed to enhance real-world activities and experiences — built for life beyond the screen.",
+    "ogTitle": "LifeLoom — Built for life beyond the screen.",
+    "ogDescription": "Mobile apps designed to enhance real-world activities and experiences."
+  },
+  "hero": {
+    "eyebrow": "Independent software studio",
+    "heading": "Built for life",
+    "headingAccent": "beyond the screen.",
+    "description": "LifeLoom creates mobile apps that complement real-world activities, experiences and the things people enjoy together.",
+    "primaryAction": "Explore our apps",
+    "note": "Building useful software, one product at a time."
+  },
+  "appsSection": {
+    "eyebrow": "Our apps",
+    "heading": "Built to have a purpose.",
+    "description": "Each LifeLoom product has its own identity while sharing the same focus on simple, considered software.",
+    "featuredEyebrow": "Featured app",
+    "featuredAppSlug": "rivalry",
+    "featuredAppName": "Rivalry",
+    "featuredDescription": "Private competition between friends. Track results, rankings and stats across the activities your group actually cares about.",
+    "featuredTags": ["Races", "Tennis", "Padel", "Poker"],
+    "featuredAction": "Explore Rivalry",
+    "previewPrimary": "Your group",
+    "previewSecondary": "Leaderboard"
+  },
+  "principlesSection": {
+    "eyebrow": "How we build",
+    "heading": "Less noise. More purpose.",
+    "items": [
+      {
+        "number": "01",
+        "title": "Useful",
+        "description": "Products shaped around genuine use cases rather than feature lists."
+      },
+      {
+        "number": "02",
+        "title": "Focused",
+        "description": "Clear experiences that stay centred on what the app is there to do."
+      },
+      {
+        "number": "03",
+        "title": "Thoughtful",
+        "description": "Careful details, responsive interfaces and technology that stays out of the way."
+      }
+    ]
+  },
+  "aboutStrip": {
+    "eyebrow": "LifeLoom",
+    "heading": "Independent software with room to grow.",
+    "description": "LifeLoom is the home for a growing collection of apps spanning competition, productivity and everyday experiences."
+  }
+}

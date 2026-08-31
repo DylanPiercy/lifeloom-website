@@ -11,7 +11,7 @@ Public static website for **LifeLoom**, designed for Firebase Hosting.
 - Minimal vanilla JavaScript
 - Firebase Hosting
 
-The website itself has no framework or application build step. A small preparation script keeps local configuration and real brand assets out of Git.
+The website itself has no client-side framework. Small build scripts generate static HTML from structured JSON content, while a preparation script keeps local configuration and real brand assets out of Git.
 
 ## Repository-safe configuration
 
@@ -24,7 +24,7 @@ Ignored local files:
 - `brand-assets/*` — real LifeLoom/app logos and brand files.
 - `public/runtime/` — generated deployment copies of local configuration/assets.
 
-App detail pages are generated from reusable tracked source files: `templates/app-page.html` + `data/apps/*.json`.
+Page copy is stored in tracked `content/*.json` files and rendered into reusable HTML templates. App detail pages use `templates/app-page.html` + `content/apps/*.json`; legal documents use `templates/legal-document.html` + `content/legal/*.json`.
 
 Tracked examples/placeholders:
 
@@ -108,42 +108,63 @@ brand-assets/                 # real local assets; ignored
 config/
 ├── site.example.json         # tracked template
 └── site.local.json           # local values; ignored
-data/
-└── apps/
-    ├── rivalry.json           # app content/theme data
-    ├── peak-ledger.json       # coming-soon app data
-    └── fugitives.json         # coming-soon app data
+content/
+├── site.json                 # shared brand/navigation/footer strings
+├── home.json                 # homepage content
+├── about.json                # about page content
+├── support.json              # support page content
+├── 404.json                  # error-page content
+├── apps/
+│   ├── index.json            # apps catalogue copy
+│   ├── rivalry.json          # app content/theme data
+│   ├── peak-ledger.json      # coming-soon app data
+│   └── fugitives.json        # coming-soon app data
+└── legal/
+    ├── index.json            # legal hub copy/link list
+    ├── privacy.json          # LifeLoom privacy policy
+    ├── rivalry-privacy.json  # Rivalry privacy policy
+    └── terms.json            # unpublished terms placeholder
 templates/
-├── app-page.html             # reusable app detail template
-└── apps-index.html           # reusable app catalogue template
+├── home.html
+├── about.html
+├── support.html
+├── apps-index.html
+├── app-page.html
+├── legal-index.html
+├── legal-document.html
+└── 404.html
 scripts/
+├── build-content-pages.mjs
 ├── build-app-pages.mjs
-└── prepare-site.mjs
-public/
+├── prepare-site.mjs
+└── lib/render.mjs
+public/                        # generated/deployable static HTML + assets
 ├── index.html
 ├── 404.html
 ├── apps/
-│   ├── index.html             # generated static output
-│   └── rivalry/index.html     # generated static output
-├── about/index.html
-├── support/index.html
+├── about/
+├── support/
 ├── legal/
-│   ├── index.html
-│   ├── privacy/index.html
-│   └── apps/rivalry/privacy/index.html
 ├── runtime/                  # generated; ignored
 └── assets/
-    ├── css/style.css
-    ├── js/main.js
-    └── img/brand-placeholder.svg
 ```
+
+### Editing page copy
+
+Edit the matching JSON file under `content/`, then run:
+
+```bash
+npm run build
+```
+
+Do not edit generated `public/*.html` files directly. `npm run prepare`, `npm run serve` and `npm run deploy` all rebuild the static pages automatically. Keeping legal copy in `content/legal/` also provides a clean migration path to Firestore or another content source later without coupling policy text to page layout.
 
 
 ## Adding another app
 
 App pages use a shared template rather than duplicated hand-written HTML. To add an app:
 
-1. Copy `data/apps/rivalry.json` to a new slug, for example `data/apps/peak-ledger.json`.
+1. Copy `content/apps/rivalry.json` to a new slug, for example `content/apps/new-app.json`.
 2. Replace the app-specific content, theme, brand key and store-link keys.
 3. Add the matching brand asset/config entries when available.
 4. Run `npm run build:apps` (or `npm run prepare`).

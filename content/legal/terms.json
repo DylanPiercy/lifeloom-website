@@ -1,0 +1,17 @@
+{
+  "published": false,
+  "outputPath": "legal/terms/index.html",
+  "seo": {
+    "title": "Terms & Conditions — LifeLoom",
+    "description": "LifeLoom terms and conditions.",
+    "canonicalPath": "/legal/terms/"
+  },
+  "hero": {
+    "eyebrow": "Legal",
+    "heading": "Terms & Conditions",
+    "lastUpdated": ""
+  },
+  "notice": null,
+  "sections": [],
+  "sideLinks": []
+}

@@ -1,0 +1,23 @@
+{
+  "seo": {
+    "title": "Legal — LifeLoom",
+    "description": "Privacy and legal information for LifeLoom and its apps."
+  },
+  "hero": {
+    "eyebrow": "Legal",
+    "heading": "Privacy and legal information.",
+    "description": "LifeLoom-wide policies and policies for individual products are kept here."
+  },
+  "documents": [
+    {
+      "title": "LifeLoom Privacy Policy",
+      "description": "Privacy information for the LifeLoom website and general enquiries.",
+      "href": "/legal/privacy/"
+    },
+    {
+      "title": "Rivalry Privacy Policy",
+      "description": "Privacy information for the Rivalry app.",
+      "href": "/legal/apps/rivalry/privacy/"
+    }
+  ]
+}

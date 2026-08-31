@@ -1,0 +1,33 @@
+{
+  "seo": {
+    "title": "About — LifeLoom",
+    "description": "About LifeLoom, an independent software brand creating focused apps for everyday life."
+  },
+  "hero": {
+    "eyebrow": "About LifeLoom",
+    "heading": "A home for focused, independent software.",
+    "description": "LifeLoom is an independent software brand creating apps across competition, productivity and everyday experiences."
+  },
+  "principles": [
+    {
+      "number": "01",
+      "title": "Start with the problem",
+      "description": "Products begin with a real reason to exist, not a need to fill a feature list."
+    },
+    {
+      "number": "02",
+      "title": "Design with restraint",
+      "description": "Interfaces should make the product easier to use, not compete for attention."
+    },
+    {
+      "number": "03",
+      "title": "Improve continuously",
+      "description": "Apps are treated as living products that can become more useful over time."
+    }
+  ],
+  "productsStrip": {
+    "eyebrow": "Products",
+    "heading": "Different apps. One standard.",
+    "description": "Every LifeLoom app can have its own visual identity while sharing the same approach to clarity, reliability and thoughtful software."
+  }
+}

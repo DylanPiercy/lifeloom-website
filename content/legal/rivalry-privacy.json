@@ -1,0 +1,78 @@
+{
+  "published": true,
+  "outputPath": "legal/apps/rivalry/privacy/index.html",
+  "brandKey": "rivalry",
+  "seo": {
+    "title": "Rivalry Privacy Policy — LifeLoom",
+    "description": "Privacy policy for the Rivalry app by LifeLoom.",
+    "canonicalPath": "/legal/apps/rivalry/privacy/"
+  },
+  "hero": {
+    "eyebrow": "Rivalry",
+    "heading": "Privacy Policy",
+    "lastUpdated": "29 August 2026"
+  },
+  "notice": {
+    "label": "Launch check:",
+    "text": "review this policy against the final production app, enabled Firebase services, analytics, crash reporting and store disclosure forms before release."
+  },
+  "sections": [
+    {
+      "heading": "1. About Rivalry",
+      "paragraphs": ["Rivalry is a LifeLoom app for private friend-group competitions. This policy explains the types of information the app may process and why."]
+    },
+    {
+      "heading": "2. Information processed",
+      "paragraphs": ["Depending on the features you use, Rivalry may process account information, group membership information, profile names, competition results, ratings, statistics, settings, notification preferences and technical information needed to operate the app."]
+    },
+    {
+      "heading": "3. How information is used",
+      "paragraphs": ["Information is used to provide app functionality, maintain private groups, calculate and display competition information, support account features, send requested notifications, prevent misuse and improve reliability."]
+    },
+    {
+      "heading": "4. Firebase services",
+      "paragraphs": ["Rivalry uses Firebase services for parts of its backend. These services may process authentication, database, hosting, notification or technical data as required to provide the app."]
+    },
+    {
+      "heading": "5. Group data",
+      "paragraphs": ["Information submitted to a Rivalry group may be visible to other authorised members of that group as part of the app's intended functionality."]
+    },
+    {
+      "heading": "6. Data retention and deletion",
+      "paragraphs": ["Some competition history may be retained to preserve group records. Account and deletion features are handled according to the app's available controls and applicable legal requirements."]
+    },
+    {
+      "heading": "7. Notifications",
+      "paragraphs": ["If notifications are enabled, the app may process notification tokens and preferences so relevant app notifications can be delivered. Device-level notification permissions can also be changed through your operating system."]
+    },
+    {
+      "heading": "8. Security",
+      "paragraphs": ["Reasonable technical and organisational measures are used to protect app data, but no online service can guarantee absolute security."]
+    },
+    {
+      "heading": "9. Your rights",
+      "paragraphs": ["Depending on applicable law, you may have rights relating to personal information, including access, correction or deletion. Some information may need to be retained where there is a legitimate or legal reason to do so."]
+    },
+    {
+      "heading": "10. Changes",
+      "paragraphs": ["This policy may be updated as Rivalry develops. The current version will be published at this URL with its latest revision date."]
+    },
+    {
+      "heading": "11. Contact",
+      "paragraphs": [
+        {
+          "beforeSupportLink": "For privacy or support enquiries relating to Rivalry, contact ",
+          "supportLinkText": "LifeLoom support",
+          "afterSupportLink": ".",
+          "supportSubject": "Rivalry Privacy"
+        }
+      ]
+    }
+  ],
+  "sideTitle": "Rivalry",
+  "sideLinks": [
+    {"label": "App page", "href": "/apps/rivalry/"},
+    {"label": "Support", "href": "/support/"},
+    {"label": "All legal pages", "href": "/legal/"}
+  ]
+}

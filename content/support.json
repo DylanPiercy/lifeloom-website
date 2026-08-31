@@ -1,0 +1,42 @@
+{
+  "seo": {
+    "title": "Support — LifeLoom",
+    "description": "Support for LifeLoom apps and software."
+  },
+  "hero": {
+    "eyebrow": "Support",
+    "heading": "Help with a LifeLoom app.",
+    "description": "Choose the product you need help with, or use the general LifeLoom support contact."
+  },
+  "cards": [
+    {
+      "type": "email",
+      "brandKey": "rivalry",
+      "title": "Rivalry",
+      "description": "Help with groups, results, accounts and app features.",
+      "action": "Email Rivalry support →",
+      "subject": "Rivalry Support"
+    },
+    {
+      "type": "email",
+      "title": "General support",
+      "description": "For LifeLoom website, account or general product enquiries.",
+      "action": "Contact support →",
+      "showEmail": true,
+      "arrow": true
+    },
+    {
+      "type": "link",
+      "title": "Privacy",
+      "description": "Find LifeLoom and app-specific privacy information.",
+      "action": "View legal pages →",
+      "href": "/legal/"
+    }
+  ],
+  "launchNotice": {
+    "label": "Before launch:",
+    "textBeforeCode": "ensure",
+    "code": "the configured support email",
+    "textAfterCode": "exists or replace it with your preferred support address."
+  }
+}
