@@ -5,9 +5,10 @@
   "scripts": {
     "build:content": "node scripts/build-content-pages.mjs",
     "build:apps": "node scripts/build-app-pages.mjs",
-    "build": "npm run build:content && npm run build:apps",
+    "build": "npm run build:canonical && npm run build:content && npm run build:apps",
     "prepare": "npm run build && node scripts/prepare-site.mjs",
     "serve": "npm run prepare && firebase emulators:start --only hosting",
-    "deploy": "npm run prepare && firebase deploy --only hosting"
+    "deploy": "npm run prepare && firebase deploy --only hosting",
+    "build:canonical": "node scripts/build-canonical-domain.mjs"
   }
 }

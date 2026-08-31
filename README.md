@@ -207,3 +207,9 @@ Before committing, you can verify ignored files with:
 ```bash
 git status --ignored
 ```
+
+## Canonical domain
+
+The public canonical domain is `https://lifeloom.co.uk`. During `npm run build`, `content/site.json` generates a small hostname-aware redirect script. Requests opened on `www.lifeloom.co.uk`, `lifeloom-website.web.app`, or `lifeloom-website.firebaseapp.com` are redirected in the browser to the same path on `lifeloom.co.uk`, preserving the query string and fragment.
+
+Canonical `<link>` tags also point to `lifeloom.co.uk`. The redirect is implemented client-side because the same Firebase Hosting configuration serves both the Firebase default domains and the custom domain, so a path-only Hosting redirect would also match the canonical domain.

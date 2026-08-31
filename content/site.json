@@ -39,5 +39,14 @@
     "overview": "Overview",
     "availability": "Availability",
     "storePlaceholder": "Store links will appear here when available."
+  },
+  "canonicalRedirect": {
+    "enabled": true,
+    "host": "lifeloom.co.uk",
+    "redirectHosts": [
+      "www.lifeloom.co.uk",
+      "lifeloom-website.web.app",
+      "lifeloom-website.firebaseapp.com"
+    ]
   }
 }
