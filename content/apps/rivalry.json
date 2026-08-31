@@ -48,11 +48,9 @@
     }
   ],
   "availability": {
-    "status": "available",
+    "status": "coming-soon",
     "eyebrow": "Availability",
-    "heading": "Get Rivalry.",
-    "placeholder": "Store links will appear here when Rivalry is released.",
-    "googlePlayKey": "rivalryGooglePlay",
-    "appStoreKey": "rivalryAppStore"
+    "heading": "Rivalry is coming soon.",
+    "placeholder": "Rivalry is currently in development."
   }
 }
