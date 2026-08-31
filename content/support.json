@@ -32,11 +32,5 @@
       "action": "View legal pages →",
       "href": "/legal/"
     }
-  ],
-  "launchNotice": {
-    "label": "Before launch:",
-    "textBeforeCode": "ensure",
-    "code": "the configured support email",
-    "textAfterCode": "exists or replace it with your preferred support address."
-  }
+  ]
 }

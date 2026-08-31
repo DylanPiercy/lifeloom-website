@@ -105,18 +105,13 @@ const supportCards = support.cards.map((card) => {
     : `<a href="${escapeHtml(card.href)}">${escapeHtml(card.action)}</a>`;
   return `<article class="support-card">${icon}<h3>${escapeHtml(card.title)}</h3><p class="muted">${escapeHtml(card.description)}</p>${link}</article>`;
 }).join('');
-const notice = support.launchNotice;
 await renderPage('support.html', 'support/index.html', {
   TITLE: escapeHtml(support.seo.title),
   META_DESCRIPTION: escapeHtml(support.seo.description),
   HERO_EYEBROW: escapeHtml(support.hero.eyebrow),
   HERO_HEADING: escapeHtml(support.hero.heading),
   HERO_DESCRIPTION: escapeHtml(support.hero.description),
-  SUPPORT_CARDS: supportCards,
-  NOTICE_LABEL: escapeHtml(notice.label),
-  NOTICE_BEFORE_CODE: escapeHtml(notice.textBeforeCode),
-  NOTICE_CODE: escapeHtml(notice.code),
-  NOTICE_AFTER_CODE: escapeHtml(notice.textAfterCode)
+  SUPPORT_CARDS: supportCards
 }, 'templates/support.html + content/support.json + content/site.json');
 
 const legalIndex = await readJson(path.join(contentDir, 'legal', 'index.json'));

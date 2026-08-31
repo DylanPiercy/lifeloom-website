@@ -12,42 +12,54 @@
     "heading": "LifeLoom Privacy Policy",
     "lastUpdated": "29 August 2026"
   },
-  "notice": {
-    "label": "Launch check:",
-    "text": "this is a sensible website-policy starting point, but it should be reviewed against the exact analytics, contact and hosting services you enable before publication."
-  },
   "sections": [
     {
       "heading": "1. About this policy",
-      "paragraphs": ["This policy explains how LifeLoom handles information when you visit lifeloom.co.uk or contact LifeLoom for general support."]
+      "paragraphs": [
+        "This policy explains how LifeLoom handles information when you visit lifeloom.co.uk or contact LifeLoom for general support."
+      ]
     },
     {
       "heading": "2. Information we may receive",
-      "paragraphs": ["The public website is designed to work without requiring an account. If you contact LifeLoom, we may receive the information you choose to send, such as your name, email address and the contents of your message."]
+      "paragraphs": [
+        "The public website is designed to work without requiring an account. If you contact LifeLoom, we may receive the information you choose to send, such as your name, email address and the contents of your message."
+      ]
     },
     {
       "heading": "3. Hosting and technical data",
-      "paragraphs": ["The website is hosted using Firebase Hosting. Hosting and security infrastructure may process limited technical information such as IP addresses, request details and diagnostic data needed to deliver and protect the service."]
+      "paragraphs": [
+        "The website is hosted using Firebase Hosting. Hosting and security infrastructure may process limited technical information such as IP addresses, request details and diagnostic data needed to deliver and protect the service."
+      ]
     },
     {
       "heading": "4. Analytics and cookies",
-      "paragraphs": ["The initial website does not intentionally set advertising cookies or include third-party advertising. If optional analytics are introduced later, this policy will be updated and any required consent controls will be added."]
+      "paragraphs": [
+        "The initial website does not intentionally set advertising cookies or include third-party advertising. If optional analytics are introduced later, this policy will be updated and any required consent controls will be added."
+      ]
     },
     {
       "heading": "5. How information is used",
-      "paragraphs": ["Information sent to LifeLoom may be used to answer enquiries, provide support, maintain security and improve LifeLoom products and services."]
+      "paragraphs": [
+        "Information sent to LifeLoom may be used to answer enquiries, provide support, maintain security and improve LifeLoom products and services."
+      ]
     },
     {
       "heading": "6. Retention",
-      "paragraphs": ["Information is retained only for as long as reasonably needed for the purpose for which it was received, subject to legal or security requirements."]
+      "paragraphs": [
+        "Information is retained only for as long as reasonably needed for the purpose for which it was received, subject to legal or security requirements."
+      ]
     },
     {
       "heading": "7. Your rights",
-      "paragraphs": ["Depending on applicable law, you may have rights relating to your personal information, including access, correction, deletion or restriction of certain processing."]
+      "paragraphs": [
+        "Depending on applicable law, you may have rights relating to your personal information, including access, correction, deletion or restriction of certain processing."
+      ]
     },
     {
       "heading": "8. App-specific policies",
-      "paragraphs": ["LifeLoom apps may process different information. Each app can have its own privacy policy describing its data practices."]
+      "paragraphs": [
+        "LifeLoom apps may process different information. Each app can have its own privacy policy describing its data practices."
+      ]
     },
     {
       "heading": "9. Contact",
@@ -61,8 +73,17 @@
     }
   ],
   "sideLinks": [
-    {"label": "All legal pages", "href": "/legal/"},
-    {"label": "Rivalry privacy", "href": "/legal/apps/rivalry/privacy/"},
-    {"label": "Support", "href": "/support/"}
+    {
+      "label": "All legal pages",
+      "href": "/legal/"
+    },
+    {
+      "label": "Rivalry privacy",
+      "href": "/legal/apps/rivalry/privacy/"
+    },
+    {
+      "label": "Support",
+      "href": "/support/"
+    }
   ]
 }
