@@ -1,5 +1,7 @@
 # LifeLoom Website
 
+**Slogan:** Built for life beyond the screen.
+
 Public static website for **LifeLoom**, designed for Firebase Hosting.
 
 ## Stack
