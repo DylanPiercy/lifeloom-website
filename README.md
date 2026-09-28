@@ -11,7 +11,7 @@ Public static website for **LifeLoom**, designed for Firebase Hosting.
 - Minimal vanilla JavaScript
 - Firebase Hosting
 
-The website itself has no client-side framework. Small build scripts generate static HTML from structured JSON content, while a preparation script keeps local configuration and real brand assets out of Git.
+The website itself has no client-side framework. Small build scripts generate static HTML from structured JSON content. LifeLoom logo assets are tracked as normal public website assets, while environment-specific configuration and optional app brand assets remain local.
 
 ## Repository-safe configuration
 
@@ -21,7 +21,7 @@ Ignored local files:
 
 - `.firebaserc` — generated from your local Firebase project ID.
 - `config/site.local.json` — support email, Firebase references and store links.
-- `brand-assets/*` — real LifeLoom/app logos and brand files.
+- `brand-assets/*` — optional app-specific logos/brand files kept local until supplied.
 - `public/runtime/` — generated deployment copies of local configuration/assets.
 
 Page copy is stored in tracked `content/*.json` files and rendered into reusable HTML templates. App detail pages use `templates/app-page.html` + `content/apps/*.json`; legal documents use `templates/legal-document.html` + `content/legal/*.json`.
@@ -48,7 +48,6 @@ Edit `config/site.local.json` with your local values:
   "firebaseHostingUrl": "https://YOUR_FIREBASE_PROJECT_ID.web.app",
   "supportEmail": "YOUR_SUPPORT_EMAIL",
   "brandAssets": {
-    "lifeloom": "lifeloom-mark.svg",
     "rivalry": "rivalry-mark.svg",
     "peakLedger": "peak-ledger-mark.svg",
     "fugitives": "fugitives-mark.svg"
@@ -60,7 +59,7 @@ Edit `config/site.local.json` with your local values:
 }
 ```
 
-Place your real assets in `brand-assets/`, using the filenames configured above.
+Place the LifeLoom logo variants in `assets/lifeloom/` as `lifeloom.png`, `lifeloom_light.png`, and `lifeloom_dark.png`. Optional app-specific assets continue to use `brand-assets/` and the filenames configured above.
 
 Then run:
 
@@ -104,7 +103,9 @@ firebase deploy --only hosting
 ## Structure
 
 ```text
-brand-assets/                 # real local assets; ignored
+assets/
+└── lifeloom/                  # tracked LifeLoom PNG logo variants
+brand-assets/                 # optional app assets; ignored
 config/
 ├── site.example.json         # tracked template
 └── site.local.json           # local values; ignored
@@ -134,6 +135,7 @@ templates/
 ├── legal-document.html
 └── 404.html
 scripts/
+├── build-brand-assets.mjs
 ├── build-content-pages.mjs
 ├── build-app-pages.mjs
 ├── prepare-site.mjs
@@ -160,6 +162,17 @@ npm run build
 Do not edit generated `public/*.html` files directly. `npm run prepare`, `npm run serve` and `npm run deploy` all rebuild the static pages automatically. Keeping legal copy in `content/legal/` also provides a clean migration path to Firestore or another content source later without coupling policy text to page layout.
 
 
+## LifeLoom logo assets
+
+The site uses three LifeLoom PNG variants from `assets/lifeloom/`:
+
+- `lifeloom.png` — primary logo used for the homepage brand visual and social preview image.
+- `lifeloom_dark.png` — used in the header and footer on the site's light surfaces.
+- `lifeloom_light.png` — used as the browser favicon when a dark browser colour scheme is preferred.
+
+`npm run build` copies these files into `public/assets/lifeloom/` for Firebase Hosting.
+
+
 ## Adding another app
 
 App pages use a shared template rather than duplicated hand-written HTML. To add an app:
@@ -183,7 +196,8 @@ In Firebase Console:
 
 ## Before launch
 
-- Add your real LifeLoom and Rivalry assets under `brand-assets/`.
+- Confirm the three LifeLoom PNG variants are present under `assets/lifeloom/`.
+- Add app-specific logos under `brand-assets/` when they are ready.
 - Set the actual Firebase project ID in `config/site.local.json`.
 - Confirm the configured support email.
 - Add Google Play/App Store links when available.
@@ -191,7 +205,7 @@ In Firebase Console:
 
 ## GitHub
 
-Because local config and real assets are already ignored, normal Git commands are safe:
+Because local config and optional app-specific assets are ignored, normal Git commands are safe. The LifeLoom logo PNGs under `assets/lifeloom/` are public website assets and can be committed:
 
 ```bash
 git init

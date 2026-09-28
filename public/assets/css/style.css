@@ -84,7 +84,28 @@ p { margin: 0 0 18px; }
 }
 .nav { display: flex; align-items: center; justify-content: space-between; min-height: 54px; }
 .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 850; letter-spacing: -0.03em; font-size: 1.12rem; }
-.brand img { width: 34px; height: 34px; }
+.brand img.brand-logo {
+  width: auto;
+  height: 36px;
+  max-width: 180px;
+  object-fit: contain;
+}
+.site-header .brand img.brand-logo {
+  height: 42px;
+  max-width: 210px;
+}
+.footer-brand .brand-logo { height: 40px; max-width: 200px; }
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
 .nav-links { display: flex; align-items: center; gap: 6px; }
 .nav-links a { text-decoration: none; color: #475467; font-weight: 650; font-size: 0.94rem; padding: 10px 13px; border-radius: 11px; }
 .nav-links .nav-cta,
@@ -145,7 +166,7 @@ p { margin: 0 0 18px; }
 .loom-panel::before { width: 75%; height: 18px; top: 32%; left: -10%; transform: rotate(28deg); background: linear-gradient(90deg, transparent, rgba(79,70,229,.48), rgba(124,58,237,.25), transparent); }
 .loom-panel::after { width: 72%; height: 18px; top: 57%; right: -5%; transform: rotate(-30deg); background: linear-gradient(90deg, transparent, rgba(217,70,239,.22), rgba(79,70,229,.44), transparent); }
 .loom-mark { position: absolute; inset: 0; display: grid; place-items: center; }
-.loom-mark img { width: 35%; filter: drop-shadow(0 20px 28px rgba(79,70,229,.18)); }
+.loom-mark img { width: min(58%, 270px); max-height: 150px; object-fit: contain; filter: drop-shadow(0 20px 28px rgba(79,70,229,.18)); }
 .orbit { position: absolute; border: 1px solid rgba(79,70,229,.14); border-radius: 50%; }
 .orbit.one { inset: 0; }
 .orbit.two { inset: 18%; }
@@ -265,6 +286,8 @@ p { margin: 0 0 18px; }
   .container { width: min(calc(100% - 28px), var(--max)); }
   .section { padding: 64px 0; }
   .site-header { padding: 8px 0; }
+  .brand img.brand-logo { height: 32px; max-width: 150px; }
+  .site-header .brand img.brand-logo { height: 36px; max-width: 175px; }
   .menu-button { display: block; }
   .nav-links {
     display: none;
@@ -327,3 +350,5 @@ p { margin: 0 0 18px; }
   background: rgba(255,255,255,.12);
   border: 1px solid rgba(255,255,255,.2);
 }
+
+.error-brand { margin-bottom: 32px; }
