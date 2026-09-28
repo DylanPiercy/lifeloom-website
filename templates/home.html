@@ -11,9 +11,9 @@
   <meta property="og:description" content="{{OG_DESCRIPTION}}">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://{{DOMAIN}}/">
-  <meta property="og:image" content="https://{{DOMAIN}}/assets/lifeloom/lifeloom.png?v={{ASSET_VERSION}}">
+  <meta property="og:image" content="{{SOCIAL_IMAGE_URL}}?v={{ASSET_VERSION}}">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:image" content="https://{{DOMAIN}}/assets/lifeloom/lifeloom.png?v={{ASSET_VERSION}}">
+  <meta name="twitter:image" content="{{SOCIAL_IMAGE_URL}}?v={{ASSET_VERSION}}">
 </head>
 <body>
 {{SITE_HEADER}}
@@ -31,7 +31,7 @@
       </div>
       <div class="loom-visual" aria-hidden="true">
         <div class="orbit one"></div><div class="orbit two"></div><div class="orbit-dot"></div>
-        <div class="loom-panel"><div class="loom-mark"><img src="/assets/lifeloom/lifeloom.png?v={{ASSET_VERSION}}" alt="LifeLoom"></div></div>
+        <div class="loom-panel"><div class="loom-mark"><img src="{{BRAND_SYMBOL_ASSET}}?v={{ASSET_VERSION}}" alt="{{BRAND_NAME}}"></div></div>
       </div>
     </div>
   </section>
@@ -44,7 +44,7 @@
       </div>
       <article class="app-feature">
         <div class="app-copy">
-          <img class="app-icon" src="/assets/img/brand-placeholder.svg?v={{ASSET_VERSION}}" data-brand="{{FEATURED_APP_SLUG}}" alt="{{FEATURED_APP_NAME}} app icon">
+          <img class="app-icon" src="{{APP_PLACEHOLDER_ASSET}}?v={{ASSET_VERSION}}" data-brand="{{FEATURED_APP_SLUG}}" alt="{{FEATURED_APP_NAME}} app icon">
           <span class="eyebrow">{{FEATURED_EYEBROW}}</span>
           <h2>{{FEATURED_APP_NAME}}</h2>
           <p>{{FEATURED_DESCRIPTION}}</p>

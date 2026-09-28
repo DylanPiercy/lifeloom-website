@@ -1,45 +1,65 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
-import process from 'node:process';
+import { createBuildContext } from './lib/build-context.mjs';
+import { isMainModule } from './lib/module.mjs';
 
-const root = process.cwd();
-const sourceDir = path.join(root, 'assets', 'lifeloom');
-const outputDir = path.join(root, 'public', 'assets', 'lifeloom');
+function getConfiguredBrandAssets(site) {
+  const assets = site.assets || {};
+  const brand = assets.brand || {};
+  const publicDirectory = String(brand.publicDirectory || '').replace(/\/$/, '');
+  const configured = [
+    brand.symbol,
+    brand.light,
+    brand.dark,
+    brand.inlineLight,
+    brand.inlineDark
+  ];
 
-const assets = [
-  { output: 'lifeloom.png', candidates: ['lifeloom.png'] },
-  { output: 'lifeloom_light.png', candidates: ['lifeloom_light.png'] },
-  { output: 'lifeloom_dark.png', candidates: ['lifeloom_dark.png'] },
-  { output: 'lifeloom_inline_light.png', candidates: ['lifeloom_inline_light.png'] },
-  { output: 'lifeloom_inline_dark.png', candidates: ['lifeloom_inline_dark.png'] }
-];
-
-async function findSource(candidates) {
-  for (const candidate of candidates) {
-    const source = path.join(sourceDir, candidate);
-    try {
-      await fs.access(source);
-      return { source, candidate };
-    } catch {
-      // Try the next supported filename.
+  for (const asset of [assets.favicon, assets.socialImage]) {
+    const value = String(asset || '').trim();
+    if (!value) continue;
+    if (!value.startsWith('/')) configured.push(value);
+    else if (publicDirectory && value.startsWith(`${publicDirectory}/`)) {
+      configured.push(value.slice(publicDirectory.length + 1));
     }
   }
-  return null;
+
+  return [...new Set(configured.filter(Boolean))];
 }
 
-await fs.rm(outputDir, { recursive: true, force: true });
-await fs.mkdir(outputDir, { recursive: true });
+export async function buildBrandAssets(context) {
+  context ??= await createBuildContext();
+  const { root, site } = context;
+  const brand = site.assets?.brand || {};
+  const sourceDirectory = String(brand.sourceDirectory || '').trim();
+  const publicDirectory = String(brand.publicDirectory || '').trim();
+  if (!sourceDirectory || !publicDirectory) {
+    throw new Error('content/site.json must define assets.brand.sourceDirectory and assets.brand.publicDirectory.');
+  }
+  const sourceDir = path.resolve(root, sourceDirectory);
+  const outputDir = path.join(root, 'public', publicDirectory.replace(/^\/+/, ''));
+  const assets = [...new Set(getConfiguredBrandAssets(site))];
 
-let copied = 0;
-for (const asset of assets) {
-  const match = await findSource(asset.candidates);
-  if (!match) {
-    console.warn(`LifeLoom logo not found: assets/lifeloom/${asset.candidates[0]}`);
-    continue;
+  await fs.rm(outputDir, { recursive: true, force: true });
+  await fs.mkdir(outputDir, { recursive: true });
+
+  let copied = 0;
+  for (const fileName of assets) {
+    const source = path.join(sourceDir, fileName);
+    try {
+      await fs.access(source);
+    } catch {
+      console.warn(`LifeLoom logo not found: ${path.relative(root, source)}`);
+      continue;
+    }
+
+    await fs.copyFile(source, path.join(outputDir, path.basename(fileName)));
+    copied += 1;
   }
 
-  await fs.copyFile(match.source, path.join(outputDir, asset.output));
-  copied += 1;
+  console.log(`Prepared ${copied}/${assets.length} LifeLoom logo asset${copied === 1 ? '' : 's'}.`);
 }
 
-console.log(`Prepared ${copied}/${assets.length} LifeLoom logo asset${copied === 1 ? '' : 's'}.`);
+if (isMainModule(import.meta.url)) {
+  await buildBrandAssets();
+}

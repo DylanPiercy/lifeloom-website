@@ -24,7 +24,7 @@ Ignored local files:
 - `brand-assets/*` — optional app-specific logos/brand files kept local until supplied.
 - `public/runtime/` — generated deployment copies of local configuration/assets.
 
-Page copy is stored in tracked `content/*.json` files and rendered into reusable HTML templates. App detail pages use `templates/app-page.html` + `content/apps/*.json`; legal documents use `templates/legal-document.html` + `content/legal/*.json`. Shared site chrome and document assets are extracted under `templates/partials/`, so global header, footer, favicon, stylesheet/script and theme-bootstrap changes are made in one place.
+Page copy is stored in tracked `content/*.json` files and rendered into reusable HTML templates. App detail pages use `templates/app-page.html` + `content/apps/*.json`; legal documents use `templates/legal-document.html` + `content/legal/*.json`. Shared site chrome and document assets are extracted under `templates/partials/`. Shared site values, including logo, favicon, social-image and placeholder asset references, live in `content/site.json` and are exposed to every template through one build context.
 
 Tracked examples/placeholders:
 
@@ -59,7 +59,7 @@ Edit `config/site.local.json` with your local values:
 }
 ```
 
-Place the LifeLoom logo variants in `assets/lifeloom/` as `lifeloom.png`, `lifeloom_light.png`, and `lifeloom_dark.png`. Optional app-specific assets continue to use `brand-assets/` and the filenames configured above.
+Place the LifeLoom logo variants in `assets/lifeloom/`. Their filenames and public paths are configured centrally under `assets` in `content/site.json`; the current configuration uses all five LifeLoom PNG files documented below. Optional app-specific assets continue to use `brand-assets/` and the filenames configured above.
 
 Then run:
 
@@ -110,7 +110,7 @@ config/
 ├── site.example.json         # tracked template
 └── site.local.json           # local values; ignored
 content/
-├── site.json                 # shared brand/navigation/footer strings
+├── site.json                 # shared brand/navigation/footer strings + site asset tokens
 ├── home.json                 # homepage content
 ├── support.json              # support page content
 ├── 404.json                  # error-page content
@@ -138,11 +138,18 @@ templates/
     ├── site-footer.html       # shared site footer
     └── site-scripts.html      # shared page JavaScript include
 scripts/
+├── build.mjs                 # single full-build coordinator
 ├── build-brand-assets.mjs
+├── build-canonical-domain.mjs
 ├── build-content-pages.mjs
 ├── build-app-pages.mjs
 ├── prepare-site.mjs
-└── lib/render.mjs
+└── lib/
+    ├── build-context.mjs     # loads shared site/app data and tokens once
+    ├── page-renderer.mjs     # shared template/output renderer
+    ├── build-version.mjs
+    ├── module.mjs
+    └── render.mjs
 public/                        # generated/deployable static HTML + assets
 ├── index.html
 ├── 404.html
@@ -168,13 +175,41 @@ Do not edit generated `public/*.html` files directly. `npm run prepare`, `npm ru
 
 The site uses five LifeLoom PNG variants from `assets/lifeloom/`:
 
-- `lifeloom.png` — symbol-only logo used for the browser favicon, homepage brand visual and social preview image.
+- `lifeloom.png` — symbol-only logo.
 - `lifeloom_dark.png` — dark standalone logo variant.
 - `lifeloom_light.png` — light standalone logo variant.
-- `lifeloom_inline_dark.png` — inline logo used in the header and footer in dark mode.
-- `lifeloom_inline_light.png` — inline logo used in the header and footer in light mode.
+- `lifeloom_inline_dark.png` — inline logo used in dark mode.
+- `lifeloom_inline_light.png` — inline logo used in light mode.
 
-`npm run build` copies these files into `public/assets/lifeloom/` for Firebase Hosting.
+All site-wide asset references are configured once in `content/site.json`:
+
+```json
+"assets": {
+  "brand": {
+    "sourceDirectory": "assets/lifeloom",
+    "publicDirectory": "/assets/lifeloom",
+    "symbol": "lifeloom.png",
+    "light": "lifeloom_light.png",
+    "dark": "lifeloom_dark.png",
+    "inlineLight": "lifeloom_inline_light.png",
+    "inlineDark": "lifeloom_inline_dark.png"
+  },
+  "favicon": "lifeloom.png",
+  "socialImage": "lifeloom.png",
+  "appPlaceholder": "/assets/img/brand-placeholder.svg"
+}
+```
+
+The build converts these values into shared template tokens such as `{{FAVICON_ASSET}}`, `{{BRAND_INLINE_DARK_ASSET}}`, `{{BRAND_INLINE_LIGHT_ASSET}}`, `{{BRAND_SYMBOL_ASSET}}`, `{{SOCIAL_IMAGE_ASSET}}` and `{{APP_PLACEHOLDER_ASSET}}`. This means a future favicon or LifeLoom logo filename/path change is made in `content/site.json`, not across individual pages.
+
+`npm run build` copies the configured LifeLoom brand files into the configured public asset directory for Firebase Hosting.
+
+
+## Build architecture
+
+`npm run build` executes `scripts/build.mjs`. It creates one deployment asset version, creates one shared build context, then runs brand-asset preparation, canonical-domain generation, content-page generation and app-page generation in sequence.
+
+`scripts/lib/build-context.mjs` loads `content/site.json`, app definitions, shared partials and site-wide tokens once. `scripts/lib/page-renderer.mjs` is the single page-writing path used by both content and app builders, so header/footer/head/script rendering and generated-file handling are no longer duplicated between build scripts.
 
 
 ## Adding another app
@@ -186,7 +221,7 @@ App pages use a shared template rather than duplicated hand-written HTML. To add
 3. Add the matching brand asset/config entries when available.
 4. Run `npm run build:apps` (or `npm run prepare`).
 
-The build regenerates the app catalogue and each `/apps/<slug>/` static page. The generated HTML remains deployable as a normal lightweight static Firebase site.
+The build regenerates the app catalogue and each `/apps/<slug>/` static page. The generated HTML remains deployable as a normal lightweight static Firebase site. `npm run build` is the single full-build entry point; the narrower `build:apps`, `build:content`, `build:brand`, and `build:canonical` commands remain available for focused development work.
 
 ## Connect lifeloom.co.uk
 
@@ -240,4 +275,4 @@ Each build generates a deployment-specific asset version. HTML and runtime JSON 
 
 LifeLoom uses dark mode by default. Visitors can switch to light mode using the theme control in the site header; the preference is stored locally in the browser and reused on later visits.
 
-Header and footer branding uses `assets/lifeloom/lifeloom_inline_dark.png` in dark mode and `assets/lifeloom/lifeloom_inline_light.png` in light mode. The build copies both variants into `public/assets/lifeloom/`.
+Header and footer branding uses the `assets.brand.inlineDark` and `assets.brand.inlineLight` values from `content/site.json`. With the current configuration these resolve to `assets/lifeloom/lifeloom_inline_dark.png` in dark mode and `assets/lifeloom/lifeloom_inline_light.png` in light mode.

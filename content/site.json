@@ -39,6 +39,20 @@
     "availability": "Availability",
     "storePlaceholder": "Store links will appear here when available."
   },
+  "assets": {
+    "brand": {
+      "sourceDirectory": "assets/lifeloom",
+      "publicDirectory": "/assets/lifeloom",
+      "symbol": "lifeloom.png",
+      "light": "lifeloom_light.png",
+      "dark": "lifeloom_dark.png",
+      "inlineLight": "lifeloom_inline_light.png",
+      "inlineDark": "lifeloom_inline_dark.png"
+    },
+    "favicon": "lifeloom.png",
+    "socialImage": "lifeloom.png",
+    "appPlaceholder": "/assets/img/brand-placeholder.svg"
+  },
   "canonicalRedirect": {
     "enabled": true,
     "host": "lifeloom.co.uk",
