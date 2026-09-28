@@ -1,7 +1,7 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
-import { escapeHtml, readJson, renderFooterAppLinks, renderInfoCards, renderSiteHeader, replaceTokens } from './lib/render.mjs';
+import { escapeHtml, readJson, renderInfoCards, renderSiteFooter, renderSiteHeader, replaceTokens } from './lib/render.mjs';
 import { readBuildVersion } from './lib/build-version.mjs';
 
 const root = process.cwd();
@@ -10,13 +10,13 @@ const templatesDir = path.join(root, 'templates');
 const publicDir = path.join(root, 'public');
 const assetVersion = await readBuildVersion(root);
 const siteHeaderTemplate = await fs.readFile(path.join(templatesDir, 'partials', 'site-header.html'), 'utf8');
+const siteFooterTemplate = await fs.readFile(path.join(templatesDir, 'partials', 'site-footer.html'), 'utf8');
 
 const site = await readJson(path.join(contentDir, 'site.json'));
 const appFiles = (await fs.readdir(path.join(contentDir, 'apps')))
   .filter((file) => file.endsWith('.json') && file !== 'index.json')
   .sort();
 const apps = await Promise.all(appFiles.map((file) => readJson(path.join(contentDir, 'apps', file))));
-const footerAppLinks = renderFooterAppLinks(apps);
 
 // Remove output for routes that no longer exist so stale generated pages are not deployed.
 await fs.rm(path.join(publicDir, 'about'), { recursive: true, force: true });
@@ -34,15 +34,6 @@ const shared = {
   THEME_LIGHT_LABEL: escapeHtml(site.navigation.switchToLightMode),
   THEME_DARK_LABEL: escapeHtml(site.navigation.switchToDarkMode),
   NAV_PRIMARY_ARIA: escapeHtml(site.navigation.primaryAriaLabel),
-  FOOTER_APPS_HEADING: escapeHtml(site.footer.appsHeading),
-  FOOTER_ALL_APPS: escapeHtml(site.footer.allApps),
-  FOOTER_SUPPORT_HEADING: escapeHtml(site.footer.supportHeading),
-  FOOTER_LEGAL_HEADING: escapeHtml(site.footer.legalHeading),
-  FOOTER_LEGAL: escapeHtml(site.footer.legal),
-  FOOTER_PRIVACY: escapeHtml(site.footer.privacy),
-  FOOTER_LIFELOOM_PRIVACY: escapeHtml(site.footer.lifeLoomPrivacy),
-  FOOTER_HOME: escapeHtml(site.footer.home),
-  FOOTER_APP_LINKS: footerAppLinks,
   ACTION_SEE_OUR_APPS: escapeHtml(site.actions.seeOurApps),
   ACTION_SUPPORT: escapeHtml(site.actions.support),
   ACTION_GET_SUPPORT: escapeHtml(site.actions.getSupport),
@@ -50,10 +41,11 @@ const shared = {
   LEGAL_LAST_UPDATED_LABEL: escapeHtml(site.legal.lastUpdatedLabel)
 };
 
-async function renderPage(templateName, outputPath, values, sourceLabel, activePage = '') {
+async function renderPage(templateName, outputPath, values, sourceLabel, activePage = '', footerOptions = {}) {
   const template = await fs.readFile(path.join(templatesDir, templateName), 'utf8');
   const siteHeader = renderSiteHeader(siteHeaderTemplate, site, assetVersion, activePage);
-  const output = replaceTokens(template, { ...shared, SITE_HEADER: siteHeader, ...values });
+  const siteFooter = renderSiteFooter(siteFooterTemplate, site, apps, assetVersion, footerOptions);
+  const output = replaceTokens(template, { ...shared, SITE_HEADER: siteHeader, SITE_FOOTER: siteFooter, ...values });
   const fullOutputPath = path.join(publicDir, outputPath);
   await fs.mkdir(path.dirname(fullOutputPath), { recursive: true });
   await fs.writeFile(fullOutputPath, `<!-- Generated from ${sourceLabel}. Do not edit directly. -->\n${output}`);
@@ -89,7 +81,7 @@ await renderPage('home.html', 'index.html', {
   ABOUT_STRIP_EYEBROW: escapeHtml(home.aboutStrip.eyebrow),
   ABOUT_STRIP_HEADING: escapeHtml(home.aboutStrip.heading),
   ABOUT_STRIP_DESCRIPTION: escapeHtml(home.aboutStrip.description)
-}, 'templates/home.html + content/home.json + content/site.json', 'home');
+}, 'templates/home.html + content/home.json + content/site.json', 'home', { showDomain: true });
 
 const support = await readJson(path.join(contentDir, 'support.json'));
 const supportCards = support.cards.map((card) => {

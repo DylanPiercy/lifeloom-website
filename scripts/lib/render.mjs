@@ -41,3 +41,22 @@ export function renderSiteHeader(template, site, assetVersion, activePage = '') 
     NAV_APPS_CURRENT: activePage === 'apps' ? ' aria-current="page"' : ''
   });
 }
+export function renderSiteFooter(template, site, apps, assetVersion, options = {}) {
+  const legalLinks = options.appPrivacyUrl
+    ? `<a href="${escapeHtml(options.appPrivacyUrl)}">${escapeHtml(options.appName)} privacy</a><a href="/legal/privacy/">${escapeHtml(site.footer.lifeLoomPrivacy)}</a>`
+    : `<a href="/legal/">${escapeHtml(site.footer.legal)}</a><a href="/legal/privacy/">${escapeHtml(site.footer.privacy)}</a>`;
+
+  return replaceTokens(template, {
+    ASSET_VERSION: escapeHtml(assetVersion),
+    BRAND_NAME: escapeHtml(site.brandName),
+    SLOGAN: escapeHtml(site.slogan),
+    FOOTER_APPS_HEADING: escapeHtml(site.footer.appsHeading),
+    FOOTER_ALL_APPS: escapeHtml(site.footer.allApps),
+    FOOTER_APP_LINKS: renderFooterAppLinks(apps),
+    FOOTER_SUPPORT_HEADING: escapeHtml(site.footer.supportHeading),
+    ACTION_GET_SUPPORT: escapeHtml(site.actions.getSupport),
+    FOOTER_LEGAL_HEADING: escapeHtml(site.footer.legalHeading),
+    FOOTER_LEGAL_LINKS: legalLinks,
+    FOOTER_BOTTOM_EXTRA: options.showDomain ? `<span>${escapeHtml(site.domain)}</span>` : ''
+  });
+}

@@ -1,7 +1,7 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
-import { escapeHtml, readJson, renderFooterAppLinks, renderSiteHeader, replaceTokens } from './lib/render.mjs';
+import { escapeHtml, readJson, renderSiteFooter, renderSiteHeader, replaceTokens } from './lib/render.mjs';
 import { readBuildVersion } from './lib/build-version.mjs';
 
 const root = process.cwd();
@@ -9,6 +9,7 @@ const appContentDir = path.join(root, 'content', 'apps');
 const appTemplatePath = path.join(root, 'templates', 'app-page.html');
 const appsIndexTemplatePath = path.join(root, 'templates', 'apps-index.html');
 const siteHeaderTemplatePath = path.join(root, 'templates', 'partials', 'site-header.html');
+const siteFooterTemplatePath = path.join(root, 'templates', 'partials', 'site-footer.html');
 const publicAppsDir = path.join(root, 'public', 'apps');
 const assetVersion = await readBuildVersion(root);
 
@@ -34,8 +35,9 @@ for (const file of files) {
 const appTemplate = await fs.readFile(appTemplatePath, 'utf8');
 const appsIndexTemplate = await fs.readFile(appsIndexTemplatePath, 'utf8');
 const siteHeaderTemplate = await fs.readFile(siteHeaderTemplatePath, 'utf8');
+const siteFooterTemplate = await fs.readFile(siteFooterTemplatePath, 'utf8');
 const appsSiteHeader = renderSiteHeader(siteHeaderTemplate, site, assetVersion, 'apps');
-const footerAppLinks = renderFooterAppLinks(apps);
+const appsSiteFooter = renderSiteFooter(siteFooterTemplate, site, apps, assetVersion);
 
 const shared = {
   ASSET_VERSION: escapeHtml(assetVersion),
@@ -49,17 +51,9 @@ const shared = {
   NAV_OPEN: escapeHtml(site.navigation.openNavigation),
   THEME_LIGHT_LABEL: escapeHtml(site.navigation.switchToLightMode),
   THEME_DARK_LABEL: escapeHtml(site.navigation.switchToDarkMode),
-  FOOTER_APPS_HEADING: escapeHtml(site.footer.appsHeading),
-  FOOTER_ALL_APPS: escapeHtml(site.footer.allApps),
-  FOOTER_SUPPORT_HEADING: escapeHtml(site.footer.supportHeading),
-  FOOTER_LEGAL_HEADING: escapeHtml(site.footer.legalHeading),
-  FOOTER_LEGAL: escapeHtml(site.footer.legal),
-  FOOTER_PRIVACY: escapeHtml(site.footer.privacy),
-  FOOTER_LIFELOOM_PRIVACY: escapeHtml(site.footer.lifeLoomPrivacy),
   ACTION_SUPPORT: escapeHtml(site.actions.support),
   ACTION_GET_SUPPORT: escapeHtml(site.actions.getSupport),
   ACTION_PRIVACY_POLICY: escapeHtml(site.actions.privacyPolicy),
-  FOOTER_APP_LINKS: footerAppLinks
 };
 
 for (const app of apps) {
@@ -70,6 +64,10 @@ for (const app of apps) {
   const values = {
     ...shared,
     SITE_HEADER: appsSiteHeader,
+    SITE_FOOTER: renderSiteFooter(siteFooterTemplate, site, apps, assetVersion, {
+      appName: app.name,
+      appPrivacyUrl: app.privacyUrl
+    }),
     TITLE: escapeHtml(`${app.name} — ${site.brandName}`),
     META_DESCRIPTION: escapeHtml(app.metaDescription),
     SLUG: escapeHtml(app.slug),
@@ -96,9 +94,6 @@ for (const app of apps) {
       : `<div class="hero-actions"><a class="button button-primary" href="#" data-store-link="${escapeHtml(app.availability?.googlePlayKey || '')}" hidden>${escapeHtml(site.appUi.googlePlay)}</a><a class="button button-primary" href="#" data-store-link="${escapeHtml(app.availability?.appStoreKey || '')}" hidden>${escapeHtml(site.appUi.appStore)}</a></div>`,
     PRIVACY_ACTION: app.privacyUrl
       ? `<a class="button button-secondary" href="${escapeHtml(app.privacyUrl)}">${escapeHtml(site.actions.privacyPolicy)}</a>`
-      : '',
-    FOOTER_PRIVACY_LINK: app.privacyUrl
-      ? `<a href="${escapeHtml(app.privacyUrl)}">${escapeHtml(app.name)} privacy</a>`
       : ''
   };
 
@@ -131,6 +126,7 @@ await fs.writeFile(
   `<!-- Generated from templates/apps-index.html + content/apps/index.json + content/apps/*.json + content/site.json. Do not edit directly. -->\n${replaceTokens(appsIndexTemplate, {
     ...shared,
     SITE_HEADER: appsSiteHeader,
+    SITE_FOOTER: appsSiteFooter,
     TITLE: escapeHtml(appsIndex.seo.title),
     META_DESCRIPTION: escapeHtml(appsIndex.seo.description),
     HERO_EYEBROW: escapeHtml(appsIndex.hero.eyebrow),

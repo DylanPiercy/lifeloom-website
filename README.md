@@ -24,7 +24,7 @@ Ignored local files:
 - `brand-assets/*` — optional app-specific logos/brand files kept local until supplied.
 - `public/runtime/` — generated deployment copies of local configuration/assets.
 
-Page copy is stored in tracked `content/*.json` files and rendered into reusable HTML templates. App detail pages use `templates/app-page.html` + `content/apps/*.json`; legal documents use `templates/legal-document.html` + `content/legal/*.json`.
+Page copy is stored in tracked `content/*.json` files and rendered into reusable HTML templates. App detail pages use `templates/app-page.html` + `content/apps/*.json`; legal documents use `templates/legal-document.html` + `content/legal/*.json`. Shared site chrome is extracted into `templates/partials/site-header.html` and `templates/partials/site-footer.html`, so navigation and footer changes are made in one place.
 
 Tracked examples/placeholders:
 
@@ -131,7 +131,10 @@ templates/
 ├── app-page.html
 ├── legal-index.html
 ├── legal-document.html
-└── 404.html
+├── 404.html
+└── partials/
+    ├── site-header.html       # shared site navigation
+    └── site-footer.html       # shared site footer
 scripts/
 ├── build-brand-assets.mjs
 ├── build-content-pages.mjs
