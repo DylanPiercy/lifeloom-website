@@ -1,13 +1,14 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
-import { escapeHtml, readJson, renderFooterAppLinks, replaceTokens } from './lib/render.mjs';
+import { escapeHtml, readJson, renderFooterAppLinks, renderSiteHeader, replaceTokens } from './lib/render.mjs';
 import { readBuildVersion } from './lib/build-version.mjs';
 
 const root = process.cwd();
 const appContentDir = path.join(root, 'content', 'apps');
 const appTemplatePath = path.join(root, 'templates', 'app-page.html');
 const appsIndexTemplatePath = path.join(root, 'templates', 'apps-index.html');
+const siteHeaderTemplatePath = path.join(root, 'templates', 'partials', 'site-header.html');
 const publicAppsDir = path.join(root, 'public', 'apps');
 const assetVersion = await readBuildVersion(root);
 
@@ -32,6 +33,8 @@ for (const file of files) {
 
 const appTemplate = await fs.readFile(appTemplatePath, 'utf8');
 const appsIndexTemplate = await fs.readFile(appsIndexTemplatePath, 'utf8');
+const siteHeaderTemplate = await fs.readFile(siteHeaderTemplatePath, 'utf8');
+const appsSiteHeader = renderSiteHeader(siteHeaderTemplate, site, assetVersion, 'apps');
 const footerAppLinks = renderFooterAppLinks(apps);
 
 const shared = {
@@ -40,6 +43,7 @@ const shared = {
   SLOGAN: escapeHtml(site.slogan),
   DOMAIN: escapeHtml(site.domain),
   SKIP_TO_CONTENT: escapeHtml(site.navigation.skipToContent),
+  NAV_HOME: escapeHtml(site.navigation.home),
   NAV_SUPPORT: escapeHtml(site.navigation.support),
   NAV_EXPLORE_APPS: escapeHtml(site.navigation.exploreApps),
   NAV_OPEN: escapeHtml(site.navigation.openNavigation),
@@ -65,6 +69,7 @@ for (const app of apps) {
 
   const values = {
     ...shared,
+    SITE_HEADER: appsSiteHeader,
     TITLE: escapeHtml(`${app.name} — ${site.brandName}`),
     META_DESCRIPTION: escapeHtml(app.metaDescription),
     SLUG: escapeHtml(app.slug),
@@ -125,6 +130,7 @@ await fs.writeFile(
   path.join(publicAppsDir, 'index.html'),
   `<!-- Generated from templates/apps-index.html + content/apps/index.json + content/apps/*.json + content/site.json. Do not edit directly. -->\n${replaceTokens(appsIndexTemplate, {
     ...shared,
+    SITE_HEADER: appsSiteHeader,
     TITLE: escapeHtml(appsIndex.seo.title),
     META_DESCRIPTION: escapeHtml(appsIndex.seo.description),
     HERO_EYEBROW: escapeHtml(appsIndex.hero.eyebrow),

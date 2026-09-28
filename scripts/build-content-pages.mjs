@@ -1,7 +1,7 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
-import { escapeHtml, readJson, renderFooterAppLinks, renderInfoCards, replaceTokens } from './lib/render.mjs';
+import { escapeHtml, readJson, renderFooterAppLinks, renderInfoCards, renderSiteHeader, replaceTokens } from './lib/render.mjs';
 import { readBuildVersion } from './lib/build-version.mjs';
 
 const root = process.cwd();
@@ -9,6 +9,7 @@ const contentDir = path.join(root, 'content');
 const templatesDir = path.join(root, 'templates');
 const publicDir = path.join(root, 'public');
 const assetVersion = await readBuildVersion(root);
+const siteHeaderTemplate = await fs.readFile(path.join(templatesDir, 'partials', 'site-header.html'), 'utf8');
 
 const site = await readJson(path.join(contentDir, 'site.json'));
 const appFiles = (await fs.readdir(path.join(contentDir, 'apps')))
@@ -26,6 +27,7 @@ const shared = {
   SLOGAN: escapeHtml(site.slogan),
   DOMAIN: escapeHtml(site.domain),
   SKIP_TO_CONTENT: escapeHtml(site.navigation.skipToContent),
+  NAV_HOME: escapeHtml(site.navigation.home),
   NAV_SUPPORT: escapeHtml(site.navigation.support),
   NAV_EXPLORE_APPS: escapeHtml(site.navigation.exploreApps),
   NAV_OPEN: escapeHtml(site.navigation.openNavigation),
@@ -48,9 +50,10 @@ const shared = {
   LEGAL_LAST_UPDATED_LABEL: escapeHtml(site.legal.lastUpdatedLabel)
 };
 
-async function renderPage(templateName, outputPath, values, sourceLabel) {
+async function renderPage(templateName, outputPath, values, sourceLabel, activePage = '') {
   const template = await fs.readFile(path.join(templatesDir, templateName), 'utf8');
-  const output = replaceTokens(template, { ...shared, ...values });
+  const siteHeader = renderSiteHeader(siteHeaderTemplate, site, assetVersion, activePage);
+  const output = replaceTokens(template, { ...shared, SITE_HEADER: siteHeader, ...values });
   const fullOutputPath = path.join(publicDir, outputPath);
   await fs.mkdir(path.dirname(fullOutputPath), { recursive: true });
   await fs.writeFile(fullOutputPath, `<!-- Generated from ${sourceLabel}. Do not edit directly. -->\n${output}`);
@@ -86,7 +89,7 @@ await renderPage('home.html', 'index.html', {
   ABOUT_STRIP_EYEBROW: escapeHtml(home.aboutStrip.eyebrow),
   ABOUT_STRIP_HEADING: escapeHtml(home.aboutStrip.heading),
   ABOUT_STRIP_DESCRIPTION: escapeHtml(home.aboutStrip.description)
-}, 'templates/home.html + content/home.json + content/site.json');
+}, 'templates/home.html + content/home.json + content/site.json', 'home');
 
 const support = await readJson(path.join(contentDir, 'support.json'));
 const supportCards = support.cards.map((card) => {
@@ -103,7 +106,7 @@ await renderPage('support.html', 'support/index.html', {
   HERO_HEADING: escapeHtml(support.hero.heading),
   HERO_DESCRIPTION: escapeHtml(support.hero.description),
   SUPPORT_CARDS: supportCards
-}, 'templates/support.html + content/support.json + content/site.json');
+}, 'templates/support.html + content/support.json + content/site.json', 'support');
 
 const legalIndex = await readJson(path.join(contentDir, 'legal', 'index.json'));
 const legalDocuments = legalIndex.documents.map((document) => `<a class="legal-link" href="${escapeHtml(document.href)}"><span><strong>${escapeHtml(document.title)}</strong><small>${escapeHtml(document.description)}</small></span><span aria-hidden="true">→</span></a>`).join('');
