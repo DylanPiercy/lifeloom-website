@@ -17,14 +17,15 @@ const appFiles = (await fs.readdir(path.join(contentDir, 'apps')))
 const apps = await Promise.all(appFiles.map((file) => readJson(path.join(contentDir, 'apps', file))));
 const footerAppLinks = renderFooterAppLinks(apps);
 
+// Remove output for routes that no longer exist so stale generated pages are not deployed.
+await fs.rm(path.join(publicDir, 'about'), { recursive: true, force: true });
+
 const shared = {
   ASSET_VERSION: escapeHtml(assetVersion),
   BRAND_NAME: escapeHtml(site.brandName),
   SLOGAN: escapeHtml(site.slogan),
   DOMAIN: escapeHtml(site.domain),
   SKIP_TO_CONTENT: escapeHtml(site.navigation.skipToContent),
-  NAV_APPS: escapeHtml(site.navigation.apps),
-  NAV_ABOUT: escapeHtml(site.navigation.about),
   NAV_SUPPORT: escapeHtml(site.navigation.support),
   NAV_EXPLORE_APPS: escapeHtml(site.navigation.exploreApps),
   NAV_OPEN: escapeHtml(site.navigation.openNavigation),
@@ -33,15 +34,13 @@ const shared = {
   NAV_PRIMARY_ARIA: escapeHtml(site.navigation.primaryAriaLabel),
   FOOTER_APPS_HEADING: escapeHtml(site.footer.appsHeading),
   FOOTER_ALL_APPS: escapeHtml(site.footer.allApps),
-  FOOTER_COMPANY_HEADING: escapeHtml(site.footer.companyHeading),
+  FOOTER_SUPPORT_HEADING: escapeHtml(site.footer.supportHeading),
   FOOTER_LEGAL_HEADING: escapeHtml(site.footer.legalHeading),
   FOOTER_LEGAL: escapeHtml(site.footer.legal),
   FOOTER_PRIVACY: escapeHtml(site.footer.privacy),
   FOOTER_LIFELOOM_PRIVACY: escapeHtml(site.footer.lifeLoomPrivacy),
   FOOTER_HOME: escapeHtml(site.footer.home),
   FOOTER_APP_LINKS: footerAppLinks,
-  ACTION_ABOUT_LIFELOOM: escapeHtml(site.actions.aboutLifeLoom),
-  ACTION_LEARN_MORE: escapeHtml(site.actions.learnMore),
   ACTION_SEE_OUR_APPS: escapeHtml(site.actions.seeOurApps),
   ACTION_SUPPORT: escapeHtml(site.actions.support),
   ACTION_GET_SUPPORT: escapeHtml(site.actions.getSupport),
@@ -88,19 +87,6 @@ await renderPage('home.html', 'index.html', {
   ABOUT_STRIP_HEADING: escapeHtml(home.aboutStrip.heading),
   ABOUT_STRIP_DESCRIPTION: escapeHtml(home.aboutStrip.description)
 }, 'templates/home.html + content/home.json + content/site.json');
-
-const about = await readJson(path.join(contentDir, 'about.json'));
-await renderPage('about.html', 'about/index.html', {
-  TITLE: escapeHtml(about.seo.title),
-  META_DESCRIPTION: escapeHtml(about.seo.description),
-  HERO_EYEBROW: escapeHtml(about.hero.eyebrow),
-  HERO_HEADING: escapeHtml(about.hero.heading),
-  HERO_DESCRIPTION: escapeHtml(about.hero.description),
-  PRINCIPLE_CARDS: renderInfoCards(about.principles),
-  PRODUCTS_EYEBROW: escapeHtml(about.productsStrip.eyebrow),
-  PRODUCTS_HEADING: escapeHtml(about.productsStrip.heading),
-  PRODUCTS_DESCRIPTION: escapeHtml(about.productsStrip.description)
-}, 'templates/about.html + content/about.json + content/site.json');
 
 const support = await readJson(path.join(contentDir, 'support.json'));
 const supportCards = support.cards.map((card) => {

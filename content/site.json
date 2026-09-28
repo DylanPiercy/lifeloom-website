@@ -4,10 +4,9 @@
   "domain": "lifeloom.co.uk",
   "navigation": {
     "skipToContent": "Skip to content",
-    "apps": "Apps",
-    "about": "About",
+    "home": "Home",
     "support": "Support",
-    "exploreApps": "Explore apps",
+    "exploreApps": "Explore Apps",
     "openNavigation": "Open navigation",
     "primaryAriaLabel": "Primary navigation",
     "switchToLightMode": "Switch to light mode",
@@ -16,16 +15,14 @@
   "footer": {
     "appsHeading": "Apps",
     "allApps": "All apps",
-    "companyHeading": "Company",
     "legalHeading": "Legal",
     "legal": "Legal",
     "privacy": "Privacy",
     "lifeLoomPrivacy": "LifeLoom privacy",
-    "home": "Home"
+    "home": "Home",
+    "supportHeading": "Support"
   },
   "actions": {
-    "aboutLifeLoom": "About LifeLoom",
-    "learnMore": "Learn more",
     "seeOurApps": "See our apps",
     "support": "Support",
     "getSupport": "Get support",

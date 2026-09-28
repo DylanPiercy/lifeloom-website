@@ -112,7 +112,6 @@ config/
 content/
 ├── site.json                 # shared brand/navigation/footer strings
 ├── home.json                 # homepage content
-├── about.json                # about page content
 ├── support.json              # support page content
 ├── 404.json                  # error-page content
 ├── apps/
@@ -127,7 +126,6 @@ content/
     └── terms.json            # unpublished terms placeholder
 templates/
 ├── home.html
-├── about.html
 ├── support.html
 ├── apps-index.html
 ├── app-page.html
@@ -144,7 +142,6 @@ public/                        # generated/deployable static HTML + assets
 ├── index.html
 ├── 404.html
 ├── apps/
-├── about/
 ├── support/
 ├── legal/
 ├── runtime/                  # generated; ignored
@@ -164,11 +161,13 @@ Do not edit generated `public/*.html` files directly. `npm run prepare`, `npm ru
 
 ## LifeLoom logo assets
 
-The site uses three LifeLoom PNG variants from `assets/lifeloom/`:
+The site uses five LifeLoom PNG variants from `assets/lifeloom/`:
 
-- `lifeloom.png` — primary logo used for the homepage brand visual and social preview image.
-- `lifeloom_dark.png` — used in the header and footer on the site's light surfaces.
-- `lifeloom_light.png` — used as the browser favicon when a dark browser colour scheme is preferred.
+- `lifeloom.png` — symbol-only logo used for the browser favicon, homepage brand visual and social preview image.
+- `lifeloom_dark.png` — dark standalone logo variant.
+- `lifeloom_light.png` — light standalone logo variant.
+- `lifeloom_inline_dark.png` — inline logo used in the header and footer in dark mode.
+- `lifeloom_inline_light.png` — inline logo used in the header and footer in light mode.
 
 `npm run build` copies these files into `public/assets/lifeloom/` for Firebase Hosting.
 
