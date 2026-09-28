@@ -231,3 +231,9 @@ Canonical `<link>` tags also point to `lifeloom.co.uk`. The redirect is implemen
 ## Deployment cache behaviour
 
 Each build generates a deployment-specific asset version. HTML and runtime JSON are revalidated, while versioned CSS, JavaScript and image assets can be cached for up to seven days. A new deployment changes the asset URLs automatically, so browsers fetch the new files without sacrificing long-lived caching.
+
+## Colour theme
+
+LifeLoom uses dark mode by default. Visitors can switch to light mode using the theme control in the site header; the preference is stored locally in the browser and reused on later visits.
+
+Header and footer branding uses `assets/lifeloom/lifeloom_inline_dark.png` in dark mode and `assets/lifeloom/lifeloom_inline_light.png` in light mode. The build copies both variants into `public/assets/lifeloom/`.

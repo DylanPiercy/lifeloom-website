@@ -1,4 +1,49 @@
 (() => {
+  const themeKey = 'lifeloom-theme';
+  const themeToggle = document.querySelector('[data-theme-toggle]');
+
+  const applyTheme = (theme, persist = false) => {
+    const nextTheme = theme === 'light' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = nextTheme;
+
+    if (persist) {
+      try {
+        localStorage.setItem(themeKey, nextTheme);
+      } catch {
+        // Theme persistence is optional when storage is unavailable.
+      }
+    }
+
+    document.querySelectorAll('[data-theme-logo]').forEach((logo) => {
+      const source = nextTheme === 'light' ? logo.dataset.lightSrc : logo.dataset.darkSrc;
+      if (source && logo.getAttribute('src') !== source) logo.src = source;
+    });
+
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+    if (themeColor) themeColor.content = nextTheme === 'light' ? '#f7f8fb' : '#0b0d12';
+
+    if (themeToggle) {
+      const label = nextTheme === 'light'
+        ? themeToggle.dataset.darkLabel
+        : themeToggle.dataset.lightLabel;
+      themeToggle.setAttribute('aria-label', label || 'Toggle colour theme');
+      themeToggle.title = label || 'Toggle colour theme';
+      themeToggle.setAttribute('aria-pressed', String(nextTheme === 'light'));
+    }
+  };
+
+  const initialTheme = document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
+  applyTheme(initialTheme);
+
+  themeToggle?.addEventListener('click', () => {
+    applyTheme(document.documentElement.dataset.theme === 'light' ? 'dark' : 'light', true);
+  });
+
+  window.addEventListener('storage', (event) => {
+    if (event.key === themeKey && (event.newValue === 'light' || event.newValue === 'dark')) {
+      applyTheme(event.newValue);
+    }
+  });
   const menuButton = document.querySelector('[data-menu-button]');
   const navLinks = document.querySelector('[data-nav-links]');
 

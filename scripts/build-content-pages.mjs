@@ -28,6 +28,8 @@ const shared = {
   NAV_SUPPORT: escapeHtml(site.navigation.support),
   NAV_EXPLORE_APPS: escapeHtml(site.navigation.exploreApps),
   NAV_OPEN: escapeHtml(site.navigation.openNavigation),
+  THEME_LIGHT_LABEL: escapeHtml(site.navigation.switchToLightMode),
+  THEME_DARK_LABEL: escapeHtml(site.navigation.switchToDarkMode),
   NAV_PRIMARY_ARIA: escapeHtml(site.navigation.primaryAriaLabel),
   FOOTER_APPS_HEADING: escapeHtml(site.footer.appsHeading),
   FOOTER_ALL_APPS: escapeHtml(site.footer.allApps),

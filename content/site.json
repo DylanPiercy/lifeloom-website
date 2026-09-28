@@ -9,7 +9,9 @@
     "support": "Support",
     "exploreApps": "Explore apps",
     "openNavigation": "Open navigation",
-    "primaryAriaLabel": "Primary navigation"
+    "primaryAriaLabel": "Primary navigation",
+    "switchToLightMode": "Switch to light mode",
+    "switchToDarkMode": "Switch to dark mode"
   },
   "footer": {
     "appsHeading": "Apps",

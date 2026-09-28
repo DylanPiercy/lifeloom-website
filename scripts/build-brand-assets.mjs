@@ -7,9 +7,11 @@ const sourceDir = path.join(root, 'assets', 'lifeloom');
 const outputDir = path.join(root, 'public', 'assets', 'lifeloom');
 
 const assets = [
-  { output: 'lifeloom.png', candidates: ['lifeloom.png'] },
+  { output: 'lifeloom.png', candidates: ['lifeloom.png', 'lifeloom.ong'] },
   { output: 'lifeloom_light.png', candidates: ['lifeloom_light.png'] },
-  { output: 'lifeloom_dark.png', candidates: ['lifeloom_dark.png'] }
+  { output: 'lifeloom_dark.png', candidates: ['lifeloom_dark.png'] },
+  { output: 'lifeloom_inline_light.png', candidates: ['lifeloom_inline_light.png'] },
+  { output: 'lifeloom_inline_dark.png', candidates: ['lifeloom_inline_dark.png'] }
 ];
 
 async function findSource(candidates) {
@@ -34,6 +36,10 @@ for (const asset of assets) {
   if (!match) {
     console.warn(`LifeLoom logo not found: assets/lifeloom/${asset.candidates[0]}`);
     continue;
+  }
+
+  if (match.candidate.endsWith('.ong')) {
+    console.warn('Using assets/lifeloom/lifeloom.ong as lifeloom.png. Rename it to lifeloom.png if .ong was accidental.');
   }
 
   await fs.copyFile(match.source, path.join(outputDir, asset.output));
