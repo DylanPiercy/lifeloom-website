@@ -1,15 +1,17 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
-import { escapeHtml, readJson, renderSiteFooter, renderSiteHeader, replaceTokens } from './lib/render.mjs';
+import { escapeHtml, readJson, renderSiteFooter, renderSiteHead, renderSiteHeader, renderSiteScripts, replaceTokens } from './lib/render.mjs';
 import { readBuildVersion } from './lib/build-version.mjs';
 
 const root = process.cwd();
 const appContentDir = path.join(root, 'content', 'apps');
 const appTemplatePath = path.join(root, 'templates', 'app-page.html');
 const appsIndexTemplatePath = path.join(root, 'templates', 'apps-index.html');
+const siteHeadTemplatePath = path.join(root, 'templates', 'partials', 'site-head.html');
 const siteHeaderTemplatePath = path.join(root, 'templates', 'partials', 'site-header.html');
 const siteFooterTemplatePath = path.join(root, 'templates', 'partials', 'site-footer.html');
+const siteScriptsTemplatePath = path.join(root, 'templates', 'partials', 'site-scripts.html');
 const publicAppsDir = path.join(root, 'public', 'apps');
 const assetVersion = await readBuildVersion(root);
 
@@ -34,10 +36,14 @@ for (const file of files) {
 
 const appTemplate = await fs.readFile(appTemplatePath, 'utf8');
 const appsIndexTemplate = await fs.readFile(appsIndexTemplatePath, 'utf8');
+const siteHeadTemplate = await fs.readFile(siteHeadTemplatePath, 'utf8');
 const siteHeaderTemplate = await fs.readFile(siteHeaderTemplatePath, 'utf8');
 const siteFooterTemplate = await fs.readFile(siteFooterTemplatePath, 'utf8');
+const siteScriptsTemplate = await fs.readFile(siteScriptsTemplatePath, 'utf8');
+const siteHead = renderSiteHead(siteHeadTemplate, assetVersion);
 const appsSiteHeader = renderSiteHeader(siteHeaderTemplate, site, assetVersion, 'apps');
 const appsSiteFooter = renderSiteFooter(siteFooterTemplate, site, apps, assetVersion);
+const siteScripts = renderSiteScripts(siteScriptsTemplate, assetVersion);
 
 const shared = {
   ASSET_VERSION: escapeHtml(assetVersion),
@@ -63,11 +69,13 @@ for (const app of apps) {
 
   const values = {
     ...shared,
+    SITE_HEAD: siteHead,
     SITE_HEADER: appsSiteHeader,
     SITE_FOOTER: renderSiteFooter(siteFooterTemplate, site, apps, assetVersion, {
       appName: app.name,
       appPrivacyUrl: app.privacyUrl
     }),
+    SITE_SCRIPTS: siteScripts,
     TITLE: escapeHtml(`${app.name} — ${site.brandName}`),
     META_DESCRIPTION: escapeHtml(app.metaDescription),
     SLUG: escapeHtml(app.slug),
@@ -125,8 +133,10 @@ await fs.writeFile(
   path.join(publicAppsDir, 'index.html'),
   `<!-- Generated from templates/apps-index.html + content/apps/index.json + content/apps/*.json + content/site.json. Do not edit directly. -->\n${replaceTokens(appsIndexTemplate, {
     ...shared,
+    SITE_HEAD: siteHead,
     SITE_HEADER: appsSiteHeader,
     SITE_FOOTER: appsSiteFooter,
+    SITE_SCRIPTS: siteScripts,
     TITLE: escapeHtml(appsIndex.seo.title),
     META_DESCRIPTION: escapeHtml(appsIndex.seo.description),
     HERO_EYEBROW: escapeHtml(appsIndex.hero.eyebrow),

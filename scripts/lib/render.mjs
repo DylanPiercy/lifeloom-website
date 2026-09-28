@@ -12,6 +12,19 @@ export const replaceTokens = (template, values) => Object.entries(values).reduce
   template
 );
 
+
+export function renderSiteHead(template, assetVersion) {
+  return replaceTokens(template, {
+    ASSET_VERSION: escapeHtml(assetVersion)
+  });
+}
+
+export function renderSiteScripts(template, assetVersion) {
+  return replaceTokens(template, {
+    ASSET_VERSION: escapeHtml(assetVersion)
+  });
+}
+
 export async function readJson(filePath) {
   return JSON.parse(await fs.readFile(filePath, 'utf8'));
 }

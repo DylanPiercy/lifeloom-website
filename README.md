@@ -24,7 +24,7 @@ Ignored local files:
 - `brand-assets/*` — optional app-specific logos/brand files kept local until supplied.
 - `public/runtime/` — generated deployment copies of local configuration/assets.
 
-Page copy is stored in tracked `content/*.json` files and rendered into reusable HTML templates. App detail pages use `templates/app-page.html` + `content/apps/*.json`; legal documents use `templates/legal-document.html` + `content/legal/*.json`. Shared site chrome is extracted into `templates/partials/site-header.html` and `templates/partials/site-footer.html`, so navigation and footer changes are made in one place.
+Page copy is stored in tracked `content/*.json` files and rendered into reusable HTML templates. App detail pages use `templates/app-page.html` + `content/apps/*.json`; legal documents use `templates/legal-document.html` + `content/legal/*.json`. Shared site chrome and document assets are extracted under `templates/partials/`, so global header, footer, favicon, stylesheet/script and theme-bootstrap changes are made in one place.
 
 Tracked examples/placeholders:
 
@@ -133,8 +133,10 @@ templates/
 ├── legal-document.html
 ├── 404.html
 └── partials/
+    ├── site-head.html         # shared favicon, theme bootstrap and head assets
     ├── site-header.html       # shared site navigation
-    └── site-footer.html       # shared site footer
+    ├── site-footer.html       # shared site footer
+    └── site-scripts.html      # shared page JavaScript include
 scripts/
 ├── build-brand-assets.mjs
 ├── build-content-pages.mjs
@@ -198,7 +200,7 @@ In Firebase Console:
 
 ## Before launch
 
-- Confirm the three LifeLoom PNG variants are present under `assets/lifeloom/`.
+- Confirm the five LifeLoom PNG variants are present under `assets/lifeloom/`.
 - Add app-specific logos under `brand-assets/` when they are ready.
 - Set the actual Firebase project ID in `config/site.local.json`.
 - Confirm the configured support email.
