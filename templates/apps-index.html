@@ -1,4 +1,29 @@
-<!doctype html><html lang="en-GB"><head>{{SITE_HEAD}}<title>{{TITLE}}</title><meta name="description" content="{{META_DESCRIPTION}}"><link rel="canonical" href="https://{{DOMAIN}}/apps/"><meta property="og:image" content="{{SOCIAL_IMAGE_URL}}?v={{ASSET_VERSION}}"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="{{SOCIAL_IMAGE_URL}}?v={{ASSET_VERSION}}"></head><body>
+<!doctype html>
+<html lang="en-GB">
+<head>
+  {{SITE_HEAD}}
+  <title>{{TITLE}}</title>
+  <meta name="description" content="{{META_DESCRIPTION}}">
+  <link rel="canonical" href="https://{{DOMAIN}}/apps/">
+  <meta property="og:image" content="{{SOCIAL_IMAGE_URL}}?v={{ASSET_VERSION}}">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image" content="{{SOCIAL_IMAGE_URL}}?v={{ASSET_VERSION}}">
+</head>
+<body>
 {{SITE_HEADER}}
-<main id="main"><section class="page-hero"><div class="container"><span class="eyebrow">{{HERO_EYEBROW}}</span><h1>{{HERO_HEADING}}</h1><p class="lede">{{HERO_DESCRIPTION}}</p></div></section><section class="section-sm"><div class="container"><div class="apps-grid">{{APP_CARDS}}</div></div></section></main>
-{{SITE_FOOTER}}{{SITE_SCRIPTS}}</body></html>
+<main id="main">
+  <section class="page-hero apps-page-hero">
+    <div class="container">
+      <h1>{{HERO_HEADING}}</h1>
+    </div>
+  </section>
+  <section class="apps-catalogue-section">
+    <div class="container">
+      <div class="apps-list">{{APP_CARDS}}</div>
+    </div>
+  </section>
+</main>
+{{SITE_FOOTER}}
+{{SITE_SCRIPTS}}
+</body>
+</html>

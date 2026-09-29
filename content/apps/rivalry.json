@@ -14,11 +14,7 @@
     "heroBackground": "#111018",
     "heroGlow": "rgba(217,70,239,.28)",
     "heroTextMuted": "#c9bdcf",
-    "heroAccent": "#d8b4fe",
-    "cardBackgroundStart": "#211126",
-    "cardBackgroundEnd": "#111018",
-    "cardGlow": "rgba(217,70,239,.42)",
-    "cardTextMuted": "#c4b5c9"
+    "heroAccent": "#d8b4fe"
   },
   "preview": {
     "primaryTitle": "Rivalry",
@@ -52,5 +48,11 @@
     "eyebrow": "Availability",
     "heading": "Rivalry is coming soon.",
     "placeholder": "Rivalry is currently in development."
+  },
+  "card": {
+    "colour": "#d946ef",
+    "logo": null,
+    "comingSoon": true,
+    "order": 1
   }
 }

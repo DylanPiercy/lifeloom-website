@@ -8,7 +8,8 @@ const PARTIAL_FILES = {
   head: 'site-head.html',
   header: 'site-header.html',
   footer: 'site-footer.html',
-  scripts: 'site-scripts.html'
+  scripts: 'site-scripts.html',
+  appCard: 'app-card.html'
 };
 
 function normaliseAssetPath(value, basePath = '') {
@@ -98,6 +99,18 @@ async function loadApps(appContentDir) {
     if (!app.name || !app.brandKey) {
       throw new Error(`Missing required app fields in ${file}.`);
     }
+
+    const card = app.card || {};
+    if (card.comingSoon !== undefined && typeof card.comingSoon !== 'boolean') {
+      throw new Error(`App card comingSoon must be a boolean in ${file}.`);
+    }
+    if (card.order !== undefined && !Number.isFinite(card.order)) {
+      throw new Error(`App card order must be a number in ${file}.`);
+    }
+    if (card.logo !== undefined && card.logo !== null && typeof card.logo !== 'string') {
+      throw new Error(`App card logo must be a string or null in ${file}.`);
+    }
+
     apps.push(app);
   }
   return apps;

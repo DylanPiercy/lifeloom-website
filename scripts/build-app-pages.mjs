@@ -2,15 +2,15 @@ import path from 'node:path';
 import { createBuildContext } from './lib/build-context.mjs';
 import { isMainModule } from './lib/module.mjs';
 import { createPageRenderer } from './lib/page-renderer.mjs';
-import { escapeHtml, readJson } from './lib/render.mjs';
+import { escapeHtml, readJson, renderAppCard } from './lib/render.mjs';
 
 export async function buildAppPages(context) {
   context ??= await createBuildContext();
   const {
     appContentDir,
     apps,
-    site,
-    sharedTokens
+    partials,
+    site
   } = context;
   const renderPage = createPageRenderer(context);
   const appsIndex = await readJson(path.join(appContentDir, 'index.json'));
@@ -61,33 +61,20 @@ export async function buildAppPages(context) {
     });
   }
 
-  const appCards = apps.map((app) => {
-    const theme = app.theme || {};
-    const style = [
-      `--app-card-start:${escapeHtml(theme.cardBackgroundStart || '#1f2937')}`,
-      `--app-card-end:${escapeHtml(theme.cardBackgroundEnd || '#111827')}`,
-      `--app-card-glow:${escapeHtml(theme.cardGlow || 'rgba(99,102,241,.35)')}`,
-      `--app-card-muted:${escapeHtml(theme.cardTextMuted || '#d1d5db')}`
-    ].join(';');
-
-    const status = app.availability?.status === 'coming-soon'
-      ? `<span class="app-status">${escapeHtml(site.appUi.comingSoon)}</span>`
-      : '';
-
-    return `<a class="app-card app-themed" style="${style}" href="/apps/${escapeHtml(app.slug)}/"><img class="app-card-icon" src="${sharedTokens.APP_PLACEHOLDER_ASSET}?v=${sharedTokens.ASSET_VERSION}" data-brand="${escapeHtml(app.brandKey)}" alt="">${status}<h2>${escapeHtml(app.name)}</h2><p>${escapeHtml(app.summary)}</p><span class="app-card-arrow" aria-hidden="true">→</span></a>`;
-  }).join('');
+  const appCards = [...apps]
+    .sort((a, b) => (a.card?.order ?? Number.MAX_SAFE_INTEGER) - (b.card?.order ?? Number.MAX_SAFE_INTEGER))
+    .map((app) => renderAppCard(partials.appCard, app, site, context.sharedTokens))
+    .join('');
 
   await renderPage({
     templateName: 'apps-index.html',
     outputPath: 'apps/index.html',
-    sourceLabel: 'templates/apps-index.html + content/apps/index.json + content/apps/*.json + content/site.json',
+    sourceLabel: 'templates/apps-index.html + templates/partials/app-card.html + content/apps/index.json + content/apps/*.json + content/site.json',
     activePage: 'apps',
     values: {
       TITLE: escapeHtml(appsIndex.seo.title),
       META_DESCRIPTION: escapeHtml(appsIndex.seo.description),
-      HERO_EYEBROW: escapeHtml(appsIndex.hero.eyebrow),
       HERO_HEADING: escapeHtml(appsIndex.hero.heading),
-      HERO_DESCRIPTION: escapeHtml(appsIndex.hero.description),
       APP_CARDS: appCards
     }
   });

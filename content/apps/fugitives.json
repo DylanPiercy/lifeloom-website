@@ -13,11 +13,7 @@
     "heroBackground": "#17110f",
     "heroGlow": "rgba(249,115,22,.24)",
     "heroTextMuted": "#d7c7c0",
-    "heroAccent": "#fdba74",
-    "cardBackgroundStart": "#321b13",
-    "cardBackgroundEnd": "#17110f",
-    "cardGlow": "rgba(249,115,22,.38)",
-    "cardTextMuted": "#dccbc3"
+    "heroAccent": "#fdba74"
   },
   "preview": {
     "primaryTitle": "Live game",
@@ -51,5 +47,11 @@
     "eyebrow": "Availability",
     "heading": "Fugitives is coming soon.",
     "placeholder": "Fugitives is currently in development."
+  },
+  "card": {
+    "colour": "#f97316",
+    "logo": null,
+    "comingSoon": true,
+    "order": 3
   }
 }

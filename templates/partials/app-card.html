@@ -1,0 +1,25 @@
+<a class="app-card" style="--app-card-colour:{{APP_COLOUR}}" href="/apps/{{APP_SLUG}}/" aria-label="{{APP_ACTION_LABEL}}: {{APP_NAME}}">
+  <div class="app-card-visual" aria-hidden="true">
+    <span class="app-card-glow"></span>
+    <span class="app-card-orbit app-card-orbit-large"></span>
+    <span class="app-card-orbit app-card-orbit-small"></span>
+    <div class="app-card-icon-shell">
+      <img class="app-card-icon" src="{{APP_LOGO_ASSET}}?v={{ASSET_VERSION}}" data-brand="{{APP_BRAND_KEY}}" alt="">
+    </div>
+    <span class="app-card-watermark">{{APP_NAME}}</span>
+  </div>
+
+  <div class="app-card-content">
+    <div class="app-card-meta">
+      <span class="app-card-kicker">{{APP_EYEBROW}}</span>
+      {{APP_STATUS}}
+    </div>
+    <h2>{{APP_NAME}}</h2>
+    <p>{{APP_SUMMARY}}</p>
+    <div class="app-card-highlights" aria-hidden="true">{{APP_HIGHLIGHTS}}</div>
+    <span class="app-card-action" aria-hidden="true">
+      <span>{{APP_ACTION_LABEL}}</span>
+      <strong>→</strong>
+    </span>
+  </div>
+</a>

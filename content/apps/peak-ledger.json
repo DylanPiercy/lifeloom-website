@@ -13,11 +13,7 @@
     "heroBackground": "#0d1713",
     "heroGlow": "rgba(74,222,128,.22)",
     "heroTextMuted": "#c2d3c9",
-    "heroAccent": "#86efac",
-    "cardBackgroundStart": "#153126",
-    "cardBackgroundEnd": "#0d1713",
-    "cardGlow": "rgba(74,222,128,.34)",
-    "cardTextMuted": "#c4d7cb"
+    "heroAccent": "#86efac"
   },
   "preview": {
     "primaryTitle": "Peak map",
@@ -51,5 +47,11 @@
     "eyebrow": "Availability",
     "heading": "PeakLedger is coming soon.",
     "placeholder": "PeakLedger is currently in development."
+  },
+  "card": {
+    "colour": "#4ade80",
+    "logo": null,
+    "comingSoon": true,
+    "order": 2
   }
 }

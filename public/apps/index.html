@@ -1,17 +1,28 @@
-<!-- Generated from templates/apps-index.html + content/apps/index.json + content/apps/*.json + content/site.json. Do not edit directly. -->
-<!doctype html><html lang="en-GB"><head><meta charset="utf-8">
+<!-- Generated from templates/apps-index.html + templates/partials/app-card.html + content/apps/index.json + content/apps/*.json + content/site.json. Do not edit directly. -->
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#0b0d12">
 <script>try{document.documentElement.dataset.theme=localStorage.getItem('lifeloom-theme')==='light'?'light':'dark'}catch{document.documentElement.dataset.theme='dark'}</script>
-<link rel="icon" href="/assets/lifeloom/lifeloom.png?v=1790706473377" type="image/png">
-<script src="/assets/js/canonical-domain.js?v=1790706473377"></script>
-<link rel="stylesheet" href="/assets/css/style.css?v=1790706473377">
-<title>Apps — LifeLoom</title><meta name="description" content="Explore apps and software created by LifeLoom."><link rel="canonical" href="https://lifeloom.co.uk/apps/"><meta property="og:image" content="https://lifeloom.co.uk/assets/lifeloom/lifeloom.png?v=1790706473377"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://lifeloom.co.uk/assets/lifeloom/lifeloom.png?v=1790706473377"></head><body>
+<link rel="icon" href="/assets/lifeloom/lifeloom.png?v=1790707737443" type="image/png">
+<script src="/assets/js/canonical-domain.js?v=1790707737443"></script>
+<link rel="stylesheet" href="/assets/css/style.css?v=1790707737443">
+
+  <title>Apps — LifeLoom</title>
+  <meta name="description" content="Explore apps and software created by LifeLoom.">
+  <link rel="canonical" href="https://lifeloom.co.uk/apps/">
+  <meta property="og:image" content="https://lifeloom.co.uk/assets/lifeloom/lifeloom.png?v=1790707737443">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image" content="https://lifeloom.co.uk/assets/lifeloom/lifeloom.png?v=1790707737443">
+</head>
+<body>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="container nav">
     <a class="brand" href="/" aria-label="LifeLoom home">
-      <img class="brand-logo" data-theme-logo data-dark-src="/assets/lifeloom/lifeloom_inline_dark.png?v=1790706473377" data-light-src="/assets/lifeloom/lifeloom_inline_light.png?v=1790706473377" src="/assets/lifeloom/lifeloom_inline_dark.png?v=1790706473377" alt="">
+      <img class="brand-logo" data-theme-logo data-dark-src="/assets/lifeloom/lifeloom_inline_dark.png?v=1790707737443" data-light-src="/assets/lifeloom/lifeloom_inline_light.png?v=1790707737443" src="/assets/lifeloom/lifeloom_inline_dark.png?v=1790707737443" alt="">
       <span class="sr-only">LifeLoom</span>
     </a>
     <nav class="nav-links" data-nav-links aria-label="Primary navigation">
@@ -24,13 +35,99 @@
   </div>
 </header>
 
-<main id="main"><section class="page-hero"><div class="container"><span class="eyebrow">LifeLoom apps</span><h1>Software with its own reason to exist.</h1><p class="lede">A growing collection of LifeLoom products, each designed around a focused experience.</p></div></section><section class="section-sm"><div class="container"><div class="apps-grid"><a class="app-card app-themed" style="--app-card-start:#321b13;--app-card-end:#17110f;--app-card-glow:rgba(249,115,22,.38);--app-card-muted:#dccbc3" href="/apps/fugitives/"><img class="app-card-icon" src="/assets/img/brand-placeholder.svg?v=1790706473377" data-brand="fugitives" alt=""><span class="app-status">Coming Soon</span><h2>Fugitives</h2><p>A real-world multiplayer chase game where hunters track fugitives across a live, geofenced play area.</p><span class="app-card-arrow" aria-hidden="true">→</span></a><a class="app-card app-themed" style="--app-card-start:#153126;--app-card-end:#0d1713;--app-card-glow:rgba(74,222,128,.34);--app-card-muted:#c4d7cb" href="/apps/peak-ledger/"><img class="app-card-icon" src="/assets/img/brand-placeholder.svg?v=1790706473377" data-brand="peakLedger" alt=""><span class="app-status">Coming Soon</span><h2>PeakLedger</h2><p>Discover mountain peaks, explore them on a map and keep a personal record of the summits you have climbed.</p><span class="app-card-arrow" aria-hidden="true">→</span></a><a class="app-card app-themed" style="--app-card-start:#211126;--app-card-end:#111018;--app-card-glow:rgba(217,70,239,.42);--app-card-muted:#c4b5c9" href="/apps/rivalry/"><img class="app-card-icon" src="/assets/img/brand-placeholder.svg?v=1790706473377" data-brand="rivalry" alt=""><span class="app-status">Coming Soon</span><h2>Rivalry</h2><p>Private friend-group competition across races, tennis, padel, poker and more.</p><span class="app-card-arrow" aria-hidden="true">→</span></a></div></div></section></main>
+<main id="main">
+  <section class="page-hero apps-page-hero">
+    <div class="container">
+      <h1>Apps</h1>
+    </div>
+  </section>
+  <section class="apps-catalogue-section">
+    <div class="container">
+      <div class="apps-list"><a class="app-card" style="--app-card-colour:#d946ef" href="/apps/rivalry/" aria-label="Explore App: Rivalry">
+  <div class="app-card-visual" aria-hidden="true">
+    <span class="app-card-glow"></span>
+    <span class="app-card-orbit app-card-orbit-large"></span>
+    <span class="app-card-orbit app-card-orbit-small"></span>
+    <div class="app-card-icon-shell">
+      <img class="app-card-icon" src="/assets/img/brand-placeholder.svg?v=1790707737443" data-brand="rivalry" alt="">
+    </div>
+    <span class="app-card-watermark">Rivalry</span>
+  </div>
+
+  <div class="app-card-content">
+    <div class="app-card-meta">
+      <span class="app-card-kicker">A LifeLoom app</span>
+      <span class="app-status">Coming Soon</span>
+    </div>
+    <h2>Rivalry</h2>
+    <p>Private friend-group competition across races, tennis, padel, poker and more.</p>
+    <div class="app-card-highlights" aria-hidden="true"><span>Multiple activities</span><span>Rankings and stats</span><span>Private groups</span></div>
+    <span class="app-card-action" aria-hidden="true">
+      <span>Explore App</span>
+      <strong>→</strong>
+    </span>
+  </div>
+</a>
+<a class="app-card" style="--app-card-colour:#4ade80" href="/apps/peak-ledger/" aria-label="Explore App: PeakLedger">
+  <div class="app-card-visual" aria-hidden="true">
+    <span class="app-card-glow"></span>
+    <span class="app-card-orbit app-card-orbit-large"></span>
+    <span class="app-card-orbit app-card-orbit-small"></span>
+    <div class="app-card-icon-shell">
+      <img class="app-card-icon" src="/assets/img/brand-placeholder.svg?v=1790707737443" data-brand="peakLedger" alt="">
+    </div>
+    <span class="app-card-watermark">PeakLedger</span>
+  </div>
+
+  <div class="app-card-content">
+    <div class="app-card-meta">
+      <span class="app-card-kicker">A LifeLoom app</span>
+      <span class="app-status">Coming Soon</span>
+    </div>
+    <h2>PeakLedger</h2>
+    <p>Discover mountain peaks, explore them on a map and keep a personal record of the summits you have climbed.</p>
+    <div class="app-card-highlights" aria-hidden="true"><span>Interactive peak map</span><span>Climb tracking</span><span>Peak information</span></div>
+    <span class="app-card-action" aria-hidden="true">
+      <span>Explore App</span>
+      <strong>→</strong>
+    </span>
+  </div>
+</a>
+<a class="app-card" style="--app-card-colour:#f97316" href="/apps/fugitives/" aria-label="Explore App: Fugitives">
+  <div class="app-card-visual" aria-hidden="true">
+    <span class="app-card-glow"></span>
+    <span class="app-card-orbit app-card-orbit-large"></span>
+    <span class="app-card-orbit app-card-orbit-small"></span>
+    <div class="app-card-icon-shell">
+      <img class="app-card-icon" src="/assets/img/brand-placeholder.svg?v=1790707737443" data-brand="fugitives" alt="">
+    </div>
+    <span class="app-card-watermark">Fugitives</span>
+  </div>
+
+  <div class="app-card-content">
+    <div class="app-card-meta">
+      <span class="app-card-kicker">A LifeLoom game</span>
+      <span class="app-status">Coming Soon</span>
+    </div>
+    <h2>Fugitives</h2>
+    <p>A real-world multiplayer chase game where hunters track fugitives across a live, geofenced play area.</p>
+    <div class="app-card-highlights" aria-hidden="true"><span>Hunters vs fugitives</span><span>Live location gameplay</span><span>Geofenced play areas</span></div>
+    <span class="app-card-action" aria-hidden="true">
+      <span>Explore App</span>
+      <strong>→</strong>
+    </span>
+  </div>
+</a>
+</div>
+    </div>
+  </section>
+</main>
 <footer class="site-footer">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
         <a class="brand" href="/">
-          <img class="brand-logo" data-theme-logo data-dark-src="/assets/lifeloom/lifeloom_inline_dark.png?v=1790706473377" data-light-src="/assets/lifeloom/lifeloom_inline_light.png?v=1790706473377" src="/assets/lifeloom/lifeloom_inline_dark.png?v=1790706473377" alt="">
+          <img class="brand-logo" data-theme-logo data-dark-src="/assets/lifeloom/lifeloom_inline_dark.png?v=1790707737443" data-light-src="/assets/lifeloom/lifeloom_inline_light.png?v=1790707737443" src="/assets/lifeloom/lifeloom_inline_dark.png?v=1790707737443" alt="">
           <span class="sr-only">LifeLoom</span>
         </a>
         <p>Built for life beyond the screen.</p>
@@ -55,5 +152,8 @@
     </div>
   </div>
 </footer>
-<script src="/assets/js/main.js?v=1790706473377" defer></script>
-</body></html>
+
+<script src="/assets/js/main.js?v=1790707737443" defer></script>
+
+</body>
+</html>

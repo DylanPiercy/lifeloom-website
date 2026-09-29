@@ -136,6 +136,7 @@ templates/
     ├── site-head.html         # shared favicon, theme bootstrap and head assets
     ├── site-header.html       # shared site navigation
     ├── site-footer.html       # shared site footer
+    ├── app-card.html          # reusable apps catalogue card
     └── site-scripts.html      # shared page JavaScript include
 scripts/
 ├── build.mjs                 # single full-build coordinator
@@ -214,12 +215,25 @@ The build converts these values into shared template tokens such as `{{FAVICON_A
 
 ## Adding another app
 
-App pages use a shared template rather than duplicated hand-written HTML. To add an app:
+App pages use a shared detail template and the apps catalogue uses the extracted `templates/partials/app-card.html` card template. To add an app:
 
 1. Copy `content/apps/rivalry.json` to a new slug, for example `content/apps/new-app.json`.
 2. Replace the app-specific content, theme, brand key and store-link keys.
-3. Add the matching brand asset/config entries when available.
-4. Run `npm run build:apps` (or `npm run prepare`).
+3. Configure the catalogue card through the app's `card` object:
+
+```json
+"card": {
+  "colour": "#d946ef",
+  "logo": null,
+  "comingSoon": true,
+  "order": 1
+}
+```
+
+`colour` controls the card accent, `logo` can point at a public app-logo asset (or remain `null` to use the shared placeholder), `comingSoon` optionally shows the status badge, and `order` controls catalogue ordering. The shared template receives these values as render arguments, so app-card markup is not duplicated per app.
+
+4. Add the matching app brand asset/config entry when available.
+5. Run `npm run build:apps` (or `npm run prepare`).
 
 The build regenerates the app catalogue and each `/apps/<slug>/` static page. The generated HTML remains deployable as a normal lightweight static Firebase site. `npm run build` is the single full-build entry point; the narrower `build:apps`, `build:content`, `build:brand`, and `build:canonical` commands remain available for focused development work.
 

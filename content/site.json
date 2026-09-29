@@ -37,7 +37,8 @@
     "appStore": "App Store",
     "overview": "Overview",
     "availability": "Availability",
-    "storePlaceholder": "Store links will appear here when available."
+    "storePlaceholder": "Store links will appear here when available.",
+    "viewApp": "Explore App"
   },
   "assets": {
     "brand": {
