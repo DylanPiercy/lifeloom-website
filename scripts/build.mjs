@@ -1,4 +1,5 @@
 import process from 'node:process';
+import { buildAppAssets } from './build-app-assets.mjs';
 import { buildAppPages } from './build-app-pages.mjs';
 import { buildBrandAssets } from './build-brand-assets.mjs';
 import { buildCanonicalDomain } from './build-canonical-domain.mjs';
@@ -13,6 +14,7 @@ console.log(`Created deployment asset version ${version}.`);
 const context = await createBuildContext(root);
 
 await buildBrandAssets(context);
+await buildAppAssets(context);
 await buildCanonicalDomain(context);
 await buildContentPages(context);
 await buildAppPages(context);

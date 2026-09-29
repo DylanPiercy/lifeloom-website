@@ -39,13 +39,23 @@ export function renderSiteHeader(template, site, sharedTokens, activePage = '') 
 }
 
 
+function resolveAppAssetPath(app, value) {
+  const asset = String(value || '').trim();
+  if (!asset || asset.startsWith('/') || /^https?:\/\//i.test(asset)) return asset;
+
+  const publicDirectory = String(app.assets?.publicDirectory || '').trim().replace(/\/$/, '');
+  return publicDirectory ? `${publicDirectory}/${asset}` : asset;
+}
+
 export function getAppPresentation(app, site, sharedTokens) {
   const card = app.card || {};
+  const configuredLogo = card.logo ?? app.assets?.icon;
+  const logoAsset = resolveAppAssetPath(app, configuredLogo) || sharedTokens.APP_PLACEHOLDER_ASSET;
 
   return {
     colour: String(card.colour || site.appUi?.defaultCardColour || '#8178ff').trim(),
     comingSoon: card.comingSoon === true,
-    logoAsset: String(card.logo || sharedTokens.APP_PLACEHOLDER_ASSET).trim()
+    logoAsset: String(logoAsset).trim()
   };
 }
 

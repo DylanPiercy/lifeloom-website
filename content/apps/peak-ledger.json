@@ -50,8 +50,12 @@
   },
   "card": {
     "colour": "#4ade80",
-    "logo": null,
+    "logo": "peakledger.png",
     "comingSoon": true,
     "order": 2
+  },
+  "assets": {
+    "sourceDirectory": "assets/peakledger",
+    "publicDirectory": "/assets/peakledger"
   }
 }

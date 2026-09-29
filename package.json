@@ -5,6 +5,7 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "build:brand": "node scripts/build-brand-assets.mjs",
+    "build:app-assets": "node scripts/build-app-assets.mjs",
     "build:canonical": "node scripts/build-canonical-domain.mjs",
     "build:content": "node scripts/build-content-pages.mjs",
     "build:apps": "node scripts/build-app-pages.mjs",

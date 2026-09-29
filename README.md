@@ -11,7 +11,7 @@ Public static website for **LifeLoom**, designed for Firebase Hosting.
 - Minimal vanilla JavaScript
 - Firebase Hosting
 
-The website itself has no client-side framework. Small build scripts generate static HTML from structured JSON content. LifeLoom logo assets are tracked as normal public website assets, while environment-specific configuration and optional app brand assets remain local.
+The website itself has no client-side framework. Small build scripts generate static HTML from structured JSON content. Public LifeLoom and app assets are tracked under `assets/`, while environment-specific configuration remains local.
 
 ## Repository-safe configuration
 
@@ -21,7 +21,6 @@ Ignored local files:
 
 - `.firebaserc` — generated from your local Firebase project ID.
 - `config/site.local.json` — support email, Firebase references and store links.
-- `brand-assets/*` — optional app-specific logos/brand files kept local until supplied.
 - `public/runtime/` — generated deployment copies of local configuration/assets.
 
 Page copy is stored in tracked `content/*.json` files and rendered into reusable HTML templates. App detail pages use `templates/app-page.html` + `content/apps/*.json`; legal documents use `templates/legal-document.html` + `content/legal/*.json`. Shared site chrome and document assets are extracted under `templates/partials/`. Shared site values, including logo, favicon, social-image and placeholder asset references, live in `content/site.json` and are exposed to every template through one build context.
@@ -59,7 +58,7 @@ Edit `config/site.local.json` with your local values:
 }
 ```
 
-Place the LifeLoom logo variants in `assets/lifeloom/`. Their filenames and public paths are configured centrally under `assets` in `content/site.json`; the current configuration uses all five LifeLoom PNG files documented below. Optional app-specific assets continue to use `brand-assets/` and the filenames configured above.
+Place the LifeLoom logo variants in `assets/lifeloom/`. Their filenames and public paths are configured centrally under `assets` in `content/site.json`; the current configuration uses all five LifeLoom PNG files documented below. App-specific public assets live in their own `assets/<app>/` directories and are configured in each app JSON file.
 
 Then run:
 
@@ -105,7 +104,6 @@ firebase deploy --only hosting
 ```text
 assets/
 └── lifeloom/                  # tracked LifeLoom PNG logo variants
-brand-assets/                 # optional app assets; ignored
 config/
 ├── site.example.json         # tracked template
 └── site.local.json           # local values; ignored
@@ -141,6 +139,7 @@ templates/
 scripts/
 ├── build.mjs                 # single full-build coordinator
 ├── build-brand-assets.mjs
+├── build-app-assets.mjs
 ├── build-canonical-domain.mjs
 ├── build-content-pages.mjs
 ├── build-app-pages.mjs
@@ -208,7 +207,7 @@ The build converts these values into shared template tokens such as `{{FAVICON_A
 
 ## Build architecture
 
-`npm run build` executes `scripts/build.mjs`. It creates one deployment asset version, creates one shared build context, then runs brand-asset preparation, canonical-domain generation, content-page generation and app-page generation in sequence.
+`npm run build` executes `scripts/build.mjs`. It creates one deployment asset version, creates one shared build context, then runs LifeLoom brand-asset preparation, app-asset preparation, canonical-domain generation, content-page generation and app-page generation in sequence.
 
 `scripts/lib/build-context.mjs` loads `content/site.json`, app definitions, shared partials and site-wide tokens once. `scripts/lib/page-renderer.mjs` is the single page-writing path used by both content and app builders, so header/footer/head/script rendering and generated-file handling are no longer duplicated between build scripts.
 
@@ -230,12 +229,12 @@ App pages use a shared detail template and the apps catalogue uses the extracted
 }
 ```
 
-`colour` controls the card accent, `logo` can point at a public app-logo asset (or remain `null` to use the shared placeholder), `comingSoon` optionally shows the status badge, and `order` controls catalogue ordering. The shared template receives these values as render arguments, so app-card markup is not duplicated per app.
+`colour` controls the card accent, `logo` sets the app icon filename (resolved against the app `assets.publicDirectory` when relative), `comingSoon` optionally shows the status badge, and `order` controls catalogue ordering. A missing or null logo falls back to the shared placeholder. The same resolved logo is used by both the catalogue card and app detail page, so app presentation markup is not duplicated per app.
 
-4. Add the matching app brand asset/config entry when available.
-5. Run `npm run build:apps` (or `npm run prepare`).
+4. Add the app assets under `assets/<app>/` and configure their source directory, public directory and filenames through the app JSON `assets` object.
+5. Run `npm run build` (or `npm run prepare`) so configured app assets are copied before the pages are generated.
 
-The build regenerates the app catalogue and each `/apps/<slug>/` static page. The generated HTML remains deployable as a normal lightweight static Firebase site. `npm run build` is the single full-build entry point; the narrower `build:apps`, `build:content`, `build:brand`, and `build:canonical` commands remain available for focused development work.
+The build regenerates the app catalogue and each `/apps/<slug>/` static page. The generated HTML remains deployable as a normal lightweight static Firebase site. `npm run build` is the single full-build entry point; the narrower `build:apps`, `build:app-assets`, `build:content`, `build:brand`, and `build:canonical` commands remain available for focused development work.
 
 ## Connect lifeloom.co.uk
 
@@ -250,7 +249,7 @@ In Firebase Console:
 ## Before launch
 
 - Confirm the five LifeLoom PNG variants are present under `assets/lifeloom/`.
-- Add app-specific logos under `brand-assets/` when they are ready.
+- Add app-specific public assets under `assets/<app>/` and reference them from that app's JSON.
 - Set the actual Firebase project ID in `config/site.local.json`.
 - Confirm the configured support email.
 - Add Google Play/App Store links when available.
@@ -258,7 +257,7 @@ In Firebase Console:
 
 ## GitHub
 
-Because local config and optional app-specific assets are ignored, normal Git commands are safe. The LifeLoom logo PNGs under `assets/lifeloom/` are public website assets and can be committed:
+Because local configuration is ignored, normal Git commands are safe. Public website assets under `assets/` can be committed:
 
 ```bash
 git init

@@ -51,8 +51,14 @@
   },
   "card": {
     "colour": "#d946ef",
-    "logo": null,
+    "logo": "rivalry.png",
     "comingSoon": true,
     "order": 1
+  },
+  "assets": {
+    "sourceDirectory": "assets/rivalry",
+    "publicDirectory": "/assets/rivalry",
+    "markLight": "rivalry_r_light.png",
+    "markDark": "rivalry_r_dark.png"
   }
 }

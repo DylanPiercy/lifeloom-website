@@ -111,6 +111,26 @@ async function loadApps(appContentDir) {
       throw new Error(`App card logo must be a string or null in ${file}.`);
     }
 
+    if (app.assets !== undefined) {
+      if (!app.assets || typeof app.assets !== 'object' || Array.isArray(app.assets)) {
+        throw new Error(`App assets must be an object in ${file}.`);
+      }
+
+      const sourceDirectory = String(app.assets.sourceDirectory || '').trim();
+      const publicDirectory = String(app.assets.publicDirectory || '').trim();
+      const configuredFiles = Object.entries(app.assets)
+        .filter(([key]) => !['sourceDirectory', 'publicDirectory'].includes(key))
+        .map(([, value]) => value)
+        .filter((value) => value !== undefined && value !== null);
+
+      if (configuredFiles.length && (!sourceDirectory || !publicDirectory)) {
+        throw new Error(`App assets must define sourceDirectory and publicDirectory in ${file}.`);
+      }
+      if (configuredFiles.some((value) => typeof value !== 'string')) {
+        throw new Error(`Configured app asset filenames must be strings in ${file}.`);
+      }
+    }
+
     apps.push(app);
   }
   return apps;
