@@ -1,6 +1,92 @@
 <!doctype html><html lang="en-GB"><head>{{SITE_HEAD}}<title>{{TITLE}}</title><meta name="description" content="{{META_DESCRIPTION}}"><link rel="canonical" href="https://{{DOMAIN}}/apps/{{SLUG}}/"><meta property="og:image" content="{{SOCIAL_IMAGE_URL}}?v={{ASSET_VERSION}}"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="{{SOCIAL_IMAGE_URL}}?v={{ASSET_VERSION}}"></head><body>
 {{SITE_HEADER}}
-<main id="main"><section class="app-detail-hero" style="--app-hero-bg:{{HERO_BACKGROUND}};--app-hero-glow:{{HERO_GLOW}};--app-hero-muted:{{HERO_TEXT_MUTED}};--app-hero-accent:{{HERO_ACCENT}}"><div class="container hero-grid"><div><img class="app-detail-mark" src="{{APP_PLACEHOLDER_ASSET}}?v={{ASSET_VERSION}}" data-brand="{{BRAND_KEY}}" alt="{{NAME}}"><span class="eyebrow">{{HERO_EYEBROW}}</span><h1>{{HERO_HEADING}}</h1><p class="lede">{{HERO_DESCRIPTION}}</p><div class="hero-actions"><a class="button button-secondary" href="/support/">{{ACTION_SUPPORT}}</a>{{PRIVACY_ACTION}}</div></div><div class="app-detail-preview" aria-hidden="true"><div class="phone one"><div class="phone-notch"></div><div class="phone-ui"><div class="mini-title">{{PREVIEW_PRIMARY}}</div><div class="mini-card"></div><div class="mini-row"><div></div><div></div></div></div></div><div class="phone two"><div class="phone-notch"></div><div class="phone-ui"><div class="mini-title">{{PREVIEW_SECONDARY}}</div><div class="mini-card"></div><div class="mini-card"></div><div class="mini-card"></div></div></div></div></div></section>
-<section class="section"><div class="container"><div class="section-heading"><div><span class="eyebrow">{{SECTION_EYEBROW}}</span><h2>{{SECTION_HEADING}}</h2></div><p class="muted">{{SECTION_DESCRIPTION}}</p></div><div class="feature-list">{{FEATURES}}</div></div></section>
-<section class="section-sm"><div class="container"><div class="about-strip"><div><span class="eyebrow">{{AVAILABILITY_EYEBROW}}</span><h2>{{AVAILABILITY_HEADING}}</h2><p data-store-placeholder>{{AVAILABILITY_PLACEHOLDER}}</p>{{AVAILABILITY_ACTIONS}}</div><a class="button button-secondary" href="/support/">{{ACTION_GET_SUPPORT}}</a></div></div></section></main>
+<main id="main" class="app-product-page" style="--app-colour:{{APP_COLOUR}};--app-hero-bg:{{HERO_BACKGROUND}};--app-hero-glow:{{HERO_GLOW}};--app-hero-muted:{{HERO_TEXT_MUTED}};--app-hero-accent:{{HERO_ACCENT}}">
+  <section class="app-product-hero">
+    <div class="app-product-hero-ambient" aria-hidden="true"></div>
+    <div class="container app-product-hero-grid">
+      <div class="app-product-copy">
+        <a class="app-product-back" href="/apps/">← {{ACTION_ALL_APPS}}</a>
+        <div class="app-product-meta">
+          <div class="app-product-icon-shell">
+            <img class="app-product-icon" src="{{APP_LOGO_ASSET}}?v={{ASSET_VERSION}}" data-brand="{{BRAND_KEY}}" alt="">
+          </div>
+          <div class="app-product-meta-copy">
+            <span class="app-product-kicker">{{HERO_EYEBROW}}</span>
+            {{APP_STATUS}}
+          </div>
+        </div>
+        <h1 class="app-product-name">{{NAME}}</h1>
+        <p class="app-product-tagline">{{HERO_HEADING}}</p>
+        <p class="app-product-description">{{HERO_DESCRIPTION}}</p>
+        <div class="app-product-highlights" aria-label="Key features">{{HERO_HIGHLIGHTS}}</div>
+        <div class="app-product-actions">
+          <a class="button app-product-primary-action" href="#features">{{ACTION_EXPLORE_FEATURES}}</a>
+          {{PRIVACY_ACTION}}
+        </div>
+      </div>
+
+      <div class="app-product-showcase" aria-hidden="true">
+        <span class="app-showcase-glow"></span>
+        <span class="app-showcase-orbit app-showcase-orbit-large"></span>
+        <span class="app-showcase-orbit app-showcase-orbit-small"></span>
+        <span class="app-showcase-watermark">{{NAME}}</span>
+
+        <div class="app-showcase-device app-showcase-device-primary">
+          <div class="app-showcase-device-bar"><span></span><span></span></div>
+          <div class="app-showcase-device-content">
+            <span class="app-showcase-label">{{PREVIEW_PRIMARY}}</span>
+            <div class="app-showcase-hero-block"></div>
+            <div class="app-showcase-row"><span></span><span></span></div>
+            <div class="app-showcase-list"><span></span><span></span><span></span></div>
+          </div>
+        </div>
+
+        <div class="app-showcase-device app-showcase-device-secondary">
+          <div class="app-showcase-device-bar"><span></span><span></span></div>
+          <div class="app-showcase-device-content">
+            <span class="app-showcase-label">{{PREVIEW_SECONDARY}}</span>
+            <div class="app-showcase-score"><strong>1</strong><span>2</span><span>3</span></div>
+            <div class="app-showcase-list"><span></span><span></span><span></span><span></span></div>
+          </div>
+        </div>
+
+        <div class="app-showcase-icon-shell">
+          <img class="app-showcase-icon" src="{{APP_LOGO_ASSET}}?v={{ASSET_VERSION}}" data-brand="{{BRAND_KEY}}" alt="">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section app-product-features" id="features">
+    <div class="container">
+      <div class="app-product-section-heading">
+        <div>
+          <span class="app-product-kicker">{{SECTION_EYEBROW}}</span>
+          <h2>{{SECTION_HEADING}}</h2>
+        </div>
+        <p>{{SECTION_DESCRIPTION}}</p>
+      </div>
+      <div class="app-product-feature-grid">{{FEATURES}}</div>
+    </div>
+  </section>
+
+  <section class="section-sm app-product-availability">
+    <div class="container">
+      <div class="app-availability-panel">
+        <div class="app-availability-copy">
+          <span class="app-product-kicker">{{AVAILABILITY_EYEBROW}}</span>
+          <h2>{{AVAILABILITY_HEADING}}</h2>
+          <p data-store-placeholder>{{AVAILABILITY_PLACEHOLDER}}</p>
+          {{AVAILABILITY_ACTIONS}}
+        </div>
+        <div class="app-availability-side">
+          <div class="app-availability-logo-shell" aria-hidden="true">
+            <img src="{{APP_LOGO_ASSET}}?v={{ASSET_VERSION}}" data-brand="{{BRAND_KEY}}" alt="">
+          </div>
+          <a class="button button-secondary" href="/support/">{{ACTION_GET_SUPPORT}}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
 {{SITE_FOOTER}}{{SITE_SCRIPTS}}</body></html>

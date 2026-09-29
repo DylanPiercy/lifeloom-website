@@ -2,7 +2,7 @@ import path from 'node:path';
 import { createBuildContext } from './lib/build-context.mjs';
 import { isMainModule } from './lib/module.mjs';
 import { createPageRenderer } from './lib/page-renderer.mjs';
-import { escapeHtml, readJson, renderAppCard } from './lib/render.mjs';
+import { escapeHtml, getAppPresentation, readJson, renderAppCard } from './lib/render.mjs';
 
 export async function buildAppPages(context) {
   context ??= await createBuildContext();
@@ -16,8 +16,13 @@ export async function buildAppPages(context) {
   const appsIndex = await readJson(path.join(appContentDir, 'index.json'));
 
   for (const app of apps) {
+    const presentation = getAppPresentation(app, site, context.sharedTokens);
     const features = (app.features || [])
-      .map((feature) => `<article class="feature-item"><h3>${escapeHtml(feature.title)}</h3><p>${escapeHtml(feature.description)}</p></article>`)
+      .map((feature, index) => `<article class="app-product-feature"><span class="app-product-feature-number">${String(index + 1).padStart(2, '0')}</span><div><h3>${escapeHtml(feature.title)}</h3><p>${escapeHtml(feature.description)}</p></div></article>`)
+      .join('');
+    const heroHighlights = (app.features || [])
+      .slice(0, 3)
+      .map((feature) => `<span>${escapeHtml(feature.title)}</span>`)
       .join('');
 
     await renderPage({
@@ -35,6 +40,14 @@ export async function buildAppPages(context) {
         SLUG: escapeHtml(app.slug),
         BRAND_KEY: escapeHtml(app.brandKey),
         NAME: escapeHtml(app.name),
+        APP_COLOUR: escapeHtml(presentation.colour),
+        APP_LOGO_ASSET: escapeHtml(presentation.logoAsset),
+        APP_STATUS: presentation.comingSoon
+          ? `<span class="app-status">${escapeHtml(site.appUi.comingSoon)}</span>`
+          : '',
+        HERO_HIGHLIGHTS: heroHighlights,
+        ACTION_ALL_APPS: escapeHtml(site.appUi.allApps || 'All Apps'),
+        ACTION_EXPLORE_FEATURES: escapeHtml(site.appUi.exploreFeatures || 'Explore Features'),
         HERO_BACKGROUND: escapeHtml(app.theme?.heroBackground || '#111827'),
         HERO_GLOW: escapeHtml(app.theme?.heroGlow || 'rgba(99,102,241,.25)'),
         HERO_TEXT_MUTED: escapeHtml(app.theme?.heroTextMuted || '#d1d5db'),

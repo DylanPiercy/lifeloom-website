@@ -39,11 +39,18 @@ export function renderSiteHeader(template, site, sharedTokens, activePage = '') 
 }
 
 
-export function renderAppCard(template, app, site, sharedTokens) {
+export function getAppPresentation(app, site, sharedTokens) {
   const card = app.card || {};
-  const logoAsset = String(card.logo || sharedTokens.APP_PLACEHOLDER_ASSET).trim();
-  const colour = String(card.colour || site.appUi?.defaultCardColour || '#8178ff').trim();
-  const comingSoon = card.comingSoon === true;
+
+  return {
+    colour: String(card.colour || site.appUi?.defaultCardColour || '#8178ff').trim(),
+    comingSoon: card.comingSoon === true,
+    logoAsset: String(card.logo || sharedTokens.APP_PLACEHOLDER_ASSET).trim()
+  };
+}
+
+export function renderAppCard(template, app, site, sharedTokens) {
+  const { colour, comingSoon, logoAsset } = getAppPresentation(app, site, sharedTokens);
   const highlights = (app.features || [])
     .slice(0, 3)
     .map((feature) => `<span>${escapeHtml(feature.title)}</span>`)

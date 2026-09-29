@@ -38,7 +38,9 @@
     "overview": "Overview",
     "availability": "Availability",
     "storePlaceholder": "Store links will appear here when available.",
-    "viewApp": "Explore App"
+    "viewApp": "Explore App",
+    "allApps": "All Apps",
+    "exploreFeatures": "Explore Features"
   },
   "assets": {
     "brand": {
