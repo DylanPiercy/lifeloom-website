@@ -21,16 +21,14 @@
   <section class="hero">
     <div class="container hero-grid">
       <div class="hero-copy">
-        <span class="eyebrow">{{HERO_EYEBROW}}</span>
         <h1>{{HERO_HEADING}} <span>{{HERO_HEADING_ACCENT}}</span></h1>
         <p class="lede">{{HERO_DESCRIPTION}}</p>
         <div class="hero-actions">
           <a class="button button-primary" href="/apps/">{{HERO_PRIMARY_ACTION}} <span aria-hidden="true">→</span></a>
         </div>
-        <div class="hero-note"><span class="hero-note-dot"></span>{{HERO_NOTE}}</div>
       </div>
       <div class="loom-visual" aria-hidden="true">
-        <div class="orbit one"></div><div class="orbit two"></div><div class="orbit-dot"></div>
+        <div class="orbit one"></div><div class="orbit two"></div>
         <div class="loom-panel"><div class="loom-mark"><img src="{{BRAND_SYMBOL_ASSET}}?v={{ASSET_VERSION}}" alt="{{BRAND_NAME}}"></div></div>
       </div>
     </div>
@@ -38,14 +36,11 @@
 
   <section class="section" id="apps">
     <div class="container">
-      <div class="section-heading">
-        <div><span class="eyebrow">{{APPS_EYEBROW}}</span><h2>{{APPS_HEADING}}</h2></div>
-        <p class="muted">{{APPS_DESCRIPTION}}</p>
-      </div>
+      <div class="apps-section-kicker"><span class="eyebrow">{{APPS_EYEBROW}}</span></div>
       <article class="app-feature">
+        <span class="featured-app-badge">{{FEATURED_EYEBROW}}</span>
         <div class="app-copy">
           <img class="app-icon" src="{{APP_PLACEHOLDER_ASSET}}?v={{ASSET_VERSION}}" data-brand="{{FEATURED_APP_SLUG}}" alt="{{FEATURED_APP_NAME}} app icon">
-          <span class="eyebrow">{{FEATURED_EYEBROW}}</span>
           <h2>{{FEATURED_APP_NAME}}</h2>
           <p>{{FEATURED_DESCRIPTION}}</p>
           <div class="app-tags">{{FEATURED_TAGS}}</div>
@@ -56,13 +51,27 @@
           <div class="phone two"><div class="phone-notch"></div><div class="phone-ui"><div class="mini-title">{{FEATURED_PREVIEW_SECONDARY}}</div><div class="mini-card"></div><div class="mini-card"></div><div class="mini-card"></div></div></div>
         </div>
       </article>
-    </div>
-  </section>
 
-  <section class="section">
-    <div class="container">
-      <div class="section-heading"><div><span class="eyebrow">{{PRINCIPLES_EYEBROW}}</span><h2>{{PRINCIPLES_HEADING}}</h2></div></div>
-      <div class="grid-3">{{PRINCIPLE_CARDS}}</div>
+      <div class="apps-discovery">
+        <div class="apps-placeholder-grid" aria-hidden="true">
+          <div class="app-placeholder-card">
+            <div class="app-placeholder-icon"></div>
+            <div class="app-placeholder-line app-placeholder-line-short"></div>
+            <div class="app-placeholder-line"></div>
+          </div>
+          <div class="app-placeholder-card">
+            <div class="app-placeholder-icon"></div>
+            <div class="app-placeholder-line app-placeholder-line-short"></div>
+            <div class="app-placeholder-line"></div>
+          </div>
+          <div class="app-placeholder-card">
+            <div class="app-placeholder-icon"></div>
+            <div class="app-placeholder-line app-placeholder-line-short"></div>
+            <div class="app-placeholder-line"></div>
+          </div>
+        </div>
+        <a class="button button-primary apps-discovery-action" href="/apps/">{{EXPLORE_ALL_APPS_ACTION}} <span aria-hidden="true">→</span></a>
+      </div>
     </div>
   </section>
 
@@ -70,6 +79,9 @@
     <div class="container">
       <div class="about-strip">
         <div><span class="eyebrow">{{ABOUT_STRIP_EYEBROW}}</span><h2>{{ABOUT_STRIP_HEADING}}</h2><p>{{ABOUT_STRIP_DESCRIPTION}}</p></div>
+        <div class="about-strip-logo" aria-hidden="true">
+          <img src="{{BRAND_SYMBOL_ASSET}}?v={{ASSET_VERSION}}" alt="">
+        </div>
       </div>
     </div>
   </section>

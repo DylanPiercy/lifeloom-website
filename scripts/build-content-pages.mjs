@@ -3,7 +3,7 @@ import path from 'node:path';
 import { createBuildContext } from './lib/build-context.mjs';
 import { isMainModule } from './lib/module.mjs';
 import { createPageRenderer } from './lib/page-renderer.mjs';
-import { escapeHtml, readJson, renderInfoCards } from './lib/render.mjs';
+import { escapeHtml, readJson } from './lib/render.mjs';
 
 export async function buildContentPages(context) {
   context ??= await createBuildContext();
@@ -34,15 +34,11 @@ export async function buildContentPages(context) {
       META_DESCRIPTION: escapeHtml(home.seo.description),
       OG_TITLE: escapeHtml(home.seo.ogTitle),
       OG_DESCRIPTION: escapeHtml(home.seo.ogDescription),
-      HERO_EYEBROW: escapeHtml(home.hero.eyebrow),
       HERO_HEADING: escapeHtml(home.hero.heading),
       HERO_HEADING_ACCENT: escapeHtml(home.hero.headingAccent),
       HERO_DESCRIPTION: escapeHtml(home.hero.description),
       HERO_PRIMARY_ACTION: escapeHtml(home.hero.primaryAction),
-      HERO_NOTE: escapeHtml(home.hero.note),
       APPS_EYEBROW: escapeHtml(home.appsSection.eyebrow),
-      APPS_HEADING: escapeHtml(home.appsSection.heading),
-      APPS_DESCRIPTION: escapeHtml(home.appsSection.description),
       FEATURED_EYEBROW: escapeHtml(home.appsSection.featuredEyebrow),
       FEATURED_APP_SLUG: escapeHtml(home.appsSection.featuredAppSlug),
       FEATURED_APP_NAME: escapeHtml(home.appsSection.featuredAppName),
@@ -51,9 +47,7 @@ export async function buildContentPages(context) {
       FEATURED_ACTION: escapeHtml(home.appsSection.featuredAction),
       FEATURED_PREVIEW_PRIMARY: escapeHtml(home.appsSection.previewPrimary),
       FEATURED_PREVIEW_SECONDARY: escapeHtml(home.appsSection.previewSecondary),
-      PRINCIPLES_EYEBROW: escapeHtml(home.principlesSection.eyebrow),
-      PRINCIPLES_HEADING: escapeHtml(home.principlesSection.heading),
-      PRINCIPLE_CARDS: renderInfoCards(home.principlesSection.items),
+      EXPLORE_ALL_APPS_ACTION: escapeHtml(home.appsSection.exploreAllAction),
       ABOUT_STRIP_EYEBROW: escapeHtml(home.aboutStrip.eyebrow),
       ABOUT_STRIP_HEADING: escapeHtml(home.aboutStrip.heading),
       ABOUT_STRIP_DESCRIPTION: escapeHtml(home.aboutStrip.description)
