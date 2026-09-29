@@ -250,6 +250,8 @@ The catalogue card and detail page both use the same app configuration. Example:
 - `assets.sourceDirectory` identifies the tracked asset source folder.
 - `assets.publicDirectory` identifies the deployed URL directory.
 
+App logos are resolved from these app JSON files at build time. Local runtime configuration no longer overrides app image paths, so catalogue cards, detail pages, the homepage featured app and app-specific support cards all use the same configured logo source.
+
 The app catalogue card itself is extracted to:
 
 ```text

@@ -72,7 +72,6 @@ export function renderAppCard(template, app, site, sharedTokens) {
     APP_NAME: escapeHtml(app.name),
     APP_SUMMARY: escapeHtml(app.summary),
     APP_EYEBROW: escapeHtml(app.hero?.eyebrow || site.appUi?.appEyebrow || 'A LifeLoom app'),
-    APP_BRAND_KEY: escapeHtml(app.brandKey),
     APP_COLOUR: escapeHtml(colour),
     APP_LOGO_ASSET: escapeHtml(logoAsset),
     APP_HIGHLIGHTS: highlights,

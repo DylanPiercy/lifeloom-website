@@ -3,11 +3,12 @@ import path from 'node:path';
 import { createBuildContext } from './lib/build-context.mjs';
 import { isMainModule } from './lib/module.mjs';
 import { createPageRenderer } from './lib/page-renderer.mjs';
-import { escapeHtml, readJson } from './lib/render.mjs';
+import { escapeHtml, getAppPresentation, readJson } from './lib/render.mjs';
 
 export async function buildContentPages(context) {
   context ??= await createBuildContext();
   const {
+    apps,
     contentDir,
     publicDir,
     site,
@@ -22,6 +23,11 @@ export async function buildContentPages(context) {
   const homeTags = home.appsSection.featuredTags
     .map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`)
     .join('');
+
+  const featuredApp = apps.find((app) => app.slug === home.appsSection.featuredAppSlug);
+  const featuredPresentation = featuredApp
+    ? getAppPresentation(featuredApp, site, sharedTokens)
+    : { logoAsset: sharedTokens.APP_PLACEHOLDER_ASSET };
 
   await renderPage({
     templateName: 'home.html',
@@ -42,6 +48,7 @@ export async function buildContentPages(context) {
       FEATURED_EYEBROW: escapeHtml(home.appsSection.featuredEyebrow),
       FEATURED_APP_SLUG: escapeHtml(home.appsSection.featuredAppSlug),
       FEATURED_APP_NAME: escapeHtml(home.appsSection.featuredAppName),
+      FEATURED_APP_LOGO_ASSET: escapeHtml(featuredPresentation.logoAsset),
       FEATURED_DESCRIPTION: escapeHtml(home.appsSection.featuredDescription),
       FEATURED_TAGS: homeTags,
       FEATURED_ACTION: escapeHtml(home.appsSection.featuredAction),
@@ -56,8 +63,14 @@ export async function buildContentPages(context) {
 
   const support = await readJson(path.join(contentDir, 'support.json'));
   const supportCards = support.cards.map((card) => {
-    const icon = card.brandKey
-      ? `<img class="app-icon" src="${sharedTokens.APP_PLACEHOLDER_ASSET}?v=${sharedTokens.ASSET_VERSION}" data-brand="${escapeHtml(card.brandKey)}" alt="">`
+    const supportApp = card.brandKey
+      ? apps.find((app) => app.brandKey === card.brandKey)
+      : null;
+    const supportLogo = supportApp
+      ? getAppPresentation(supportApp, site, sharedTokens).logoAsset
+      : '';
+    const icon = supportLogo
+      ? `<img class="app-icon" src="${escapeHtml(supportLogo)}?v=${sharedTokens.ASSET_VERSION}" alt="">`
       : '';
     const link = card.type === 'email'
       ? `<a href="/support/" data-support-email${card.subject ? ` data-support-subject="${escapeHtml(card.subject)}"` : ''}${card.showEmail ? ' data-show-email="true"' : ''}${card.arrow ? ' data-arrow="true"' : ''}>${escapeHtml(card.action)}</a>`

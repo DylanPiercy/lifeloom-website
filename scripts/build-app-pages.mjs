@@ -38,7 +38,6 @@ export async function buildAppPages(context) {
         TITLE: escapeHtml(`${app.name} — ${site.brandName}`),
         META_DESCRIPTION: escapeHtml(app.metaDescription),
         SLUG: escapeHtml(app.slug),
-        BRAND_KEY: escapeHtml(app.brandKey),
         NAME: escapeHtml(app.name),
         APP_COLOUR: escapeHtml(presentation.colour),
         APP_LOGO_ASSET: escapeHtml(presentation.logoAsset),

@@ -2,11 +2,6 @@
   "firebaseProjectId": "YOUR_FIREBASE_PROJECT_ID",
   "firebaseHostingUrl": "https://YOUR_FIREBASE_PROJECT_ID.web.app",
   "supportEmail": "support@example.com",
-  "brandAssets": {
-    "rivalry": "rivalry-mark.svg",
-    "peakLedger": "peak-ledger-mark.svg",
-    "fugitives": "fugitives-mark.svg"
-  },
   "storeLinks": {
     "rivalryGooglePlay": "",
     "rivalryAppStore": ""

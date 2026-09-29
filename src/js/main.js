@@ -66,18 +66,6 @@
   });
 
   const applyConfig = (config) => {
-    const brandAssets = config.brandAssets || {};
-
-    document.querySelectorAll('[data-brand]').forEach((img) => {
-      const asset = brandAssets[img.dataset.brand];
-      if (asset) img.src = asset;
-    });
-
-    document.querySelectorAll('[data-brand-icon]').forEach((link) => {
-      const asset = brandAssets[link.dataset.brandIcon];
-      if (asset) link.href = asset;
-    });
-
     const email = config.supportEmail;
     if (email) {
       document.querySelectorAll('[data-support-email]').forEach((link) => {

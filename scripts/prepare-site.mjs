@@ -1,13 +1,10 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
-import { readBuildVersion } from './lib/build-version.mjs';
 
 const root = process.cwd();
 const configPath = path.join(root, 'config', 'site.local.json');
 const runtimeDir = path.join(root, 'public', 'runtime');
-const runtimeBrandDir = path.join(runtimeDir, 'brand');
-const assetVersion = await readBuildVersion(root);
 
 async function exists(filePath) {
   try {
@@ -34,27 +31,12 @@ if (!localConfig.firebaseProjectId || localConfig.firebaseProjectId === 'YOUR_FI
 }
 
 await fs.rm(runtimeDir, { recursive: true, force: true });
-await fs.mkdir(runtimeBrandDir, { recursive: true });
+await fs.mkdir(runtimeDir, { recursive: true });
 
 const runtimeConfig = {
   supportEmail: localConfig.supportEmail || '',
-  brandAssets: {},
   storeLinks: localConfig.storeLinks || {}
 };
-
-for (const [brandKey, fileName] of Object.entries(localConfig.brandAssets || {})) {
-  if (!fileName) continue;
-  const source = path.join(root, 'brand-assets', fileName);
-  if (!(await exists(source))) {
-    console.warn(`Brand asset not found: brand-assets/${fileName}`);
-    continue;
-  }
-
-  const safeName = path.basename(fileName);
-  const destination = path.join(runtimeBrandDir, safeName);
-  await fs.copyFile(source, destination);
-  runtimeConfig.brandAssets[brandKey] = `/runtime/brand/${safeName}?v=${assetVersion}`;
-}
 
 await fs.writeFile(
   path.join(runtimeDir, 'site-config.json'),
