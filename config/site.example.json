@@ -1,6 +1,5 @@
 {
   "firebaseProjectId": "YOUR_FIREBASE_PROJECT_ID",
-  "firebaseHostingUrl": "https://YOUR_FIREBASE_PROJECT_ID.web.app",
   "supportEmail": "support@example.com",
   "storeLinks": {
     "rivalryGooglePlay": "",
