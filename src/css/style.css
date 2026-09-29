@@ -611,7 +611,11 @@ html[data-theme="light"] .theme-toggle::before { content: "☾"; }
 .page-back-link:hover { color: var(--text); transform: translateX(-2px); }
 .app-product-hero .page-back-link { color: color-mix(in srgb, #fff 68%, transparent); }
 .app-product-hero .page-back-link:hover { color: #fff; }
-.legal-document-back { margin-bottom: 28px; }
+.legal-document-back {
+  display: flex;
+  width: fit-content;
+  margin-bottom: 28px;
+}
 .app-product-meta {
   display: flex;
   flex-direction: column;
