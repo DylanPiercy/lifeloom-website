@@ -34,7 +34,7 @@ export async function buildBrandAssets(context) {
   const sourceDirectory = String(brand.sourceDirectory || '').trim();
   const publicDirectory = String(brand.publicDirectory || '').trim();
   if (!sourceDirectory || !publicDirectory) {
-    throw new Error('content/site.json must define assets.brand.sourceDirectory and assets.brand.publicDirectory.');
+    throw new Error('src/content/site.json must define assets.brand.sourceDirectory and assets.brand.publicDirectory.');
   }
   const sourceDir = path.resolve(root, sourceDirectory);
   const outputDir = path.join(root, 'public', publicDirectory.replace(/^\/+/, ''));

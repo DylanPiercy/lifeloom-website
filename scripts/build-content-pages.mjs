@@ -26,7 +26,7 @@ export async function buildContentPages(context) {
   await renderPage({
     templateName: 'home.html',
     outputPath: 'index.html',
-    sourceLabel: 'templates/home.html + content/home.json + content/site.json',
+    sourceLabel: 'src/templates/home.html + src/content/home.json + src/content/site.json',
     activePage: 'home',
     footerOptions: { showDomain: true },
     values: {
@@ -68,7 +68,7 @@ export async function buildContentPages(context) {
   await renderPage({
     templateName: 'support.html',
     outputPath: 'support/index.html',
-    sourceLabel: 'templates/support.html + content/support.json + content/site.json',
+    sourceLabel: 'src/templates/support.html + src/content/support.json + src/content/site.json',
     activePage: 'support',
     values: {
       TITLE: escapeHtml(support.seo.title),
@@ -88,7 +88,7 @@ export async function buildContentPages(context) {
   await renderPage({
     templateName: 'legal-index.html',
     outputPath: 'legal/index.html',
-    sourceLabel: 'templates/legal-index.html + content/legal/index.json + content/site.json',
+    sourceLabel: 'src/templates/legal-index.html + src/content/legal/index.json + src/content/site.json',
     values: {
       TITLE: escapeHtml(legalIndex.seo.title),
       META_DESCRIPTION: escapeHtml(legalIndex.seo.description),
@@ -128,7 +128,7 @@ export async function buildContentPages(context) {
     await renderPage({
       templateName: 'legal-document.html',
       outputPath: document.outputPath,
-      sourceLabel: `templates/legal-document.html + content/legal/${file} + content/site.json`,
+      sourceLabel: `src/templates/legal-document.html + src/content/legal/${file} + src/content/site.json`,
       values: {
         TITLE: escapeHtml(document.seo.title),
         META_DESCRIPTION: escapeHtml(document.seo.description),
@@ -148,7 +148,7 @@ export async function buildContentPages(context) {
   await renderPage({
     templateName: '404.html',
     outputPath: '404.html',
-    sourceLabel: 'templates/404.html + content/404.json + content/site.json',
+    sourceLabel: 'src/templates/404.html + src/content/404.json + src/content/site.json',
     values: {
       TITLE: escapeHtml(notFound.seo.title),
       HERO_EYEBROW: escapeHtml(notFound.hero.eyebrow),

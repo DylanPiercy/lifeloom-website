@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "build": "node scripts/build.mjs",
+    "build:static": "node scripts/build-static-assets.mjs",
     "build:brand": "node scripts/build-brand-assets.mjs",
     "build:app-assets": "node scripts/build-app-assets.mjs",
     "build:canonical": "node scripts/build-canonical-domain.mjs",

@@ -23,7 +23,7 @@ export async function buildCanonicalDomain(context) {
     : [];
 
   if (!canonicalHost) {
-    throw new Error('content/site.json must define canonicalRedirect.host or domain.');
+    throw new Error('src/content/site.json must define canonicalRedirect.host or domain.');
   }
 
   const source = `(() => {

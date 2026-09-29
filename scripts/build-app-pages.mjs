@@ -28,7 +28,7 @@ export async function buildAppPages(context) {
     await renderPage({
       templateName: 'app-page.html',
       outputPath: `apps/${app.slug}/index.html`,
-      sourceLabel: `templates/app-page.html + content/apps/${app.slug}.json + content/site.json`,
+      sourceLabel: `src/templates/app-page.html + src/content/apps/${app.slug}.json + src/content/site.json`,
       activePage: 'apps',
       footerOptions: {
         appName: app.name,
@@ -82,7 +82,7 @@ export async function buildAppPages(context) {
   await renderPage({
     templateName: 'apps-index.html',
     outputPath: 'apps/index.html',
-    sourceLabel: 'templates/apps-index.html + templates/partials/app-card.html + content/apps/index.json + content/apps/*.json + content/site.json',
+    sourceLabel: 'src/templates/apps-index.html + src/templates/partials/app-card.html + src/content/apps/index.json + src/content/apps/*.json + src/content/site.json',
     activePage: 'apps',
     values: {
       TITLE: escapeHtml(appsIndex.seo.title),

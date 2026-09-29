@@ -10,134 +10,42 @@ Public static website for **LifeLoom**, designed for Firebase Hosting.
 - CSS
 - Minimal vanilla JavaScript
 - Firebase Hosting
+- Node build scripts
 
-The website itself has no client-side framework. Small build scripts generate static HTML from structured JSON content. Public LifeLoom and app assets are tracked under `assets/`, while environment-specific configuration remains local.
+The website has no client-side framework. Tracked source files are compiled into a disposable `public/` directory for Firebase Hosting.
 
-## Repository-safe configuration
-
-The public repository should contain only templates and source code.
-
-Ignored local files:
-
-- `.firebaserc` — generated from your local Firebase project ID.
-- `config/site.local.json` — support email, Firebase references and store links.
-- `public/runtime/` — generated deployment copies of local configuration/assets.
-
-Page copy is stored in tracked `content/*.json` files and rendered into reusable HTML templates. App detail pages use `templates/app-page.html` + `content/apps/*.json`; legal documents use `templates/legal-document.html` + `content/legal/*.json`. Shared site chrome and document assets are extracted under `templates/partials/`. Shared site values, including logo, favicon, social-image and placeholder asset references, live in `content/site.json` and are exposed to every template through one build context.
-
-Tracked examples/placeholders:
-
-- `config/site.example.json`
-- `.firebaserc.example`
-- `public/assets/img/brand-placeholder.svg`
-
-> Client-facing values such as a support email or app-store URL are visible once the website is deployed. This separation prevents them being committed to Git; it does not make public website data secret.
-
-## First-time setup
-
-```bash
-cp config/site.example.json config/site.local.json
-```
-
-Edit `config/site.local.json` with your local values:
-
-```json
-{
-  "firebaseProjectId": "YOUR_FIREBASE_PROJECT_ID",
-  "firebaseHostingUrl": "https://YOUR_FIREBASE_PROJECT_ID.web.app",
-  "supportEmail": "YOUR_SUPPORT_EMAIL",
-  "brandAssets": {
-    "rivalry": "rivalry-mark.svg",
-    "peakLedger": "peak-ledger-mark.svg",
-    "fugitives": "fugitives-mark.svg"
-  },
-  "storeLinks": {
-    "rivalryGooglePlay": "",
-    "rivalryAppStore": ""
-  }
-}
-```
-
-Place the LifeLoom logo variants in `assets/lifeloom/`. Their filenames and public paths are configured centrally under `assets` in `content/site.json`; the current configuration uses all five LifeLoom PNG files documented below. App-specific public assets live in their own `assets/<app>/` directories and are configured in each app JSON file.
-
-Then run:
-
-```bash
-npm run prepare
-```
-
-This generates the ignored runtime files used by Firebase Hosting and creates `.firebaserc` when a real Firebase project ID is configured.
-
-## Local preview
-
-Simple preview:
-
-```bash
-npm run prepare
-python3 -m http.server 8080 --directory public
-```
-
-Or with Firebase Hosting emulation:
-
-```bash
-npm install -g firebase-tools
-firebase login
-npm run serve
-```
-
-## Deploy
-
-After installing/logging into the Firebase CLI:
-
-```bash
-npm run deploy
-```
-
-This prepares the local-only configuration/assets and then runs:
-
-```bash
-firebase deploy --only hosting
-```
-
-## Structure
+## Project structure
 
 ```text
-assets/
-└── lifeloom/                  # tracked LifeLoom PNG logo variants
-config/
-├── site.example.json         # tracked template
-└── site.local.json           # local values; ignored
-content/
-├── site.json                 # shared brand/navigation/footer strings + site asset tokens
-├── home.json                 # homepage content
-├── support.json              # support page content
-├── 404.json                  # error-page content
-├── apps/
-│   ├── index.json            # apps catalogue copy
-│   ├── rivalry.json          # app content/theme data
-│   ├── peak-ledger.json      # coming-soon app data
-│   └── fugitives.json        # coming-soon app data
-└── legal/
-    ├── index.json            # legal hub copy/link list
-    ├── privacy.json          # LifeLoom privacy policy
-    ├── rivalry-privacy.json  # Rivalry privacy policy
-    └── terms.json            # unpublished terms placeholder
-templates/
-├── home.html
-├── support.html
-├── apps-index.html
-├── app-page.html
-├── legal-index.html
-├── legal-document.html
-├── 404.html
-└── partials/
-    ├── site-head.html         # shared favicon, theme bootstrap and head assets
-    ├── site-header.html       # shared site navigation
-    ├── site-footer.html       # shared site footer
-    ├── app-card.html          # reusable apps catalogue card
-    └── site-scripts.html      # shared page JavaScript include
-scripts/
-├── build.mjs                 # single full-build coordinator
+assets/                        # tracked media/source assets
+├── img/
+│   └── brand-placeholder.svg
+├── lifeloom/
+├── rivalry/
+└── peakledger/
+
+src/                           # tracked website source
+├── content/
+│   ├── site.json
+│   ├── home.json
+│   ├── support.json
+│   ├── 404.json
+│   ├── apps/
+│   └── legal/
+├── templates/
+│   ├── partials/
+│   └── ...
+├── css/
+│   └── style.css
+├── js/
+│   └── main.js
+└── static/
+    ├── robots.txt
+    └── sitemap.xml
+
+scripts/                       # Node build tooling
+├── build.mjs
+├── build-static-assets.mjs
 ├── build-brand-assets.mjs
 ├── build-app-assets.mjs
 ├── build-canonical-domain.mjs
@@ -145,43 +53,142 @@ scripts/
 ├── build-app-pages.mjs
 ├── prepare-site.mjs
 └── lib/
-    ├── build-context.mjs     # loads shared site/app data and tokens once
-    ├── page-renderer.mjs     # shared template/output renderer
-    ├── build-version.mjs
-    ├── module.mjs
-    └── render.mjs
-public/                        # generated/deployable static HTML + assets
-├── index.html
-├── 404.html
-├── apps/
-├── support/
-├── legal/
-├── runtime/                  # generated; ignored
-└── assets/
+
+config/                        # local/environment configuration
+├── site.example.json
+└── site.local.json            # ignored
+
+public/                        # fully generated Firebase Hosting output; ignored
 ```
 
-### Editing page copy
+The separation is intentional:
 
-Edit the matching JSON file under `content/`, then run:
+- `assets/` contains tracked images and other media used by the website.
+- `src/` contains tracked website content, templates, CSS, JavaScript and static files.
+- `scripts/` contains build tooling and is not deployed directly.
+- `config/` contains environment/local configuration.
+- `public/` is generated output and can be deleted at any time.
+
+## First-time setup
+
+Create your local configuration:
+
+```bash
+cp config/site.example.json config/site.local.json
+```
+
+Edit `config/site.local.json` with the correct Firebase project, support email and store links.
+
+Then install dependencies and prepare the site:
+
+```bash
+npm install
+npm run prepare
+```
+
+`.firebaserc` and `config/site.local.json` are intentionally ignored by Git.
+
+## Build
 
 ```bash
 npm run build
 ```
 
-Do not edit generated `public/*.html` files directly. `npm run prepare`, `npm run serve` and `npm run deploy` all rebuild the static pages automatically. Keeping legal copy in `content/legal/` also provides a clean migration path to Firestore or another content source later without coupling policy text to page layout.
+A full build:
 
+1. Creates a new deployment asset version.
+2. Deletes any existing `public/` directory.
+3. Copies tracked CSS, JavaScript and static files from `src/`.
+4. Copies shared source media from `assets/`.
+5. Copies configured LifeLoom and app assets.
+6. Generates the canonical-domain JavaScript.
+7. Generates all HTML pages from JSON content and reusable templates.
 
-## LifeLoom logo assets
+This means the following is safe:
 
-The site uses five LifeLoom PNG variants from `assets/lifeloom/`:
+```bash
+rm -rf public
+npm run build
+```
 
-- `lifeloom.png` — symbol-only logo.
-- `lifeloom_dark.png` — dark standalone logo variant.
-- `lifeloom_light.png` — light standalone logo variant.
-- `lifeloom_inline_dark.png` — inline logo used in dark mode.
-- `lifeloom_inline_light.png` — inline logo used in light mode.
+The complete deployable website, including styling and JavaScript, will be recreated.
 
-All site-wide asset references are configured once in `content/site.json`:
+Focused build commands are also available:
+
+```bash
+npm run build:static
+npm run build:brand
+npm run build:app-assets
+npm run build:canonical
+npm run build:content
+npm run build:apps
+```
+
+## Local preview
+
+With Firebase Hosting emulation:
+
+```bash
+npm run serve
+```
+
+Or after building/preparing:
+
+```bash
+python3 -m http.server 8080 --directory public
+```
+
+## Deploy
+
+After installing and logging into the Firebase CLI:
+
+```bash
+npm run deploy
+```
+
+This rebuilds/prepares the site and then runs Firebase Hosting deployment.
+
+## Content and templates
+
+Editable page copy lives under:
+
+```text
+src/content/
+```
+
+Reusable page structure lives under:
+
+```text
+src/templates/
+```
+
+Shared site partials include:
+
+```text
+src/templates/partials/site-head.html
+src/templates/partials/site-header.html
+src/templates/partials/site-footer.html
+src/templates/partials/site-scripts.html
+src/templates/partials/app-card.html
+```
+
+Do not edit generated HTML under `public/`. Change the source JSON/templates and rebuild instead.
+
+## Site-wide assets
+
+LifeLoom image assets live under:
+
+```text
+assets/lifeloom/
+```
+
+Their filenames and public references are configured centrally in:
+
+```text
+src/content/site.json
+```
+
+Current configuration:
 
 ```json
 "assets": {
@@ -200,92 +207,129 @@ All site-wide asset references are configured once in `content/site.json`:
 }
 ```
 
-The build converts these values into shared template tokens such as `{{FAVICON_ASSET}}`, `{{BRAND_INLINE_DARK_ASSET}}`, `{{BRAND_INLINE_LIGHT_ASSET}}`, `{{BRAND_SYMBOL_ASSET}}`, `{{SOCIAL_IMAGE_ASSET}}` and `{{APP_PLACEHOLDER_ASSET}}`. This means a future favicon or LifeLoom logo filename/path change is made in `content/site.json`, not across individual pages.
+The build converts these into shared template tokens such as:
 
-`npm run build` copies the configured LifeLoom brand files into the configured public asset directory for Firebase Hosting.
+```text
+{{FAVICON_ASSET}}
+{{BRAND_SYMBOL_ASSET}}
+{{BRAND_INLINE_LIGHT_ASSET}}
+{{BRAND_INLINE_DARK_ASSET}}
+{{SOCIAL_IMAGE_ASSET}}
+{{APP_PLACEHOLDER_ASSET}}
+```
 
+So a LifeLoom logo or favicon change should normally be made once in `src/content/site.json` and then rebuilt.
 
-## Build architecture
+## App assets and app pages
 
-`npm run build` executes `scripts/build.mjs`. It creates one deployment asset version, creates one shared build context, then runs LifeLoom brand-asset preparation, app-asset preparation, canonical-domain generation, content-page generation and app-page generation in sequence.
+Each app is defined by a JSON file under:
 
-`scripts/lib/build-context.mjs` loads `content/site.json`, app definitions, shared partials and site-wide tokens once. `scripts/lib/page-renderer.mjs` is the single page-writing path used by both content and app builders, so header/footer/head/script rendering and generated-file handling are no longer duplicated between build scripts.
+```text
+src/content/apps/
+```
 
-
-## Adding another app
-
-App pages use a shared detail template and the apps catalogue uses the extracted `templates/partials/app-card.html` card template. To add an app:
-
-1. Copy `content/apps/rivalry.json` to a new slug, for example `content/apps/new-app.json`.
-2. Replace the app-specific content, theme, brand key and store-link keys.
-3. Configure the catalogue card through the app's `card` object:
+The catalogue card and detail page both use the same app configuration. Example:
 
 ```json
 "card": {
   "colour": "#d946ef",
-  "logo": null,
+  "logo": "rivalry.png",
   "comingSoon": true,
   "order": 1
+},
+"assets": {
+  "sourceDirectory": "assets/rivalry",
+  "publicDirectory": "/assets/rivalry"
 }
 ```
 
-`colour` controls the card accent, `logo` sets the app icon filename (resolved against the app `assets.publicDirectory` when relative), `comingSoon` optionally shows the status badge, and `order` controls catalogue ordering. A missing or null logo falls back to the shared placeholder. The same resolved logo is used by both the catalogue card and app detail page, so app presentation markup is not duplicated per app.
+- `colour` controls the app accent colour.
+- `logo` sets the app icon.
+- `comingSoon` optionally displays the status badge.
+- `order` controls catalogue ordering.
+- `assets.sourceDirectory` identifies the tracked asset source folder.
+- `assets.publicDirectory` identifies the deployed URL directory.
 
-4. Add the app assets under `assets/<app>/` and configure their source directory, public directory and filenames through the app JSON `assets` object.
-5. Run `npm run build` (or `npm run prepare`) so configured app assets are copied before the pages are generated.
+The app catalogue card itself is extracted to:
 
-The build regenerates the app catalogue and each `/apps/<slug>/` static page. The generated HTML remains deployable as a normal lightweight static Firebase site. `npm run build` is the single full-build entry point; the narrower `build:apps`, `build:app-assets`, `build:content`, `build:brand`, and `build:canonical` commands remain available for focused development work.
-
-## Connect lifeloom.co.uk
-
-In Firebase Console:
-
-1. Open **Hosting** → **Add custom domain**.
-2. Add `lifeloom.co.uk`.
-3. Add the exact DNS records Firebase provides in GoDaddy.
-4. Repeat for `www.lifeloom.co.uk` if required.
-5. Firebase provisions HTTPS automatically after verification.
-
-## Before launch
-
-- Confirm the five LifeLoom PNG variants are present under `assets/lifeloom/`.
-- Add app-specific public assets under `assets/<app>/` and reference them from that app's JSON.
-- Set the actual Firebase project ID in `config/site.local.json`.
-- Confirm the configured support email.
-- Add Google Play/App Store links when available.
-- Review privacy policies against the final production services and data practices.
-
-## GitHub
-
-Because local configuration is ignored, normal Git commands are safe. Public website assets under `assets/` can be committed:
-
-```bash
-git init
-git add .
-git commit -m "feat: initial LifeLoom website"
-git branch -M main
-git remote add origin <your-repository-url>
-git push -u origin main
+```text
+src/templates/partials/app-card.html
 ```
 
-Before committing, you can verify ignored files with:
+The shared app detail template is:
 
-```bash
-git status --ignored
+```text
+src/templates/app-page.html
 ```
+
+## LifeLoom assets currently expected
+
+```text
+assets/lifeloom/lifeloom.png
+assets/lifeloom/lifeloom_light.png
+assets/lifeloom/lifeloom_dark.png
+assets/lifeloom/lifeloom_inline_light.png
+assets/lifeloom/lifeloom_inline_dark.png
+```
+
+Rivalry currently uses:
+
+```text
+assets/rivalry/rivalry.png
+assets/rivalry/rivalry_r_light.png
+assets/rivalry/rivalry_r_dark.png
+```
+
+The two `rivalry_r_*.png` marks are copied for future use but are not currently displayed.
+
+PeakLedger currently uses:
+
+```text
+assets/peakledger/peakledger.png
+```
+
+## Build architecture
+
+`scripts/build.mjs` is the full-build coordinator.
+
+`scripts/lib/build-context.mjs` loads `src/content/site.json`, all app definitions, shared partials and site-wide tokens once.
+
+`scripts/lib/page-renderer.mjs` provides the common rendering/output path used by content pages and app pages.
+
+The static build step copies tracked source files into `public/`, while generated steps add dynamic build output such as page HTML and canonical-domain JavaScript.
 
 ## Canonical domain
 
-The public canonical domain is `https://lifeloom.co.uk`. During `npm run build`, `content/site.json` generates a small hostname-aware redirect script. Requests opened on `www.lifeloom.co.uk`, `lifeloom-website.web.app`, or `lifeloom-website.firebaseapp.com` are redirected in the browser to the same path on `lifeloom.co.uk`, preserving the query string and fragment.
+The public canonical domain is:
 
-Canonical `<link>` tags also point to `lifeloom.co.uk`. The redirect is implemented client-side because the same Firebase Hosting configuration serves both the Firebase default domains and the custom domain, so a path-only Hosting redirect would also match the canonical domain.
+```text
+https://lifeloom.co.uk
+```
 
-## Deployment cache behaviour
+`src/content/site.json` controls the canonical redirect configuration. Firebase default Hosting domains and `www.lifeloom.co.uk` redirect to the canonical host while preserving path, query string and fragment.
 
-Each build generates a deployment-specific asset version. HTML and runtime JSON are revalidated, while versioned CSS, JavaScript and image assets can be cached for up to seven days. A new deployment changes the asset URLs automatically, so browsers fetch the new files without sacrificing long-lived caching.
+## Cache behaviour
+
+Each full build creates a deployment-specific asset version. Generated HTML references versioned CSS, JavaScript and image URLs.
+
+Firebase caches versioned assets for up to seven days, while HTML/runtime JSON is revalidated. New builds receive new asset URLs, so updated files are fetched immediately after deployment.
 
 ## Colour theme
 
-LifeLoom uses dark mode by default. Visitors can switch to light mode using the theme control in the site header; the preference is stored locally in the browser and reused on later visits.
+LifeLoom uses dark mode by default. Visitors can switch to light mode using the shared theme control in the site header, and the preference is stored locally in the browser.
 
-Header and footer branding uses the `assets.brand.inlineDark` and `assets.brand.inlineLight` values from `content/site.json`. With the current configuration these resolve to `assets/lifeloom/lifeloom_inline_dark.png` in dark mode and `assets/lifeloom/lifeloom_inline_light.png` in light mode.
+Header and footer branding use the configured `inlineDark` and `inlineLight` LifeLoom assets from `src/content/site.json`.
+
+## Git
+
+Generated and local files are ignored, including:
+
+```text
+public/
+config/site.local.json
+.firebaserc
+.build-version
+node_modules/
+```
+
+Tracked website assets under `assets/` are public-facing source media and are safe to commit provided they contain no secrets.

@@ -29,7 +29,7 @@ export function createSharedSiteTokens(site, assetVersion) {
   const brand = assets.brand || {};
   const brandPublicDirectory = String(brand.publicDirectory || '').trim();
   if (!brandPublicDirectory) {
-    throw new Error('content/site.json must define assets.brand.publicDirectory.');
+    throw new Error('src/content/site.json must define assets.brand.publicDirectory.');
   }
 
   const brandSymbol = normaliseAssetPath(brand.symbol, brandPublicDirectory);
@@ -52,7 +52,7 @@ export function createSharedSiteTokens(site, assetVersion) {
     'assets.appPlaceholder': appPlaceholder
   };
   for (const [key, value] of Object.entries(requiredAssets)) {
-    if (!value) throw new Error(`content/site.json must define ${key}.`);
+    if (!value) throw new Error(`src/content/site.json must define ${key}.`);
   }
 
   return {
@@ -137,8 +137,9 @@ async function loadApps(appContentDir) {
 }
 
 export async function createBuildContext(root = process.cwd()) {
-  const contentDir = path.join(root, 'content');
-  const templatesDir = path.join(root, 'templates');
+  const srcDir = path.join(root, 'src');
+  const contentDir = path.join(srcDir, 'content');
+  const templatesDir = path.join(srcDir, 'templates');
   const partialsDir = path.join(templatesDir, 'partials');
   const publicDir = path.join(root, 'public');
   const appContentDir = path.join(contentDir, 'apps');
@@ -158,6 +159,7 @@ export async function createBuildContext(root = process.cwd()) {
 
   return {
     root,
+    srcDir,
     contentDir,
     appContentDir,
     templatesDir,
