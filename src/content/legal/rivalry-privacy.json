@@ -84,20 +84,5 @@
         }
       ]
     }
-  ],
-  "sideTitle": "Rivalry",
-  "sideLinks": [
-    {
-      "label": "App page",
-      "href": "/apps/rivalry/"
-    },
-    {
-      "label": "Support",
-      "href": "/support/"
-    },
-    {
-      "label": "All legal pages",
-      "href": "/legal/"
-    }
   ]
 }

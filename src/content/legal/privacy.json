@@ -71,19 +71,5 @@
         }
       ]
     }
-  ],
-  "sideLinks": [
-    {
-      "label": "All legal pages",
-      "href": "/legal/"
-    },
-    {
-      "label": "Rivalry privacy",
-      "href": "/legal/apps/rivalry/privacy/"
-    },
-    {
-      "label": "Support",
-      "href": "/support/"
-    }
   ]
 }

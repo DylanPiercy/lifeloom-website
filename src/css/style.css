@@ -598,17 +598,20 @@ html[data-theme="light"] .theme-toggle::before { content: "☾"; }
   padding-bottom: 76px;
 }
 .app-product-copy { min-width: 0; }
-.app-product-back {
+.page-back-link {
   display: inline-flex;
   align-items: center;
   margin-bottom: 38px;
-  color: color-mix(in srgb, #fff 68%, transparent);
+  color: var(--muted);
   font-size: .9rem;
   font-weight: 720;
   text-decoration: none;
   transition: color .18s ease, transform .18s ease;
 }
-.app-product-back:hover { color: #fff; transform: translateX(-2px); }
+.page-back-link:hover { color: var(--text); transform: translateX(-2px); }
+.app-product-hero .page-back-link { color: color-mix(in srgb, #fff 68%, transparent); }
+.app-product-hero .page-back-link:hover { color: #fff; }
+.legal-document-back { margin-bottom: 28px; }
 .app-product-meta {
   display: flex;
   flex-direction: column;
@@ -973,14 +976,11 @@ html[data-theme="light"] .theme-toggle::before { content: "☾"; }
 }
 .app-availability-logo-shell img { display: block; width: 100%; height: 100%; border-radius: inherit; object-fit: cover; }
 
-.content-shell { display: grid; grid-template-columns: minmax(0, 760px) minmax(220px, 1fr); gap: 70px; align-items: start; }
+.legal-document-content { max-width: 860px; }
 .prose h2 { font-size: 2rem; margin-top: 44px; }
 .prose h3 { margin-top: 28px; }
 .prose p, .prose li { color: var(--prose); }
 .prose ul { padding-left: 20px; }
-.side-card { position: sticky; top: 95px; padding: 24px; background: var(--card-bg); border: 1px solid var(--line); border-radius: var(--radius); }
-.side-card a { display: block; text-decoration: none; padding: 8px 0; color: var(--muted); }
-.side-card a:hover { color: var(--brand); }
 
 .support-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
 .support-card { padding: 28px; background: var(--card-bg); border: 1px solid var(--line); border-radius: var(--radius); }
@@ -1039,7 +1039,7 @@ html[data-theme="light"] .theme-toggle::before { content: "☾"; }
 
 @media (max-width: 900px) {
   .hero { min-height: auto; }
-  .hero-grid, .app-feature, .about-strip, .content-shell { grid-template-columns: 1fr; }
+  .hero-grid, .app-feature, .about-strip { grid-template-columns: 1fr; }
   .hero-copy { padding-top: 18px; }
   .loom-visual { width: min(100%, 480px); margin: 0 auto; }
   .app-art { min-height: 480px; }
@@ -1055,7 +1055,6 @@ html[data-theme="light"] .theme-toggle::before { content: "☾"; }
   .app-placeholder-card { min-height: 150px; padding: 18px; }
   .about-strip-logo { justify-self: start; width: min(42vw, 170px); }
   .about-strip .button { justify-self: start; }
-  .side-card { position: static; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
 
@@ -1107,7 +1106,7 @@ html[data-theme="light"] .theme-toggle::before { content: "☾"; }
   .app-card-watermark { left: 20px; bottom: 13px; max-width: calc(100% - 40px); font-size: clamp(2.2rem, 13vw, 3.5rem); }
   .app-card-highlights { margin-top: 20px; }
   .app-product-hero-grid { padding-top: 44px; padding-bottom: 54px; gap: 42px; }
-  .app-product-back { margin-bottom: 28px; }
+  .app-product-hero .page-back-link { margin-bottom: 28px; }
   .app-product-meta { align-items: flex-start; }
   .app-product-meta-row { min-height: 64px; gap: 14px; }
   .app-product-icon-shell { width: 64px; height: 64px; border-radius: 19px; }

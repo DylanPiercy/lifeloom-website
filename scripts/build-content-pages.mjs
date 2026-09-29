@@ -139,9 +139,6 @@ export async function buildContentPages(context) {
     const sections = document.sections
       .map((section) => `<h2>${escapeHtml(section.heading)}</h2>${(section.paragraphs || []).map(renderLegalParagraph).join('')}`)
       .join('');
-    const sideLinks = (document.sideLinks || [])
-      .map((link) => `<a href="${escapeHtml(link.href)}">${escapeHtml(link.label)}</a>`)
-      .join('');
     const noticeHtml = document.notice
       ? `<div class="notice"><strong>${escapeHtml(document.notice.label)}</strong> ${escapeHtml(document.notice.text)}</div>`
       : '';
@@ -158,9 +155,7 @@ export async function buildContentPages(context) {
         HERO_HEADING: escapeHtml(document.hero.heading),
         LAST_UPDATED: escapeHtml(document.hero.lastUpdated),
         NOTICE: noticeHtml,
-        LEGAL_SECTIONS: sections,
-        SIDE_TITLE: escapeHtml(document.sideTitle || site.footer.legalHeading),
-        SIDE_LINKS: sideLinks
+        LEGAL_SECTIONS: sections
       }
     });
   }

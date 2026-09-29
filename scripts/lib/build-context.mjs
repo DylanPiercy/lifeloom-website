@@ -74,6 +74,8 @@ export function createSharedSiteTokens(site, assetVersion) {
     ACTION_SUPPORT: escapeHtml(site.actions.support),
     ACTION_GET_SUPPORT: escapeHtml(site.actions.getSupport),
     LEGAL_LAST_UPDATED_LABEL: escapeHtml(site.legal.lastUpdatedLabel),
+    LEGAL_DOCUMENTS_BACK_LABEL: escapeHtml(site.legal.documentsBackLabel),
+    LEGAL_DOCUMENTS_BACK_HREF: escapeHtml(site.legal.documentsBackHref),
     BRAND_SYMBOL_ASSET: escapeHtml(brandSymbol),
     BRAND_LIGHT_ASSET: escapeHtml(brandLight),
     BRAND_DARK_ASSET: escapeHtml(brandDark),

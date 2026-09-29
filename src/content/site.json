@@ -28,7 +28,9 @@
     "getSupport": "Get support"
   },
   "legal": {
-    "lastUpdatedLabel": "Last updated:"
+    "lastUpdatedLabel": "Last updated:",
+    "documentsBackLabel": "All Documents",
+    "documentsBackHref": "/support/#documents"
   },
   "appUi": {
     "comingSoon": "Coming Soon",
