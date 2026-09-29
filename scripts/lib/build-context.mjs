@@ -9,7 +9,9 @@ const PARTIAL_FILES = {
   header: 'site-header.html',
   footer: 'site-footer.html',
   scripts: 'site-scripts.html',
-  appCard: 'app-card.html'
+  appCard: 'app-card.html',
+  appFeature: 'app-feature.html',
+  appAvailability: 'app-availability.html'
 };
 
 function normaliseAssetPath(value, basePath = '') {
@@ -71,7 +73,6 @@ export function createSharedSiteTokens(site, assetVersion) {
     ACTION_SEE_OUR_APPS: escapeHtml(site.actions.seeOurApps),
     ACTION_SUPPORT: escapeHtml(site.actions.support),
     ACTION_GET_SUPPORT: escapeHtml(site.actions.getSupport),
-    ACTION_PRIVACY_POLICY: escapeHtml(site.actions.privacyPolicy),
     LEGAL_LAST_UPDATED_LABEL: escapeHtml(site.legal.lastUpdatedLabel),
     BRAND_SYMBOL_ASSET: escapeHtml(brandSymbol),
     BRAND_LIGHT_ASSET: escapeHtml(brandLight),
@@ -101,14 +102,64 @@ async function loadApps(appContentDir) {
     }
 
     const card = app.card || {};
-    if (card.comingSoon !== undefined && typeof card.comingSoon !== 'boolean') {
-      throw new Error(`App card comingSoon must be a boolean in ${file}.`);
-    }
     if (card.order !== undefined && !Number.isFinite(card.order)) {
       throw new Error(`App card order must be a number in ${file}.`);
     }
     if (card.logo !== undefined && card.logo !== null && typeof card.logo !== 'string') {
       throw new Error(`App card logo must be a string or null in ${file}.`);
+    }
+
+    if (app.platforms !== undefined) {
+      if (!app.platforms || typeof app.platforms !== 'object' || Array.isArray(app.platforms)) {
+        throw new Error(`App platforms must be an object in ${file}.`);
+      }
+      for (const platform of ['ios', 'android', 'web']) {
+        if (app.platforms[platform] !== undefined && typeof app.platforms[platform] !== 'boolean') {
+          throw new Error(`App platform ${platform} must be a boolean in ${file}.`);
+        }
+      }
+    }
+
+    if (app.availability !== undefined) {
+      const availability = app.availability;
+      if (!availability || typeof availability !== 'object' || Array.isArray(availability)) {
+        throw new Error(`App availability must be an object in ${file}.`);
+      }
+      if (availability.releaseDate !== undefined && availability.releaseDate !== null && typeof availability.releaseDate !== 'string') {
+        throw new Error(`App availability releaseDate must be a string or null in ${file}.`);
+      }
+      if (typeof availability.releaseDate === 'string' && availability.releaseDate.trim()) {
+        const value = availability.releaseDate.trim();
+        const dateOnly = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+        let parsedDate;
+        if (dateOnly) {
+          const [, year, month, day] = dateOnly;
+          parsedDate = new Date(Number(year), Number(month) - 1, Number(day));
+          if (
+            parsedDate.getFullYear() !== Number(year) ||
+            parsedDate.getMonth() !== Number(month) - 1 ||
+            parsedDate.getDate() !== Number(day)
+          ) {
+            parsedDate = new Date(NaN);
+          }
+        } else {
+          parsedDate = new Date(value);
+        }
+        if (Number.isNaN(parsedDate.getTime())) {
+          throw new Error(`App availability releaseDate must be a valid ISO date or datetime in ${file}.`);
+        }
+      }
+      if (availability.links !== undefined) {
+        if (!availability.links || typeof availability.links !== 'object' || Array.isArray(availability.links)) {
+          throw new Error(`App availability links must be an object in ${file}.`);
+        }
+        for (const platform of ['ios', 'android', 'web']) {
+          const value = availability.links[platform];
+          if (value !== undefined && value !== null && typeof value !== 'string') {
+            throw new Error(`App availability link ${platform} must be a string or null in ${file}.`);
+          }
+        }
+      }
     }
 
     if (app.assets !== undefined) {

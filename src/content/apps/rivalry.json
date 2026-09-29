@@ -27,32 +27,72 @@
   },
   "features": [
     {
-      "title": "Multiple activities",
-      "description": "Track races, tennis, padel and poker within the same group."
+      "title": "Multiple Activities",
+      "points": [
+        "Compete in Race, Tennis, Padel and Poker within the same private group.",
+        "Each activity has its own leaderboard, statistics and history."
+      ]
     },
     {
-      "title": "Rankings and stats",
-      "description": "Turn submitted results into leaderboards, personal records and useful history."
+      "title": "Competitive Ratings & Leaderboards",
+      "points": [
+        "Dynamic rating systems for Race and match activities.",
+        "Configurable Equal or Individual scoring, Upset Sensitivity and starting ratings.",
+        "Track wins, losses, positions and player performance."
+      ]
     },
     {
-      "title": "Private groups",
-      "description": "Competition stays centred on the people you actually know."
+      "title": "Seasons & Long-Term History",
+      "points": [
+        "Automatic or manually managed seasons.",
+        "Previous seasons remain available alongside all-time stats.",
+        "Rating history, result history and player matchup records."
+      ]
     },
     {
-      "title": "Seasons and events",
-      "description": "Keep long-running groups fresh with seasons and special competition periods."
+      "title": "Advanced Poker Tracking",
+      "points": [
+        "Dedicated Poker sessions with automatic session ending.",
+        "Player balances, hand history, statistics and balance-history charts.",
+        "Sessions can be renamed, reopened, merged and managed independently."
+      ]
+    },
+    {
+      "title": "Bookings & Shared Payments",
+      "points": [
+        "Track activity bookings, who paid and who attended.",
+        "Automatically calculate each player's share using attendance time.",
+        "Running balances show who is ahead, behind and suggested to pay next."
+      ]
+    },
+    {
+      "title": "Private Groups & Player Management",
+      "points": [
+        "Secure join codes with optional join-request approval.",
+        "Owners, configurable Admin permissions and member management.",
+        "Profiles can be claimed, archived, restored and preserved in historical results."
+      ]
+    },
+    {
+      "title": "Smart Notifications",
+      "points": [
+        "Configurable notifications for results, bookings, group activity and other events.",
+        "In-app notification inbox with direct links to relevant content."
+      ]
     }
   ],
   "availability": {
-    "status": "coming-soon",
     "eyebrow": "Availability",
-    "heading": "Rivalry is coming soon.",
-    "placeholder": "Rivalry is currently in development."
+    "releaseDate": null,
+    "links": {
+      "ios": "rivalryAppStore",
+      "android": "rivalryGooglePlay",
+      "web": null
+    }
   },
   "card": {
     "colour": "#d946ef",
     "logo": "rivalry.png",
-    "comingSoon": true,
     "order": 1
   },
   "assets": {
@@ -60,5 +100,10 @@
     "publicDirectory": "/assets/rivalry",
     "markLight": "rivalry_r_light.png",
     "markDark": "rivalry_r_dark.png"
+  },
+  "platforms": {
+    "ios": true,
+    "android": true,
+    "web": false
   }
 }

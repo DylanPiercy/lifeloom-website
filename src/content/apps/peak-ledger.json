@@ -27,35 +27,50 @@
   "features": [
     {
       "title": "Interactive peak map",
-      "description": "Explore mountain peaks geographically and see what is around you."
+      "points": [
+        "Explore mountain peaks geographically and see what is around you."
+      ]
     },
     {
       "title": "Climb tracking",
-      "description": "Mark peaks as climbed and build your own personal summit record."
+      "points": [
+        "Mark peaks as climbed and build your own personal summit record."
+      ]
     },
     {
       "title": "Peak information",
-      "description": "Keep useful mountain and elevation information together in one place."
+      "points": [
+        "Keep useful mountain and elevation information together in one place."
+      ]
     },
     {
       "title": "Personal progress",
-      "description": "See your growing collection of completed peaks as you explore more."
+      "points": [
+        "See your growing collection of completed peaks as you explore more."
+      ]
     }
   ],
   "availability": {
-    "status": "coming-soon",
     "eyebrow": "Availability",
-    "heading": "PeakLedger is coming soon.",
-    "placeholder": "PeakLedger is currently in development."
+    "releaseDate": null,
+    "links": {
+      "ios": "peakLedgerAppStore",
+      "android": "peakLedgerGooglePlay",
+      "web": null
+    }
   },
   "card": {
     "colour": "#4ade80",
     "logo": "peakledger.png",
-    "comingSoon": true,
     "order": 2
   },
   "assets": {
     "sourceDirectory": "assets/peakledger",
     "publicDirectory": "/assets/peakledger"
+  },
+  "platforms": {
+    "ios": true,
+    "android": true,
+    "web": false
   }
 }

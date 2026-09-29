@@ -27,31 +27,46 @@
   "features": [
     {
       "title": "Hunters vs fugitives",
-      "description": "Split players into opposing roles with different objectives and ways to win."
+      "points": [
+        "Split players into opposing roles with different objectives and ways to win."
+      ]
     },
     {
       "title": "Live location gameplay",
-      "description": "Use player movement and map locations as part of the game itself."
+      "points": [
+        "Use player movement and map locations as part of the game itself."
+      ]
     },
     {
       "title": "Geofenced play areas",
-      "description": "Keep each game inside a defined real-world zone."
+      "points": [
+        "Keep each game inside a defined real-world zone."
+      ]
     },
     {
       "title": "Timed reveals and captures",
-      "description": "Use controlled location reveals and capture rules to keep every chase moving."
+      "points": [
+        "Use controlled location reveals and capture rules to keep every chase moving."
+      ]
     }
   ],
   "availability": {
-    "status": "coming-soon",
     "eyebrow": "Availability",
-    "heading": "Fugitives is coming soon.",
-    "placeholder": "Fugitives is currently in development."
+    "releaseDate": null,
+    "links": {
+      "ios": "fugitivesAppStore",
+      "android": "fugitivesGooglePlay",
+      "web": null
+    }
   },
   "card": {
     "colour": "#f97316",
     "logo": null,
-    "comingSoon": true,
     "order": 3
+  },
+  "platforms": {
+    "ios": true,
+    "android": true,
+    "web": false
   }
 }

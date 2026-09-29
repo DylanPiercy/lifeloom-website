@@ -25,22 +25,39 @@
   "actions": {
     "seeOurApps": "See our apps",
     "support": "Support",
-    "getSupport": "Get support",
-    "privacyPolicy": "Privacy policy"
+    "getSupport": "Get support"
   },
   "legal": {
     "lastUpdatedLabel": "Last updated:"
   },
   "appUi": {
     "comingSoon": "Coming Soon",
-    "googlePlay": "Google Play",
-    "appStore": "App Store",
     "overview": "Overview",
     "availability": "Availability",
-    "storePlaceholder": "Store links will appear here when available.",
     "viewApp": "Explore App",
     "allApps": "All Apps",
-    "exploreFeatures": "Explore Features"
+    "exploreFeatures": "Explore Features",
+    "inDevelopmentFor": "Currently being developed for",
+    "availableOn": "Available on",
+    "released": "Released",
+    "platforms": {
+      "ios": "iOS",
+      "android": "Android",
+      "web": "Web"
+    },
+    "platformActions": {
+      "ios": "View on App Store",
+      "android": "View on Google Play",
+      "web": "Open Web App"
+    },
+    "comingOn": "Coming on",
+    "releaseDate": "Release date",
+    "comingSoonHeading": "is coming soon.",
+    "comingSoonDescription": "This app is currently in development.",
+    "scheduledHeading": "is coming on",
+    "scheduledDescription": "This app is scheduled for release on",
+    "releasedHeading": "is available.",
+    "releasedDescription": "Released on"
   },
   "assets": {
     "brand": {

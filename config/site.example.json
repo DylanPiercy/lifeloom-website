@@ -4,6 +4,10 @@
   "supportEmail": "support@example.com",
   "storeLinks": {
     "rivalryGooglePlay": "",
-    "rivalryAppStore": ""
+    "rivalryAppStore": "",
+    "peakLedgerGooglePlay": "",
+    "peakLedgerAppStore": "",
+    "fugitivesGooglePlay": "",
+    "fugitivesAppStore": ""
   }
 }

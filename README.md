@@ -170,6 +170,8 @@ src/templates/partials/site-header.html
 src/templates/partials/site-footer.html
 src/templates/partials/site-scripts.html
 src/templates/partials/app-card.html
+src/templates/partials/app-feature.html
+src/templates/partials/app-availability.html
 ```
 
 Do not edit generated HTML under `public/`. Change the source JSON/templates and rebuild instead.
@@ -231,10 +233,22 @@ src/content/apps/
 The catalogue card and detail page both use the same app configuration. Example:
 
 ```json
+"platforms": {
+  "ios": true,
+  "android": true,
+  "web": false
+},
+"availability": {
+  "releaseDate": null,
+  "links": {
+    "ios": "rivalryAppStore",
+    "android": "rivalryGooglePlay",
+    "web": null
+  }
+},
 "card": {
   "colour": "#d946ef",
   "logo": "rivalry.png",
-  "comingSoon": true,
   "order": 1
 },
 "assets": {
@@ -243,9 +257,13 @@ The catalogue card and detail page both use the same app configuration. Example:
 }
 ```
 
+- `platforms.ios`, `platforms.android` and `platforms.web` declare the platforms the app is being developed for or is released on.
+- `availability.releaseDate` controls release state. Use `null` for an undated Coming Soon app, an ISO future date for Coming on…, or a past/current date for Released.
+- Date state is evaluated in the browser, so a future release automatically becomes Released without another build or deploy once the configured date is reached.
+- `availability.links` maps each platform to either a runtime `storeLinks` key or a direct public URL. Links stay hidden until the release date is reached.
 - `colour` controls the app accent colour.
 - `logo` sets the app icon.
-- `comingSoon` optionally displays the status badge.
+- App status badges are derived automatically from `availability.releaseDate`; no separate coming-soon flag is required.
 - `order` controls catalogue ordering.
 - `assets.sourceDirectory` identifies the tracked asset source folder.
 - `assets.publicDirectory` identifies the deployed URL directory.
@@ -262,6 +280,13 @@ The shared app detail template is:
 
 ```text
 src/templates/app-page.html
+```
+
+Feature rows and the availability panel are also extracted and reused through:
+
+```text
+src/templates/partials/app-feature.html
+src/templates/partials/app-availability.html
 ```
 
 ## LifeLoom assets currently expected

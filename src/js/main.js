@@ -65,6 +65,100 @@
     el.textContent = new Date().getFullYear();
   });
 
+  const parseReleaseDate = (value) => {
+    if (!value) return null;
+
+    const dateOnly = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+    if (dateOnly) {
+      const [, year, month, day] = dateOnly;
+      const date = new Date(Number(year), Number(month) - 1, Number(day));
+      return Number.isNaN(date.getTime()) ? null : date;
+    }
+
+    const date = new Date(value);
+    return Number.isNaN(date.getTime()) ? null : date;
+  };
+
+  const formatReleaseDate = (date) => new Intl.DateTimeFormat(
+    document.documentElement.lang || 'en-GB',
+    { day: 'numeric', month: 'long', year: 'numeric' }
+  ).format(date);
+
+  const getReleaseState = (releaseDate) => {
+    if (!releaseDate) return 'coming-soon';
+    return releaseDate.getTime() <= Date.now() ? 'released' : 'scheduled';
+  };
+
+  const updateReleaseStatus = (element) => {
+    const releaseDate = parseReleaseDate(element.dataset.releaseDate);
+    const state = getReleaseState(releaseDate);
+    if (state === 'released') {
+      element.textContent = element.dataset.releasedLabel || 'Released';
+      return;
+    }
+    if (state === 'scheduled') {
+      const label = element.dataset.comingOnLabel || 'Coming on';
+      element.textContent = `${label} ${formatReleaseDate(releaseDate)}`;
+      return;
+    }
+    element.textContent = element.dataset.comingSoonLabel || 'Coming Soon';
+  };
+
+  const updateAvailability = (panel) => {
+    const releaseDate = parseReleaseDate(panel.dataset.releaseDate);
+    const state = getReleaseState(releaseDate);
+    const appName = panel.dataset.appName || 'This app';
+    const formattedDate = releaseDate ? formatReleaseDate(releaseDate) : '';
+    const heading = panel.querySelector('[data-release-heading]');
+    const description = panel.querySelector('[data-release-description]');
+    const dateRow = panel.querySelector('[data-release-date-row]');
+    const dateLabel = panel.querySelector('[data-release-date-label]');
+    const dateValue = panel.querySelector('[data-release-date-value]');
+    const platformLabel = panel.querySelector('[data-release-platform-label]');
+
+    if (state === 'released') {
+      if (heading) heading.textContent = `${appName} ${panel.dataset.releasedHeading || 'is available.'}`;
+      if (description) description.textContent = `${panel.dataset.releasedDescription || 'Released on'} ${formattedDate}.`;
+      if (dateRow) dateRow.hidden = false;
+      if (dateLabel) dateLabel.textContent = panel.dataset.releasedLabel || 'Released';
+      if (dateValue) dateValue.textContent = formattedDate;
+      if (platformLabel) platformLabel.textContent = panel.dataset.availableOnLabel || 'Available on';
+    } else if (state === 'scheduled') {
+      if (heading) heading.textContent = `${appName} ${panel.dataset.scheduledHeading || 'is coming on'} ${formattedDate}.`;
+      if (description) description.textContent = `${panel.dataset.scheduledDescription || 'This app is scheduled for release on'} ${formattedDate}.`;
+      if (dateRow) dateRow.hidden = false;
+      if (dateLabel) dateLabel.textContent = panel.dataset.comingOnLabel || 'Coming on';
+      if (dateValue) dateValue.textContent = formattedDate;
+      if (platformLabel) platformLabel.textContent = panel.dataset.inDevelopmentLabel || 'Currently being developed for';
+    } else {
+      if (heading) heading.textContent = `${appName} ${panel.dataset.comingSoonHeading || 'is coming soon.'}`;
+      if (description) description.textContent = panel.dataset.comingSoonDescription || 'This app is currently in development.';
+      if (dateRow) dateRow.hidden = true;
+      if (platformLabel) platformLabel.textContent = panel.dataset.inDevelopmentLabel || 'Currently being developed for';
+    }
+
+    const releaseLinks = [...panel.querySelectorAll('[data-release-link]')];
+    let hasVisibleReleaseLink = false;
+
+    releaseLinks.forEach((link) => {
+      const ready = link.dataset.linkReady === 'true';
+      const visible = state === 'released' && ready;
+      link.hidden = !visible;
+      hasVisibleReleaseLink ||= visible;
+    });
+
+    const releaseLinksContainer = panel.querySelector('[data-release-links]');
+    if (releaseLinksContainer) releaseLinksContainer.hidden = !hasVisibleReleaseLink;
+  };
+
+  const refreshReleaseStates = () => {
+    document.querySelectorAll('[data-release-status]').forEach(updateReleaseStatus);
+    document.querySelectorAll('[data-release-availability]').forEach(updateAvailability);
+  };
+
+  refreshReleaseStates();
+  window.setInterval(refreshReleaseStates, 60 * 60 * 1000);
+
   const applyConfig = (config) => {
     const email = config.supportEmail;
     if (email) {
@@ -83,13 +177,11 @@
       const url = storeLinks[link.dataset.storeLink];
       if (!url) return;
       link.href = url;
-      link.hidden = false;
+      link.dataset.linkReady = 'true';
     });
 
-    const hasStoreLink = Object.values(storeLinks).some(Boolean);
-    document.querySelectorAll('[data-store-placeholder]').forEach((el) => {
-      el.hidden = hasStoreLink;
-    });
+    refreshReleaseStates();
+
   };
 
   fetch('/runtime/site-config.json', { cache: 'no-cache' })

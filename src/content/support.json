@@ -24,13 +24,23 @@
       "action": "Contact support →",
       "showEmail": true,
       "arrow": true
-    },
-    {
-      "type": "link",
-      "title": "Privacy",
-      "description": "Find LifeLoom and app-specific privacy information.",
-      "action": "View legal pages →",
-      "href": "/legal/"
     }
-  ]
+  ],
+  "documents": {
+    "eyebrow": "Documents",
+    "heading": "Policies and product documents.",
+    "description": "Privacy information and other documents for LifeLoom and its apps.",
+    "items": [
+      {
+        "title": "LifeLoom Privacy Policy",
+        "description": "How the LifeLoom website handles information and privacy.",
+        "href": "/legal/privacy/"
+      },
+      {
+        "title": "Rivalry Privacy Policy",
+        "description": "Privacy information specific to the Rivalry app.",
+        "href": "/legal/apps/rivalry/privacy/"
+      }
+    ]
+  }
 }

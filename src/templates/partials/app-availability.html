@@ -1,0 +1,37 @@
+<div
+  class="app-availability-panel"
+  data-release-availability
+  data-app-name="{{APP_NAME}}"
+  data-release-date="{{RELEASE_DATE_RAW}}"
+  data-coming-soon-label="{{COMING_SOON_LABEL}}"
+  data-coming-on-label="{{COMING_ON_LABEL}}"
+  data-released-label="{{RELEASED_LABEL}}"
+  data-coming-soon-heading="{{COMING_SOON_HEADING}}"
+  data-coming-soon-description="{{COMING_SOON_DESCRIPTION}}"
+  data-scheduled-heading="{{SCHEDULED_HEADING}}"
+  data-scheduled-description="{{SCHEDULED_DESCRIPTION}}"
+  data-released-heading="{{RELEASED_HEADING}}"
+  data-released-description="{{RELEASED_DESCRIPTION}}"
+  data-in-development-label="{{IN_DEVELOPMENT_LABEL}}"
+  data-available-on-label="{{AVAILABLE_ON_LABEL}}"
+>
+  <div class="app-availability-copy">
+    <span class="app-product-kicker">{{AVAILABILITY_EYEBROW}}</span>
+    <h2 data-release-heading>{{AVAILABILITY_HEADING}}</h2>
+    <p data-release-description>{{AVAILABILITY_DESCRIPTION}}</p>
+    <p class="app-release-date" data-release-date-row{{RELEASE_DATE_HIDDEN}}>
+      <span data-release-date-label>{{RELEASE_DATE_LABEL}}</span>
+      <strong data-release-date-value>{{RELEASE_DATE_DISPLAY}}</strong>
+    </p>
+    <div class="app-availability-platforms">
+      <span class="app-availability-platform-label" data-release-platform-label>{{AVAILABILITY_PLATFORM_LABEL}}</span>
+      <div class="app-platform-list">{{AVAILABILITY_PLATFORMS}}</div>
+    </div>
+    {{AVAILABILITY_LINKS}}
+  </div>
+  <div class="app-availability-side" aria-hidden="true">
+    <div class="app-availability-logo-shell">
+      <img src="{{APP_LOGO_ASSET}}?v={{ASSET_VERSION}}" alt="">
+    </div>
+  </div>
+</div>

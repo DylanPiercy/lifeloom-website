@@ -7,11 +7,11 @@
       <div class="app-product-copy">
         <a class="app-product-back" href="/apps/">← {{ACTION_ALL_APPS}}</a>
         <div class="app-product-meta">
-          <div class="app-product-icon-shell">
-            <img class="app-product-icon" src="{{APP_LOGO_ASSET}}?v={{ASSET_VERSION}}" alt="">
-          </div>
-          <div class="app-product-meta-copy">
-            <span class="app-product-kicker">{{HERO_EYEBROW}}</span>
+          <span class="app-product-kicker">{{HERO_EYEBROW}}</span>
+          <div class="app-product-meta-row">
+            <div class="app-product-icon-shell">
+              <img class="app-product-icon" src="{{APP_LOGO_ASSET}}?v={{ASSET_VERSION}}" alt="">
+            </div>
             {{APP_STATUS}}
           </div>
         </div>
@@ -21,7 +21,6 @@
         <div class="app-product-highlights" aria-label="Key features">{{HERO_HIGHLIGHTS}}</div>
         <div class="app-product-actions">
           <a class="button app-product-primary-action" href="#features">{{ACTION_EXPLORE_FEATURES}}</a>
-          {{PRIVACY_ACTION}}
         </div>
       </div>
 
@@ -66,26 +65,13 @@
         </div>
         <p>{{SECTION_DESCRIPTION}}</p>
       </div>
-      <div class="app-product-feature-grid">{{FEATURES}}</div>
+      <div class="app-product-feature-list">{{FEATURES}}</div>
     </div>
   </section>
 
   <section class="section-sm app-product-availability">
     <div class="container">
-      <div class="app-availability-panel">
-        <div class="app-availability-copy">
-          <span class="app-product-kicker">{{AVAILABILITY_EYEBROW}}</span>
-          <h2>{{AVAILABILITY_HEADING}}</h2>
-          <p data-store-placeholder>{{AVAILABILITY_PLACEHOLDER}}</p>
-          {{AVAILABILITY_ACTIONS}}
-        </div>
-        <div class="app-availability-side">
-          <div class="app-availability-logo-shell" aria-hidden="true">
-            <img src="{{APP_LOGO_ASSET}}?v={{ASSET_VERSION}}" alt="">
-          </div>
-          <a class="button button-secondary" href="/support/">{{ACTION_GET_SUPPORT}}</a>
-        </div>
-      </div>
+      {{APP_AVAILABILITY}}
     </div>
   </section>
 </main>

@@ -78,6 +78,10 @@ export async function buildContentPages(context) {
     return `<article class="support-card">${icon}<h3>${escapeHtml(card.title)}</h3><p class="muted">${escapeHtml(card.description)}</p>${link}</article>`;
   }).join('');
 
+  const supportDocuments = (support.documents?.items || []).map((document) =>
+    `<a class="support-document-link" href="${escapeHtml(document.href)}"><span><strong>${escapeHtml(document.title)}</strong><small>${escapeHtml(document.description)}</small></span><span class="support-document-arrow" aria-hidden="true">→</span></a>`
+  ).join('');
+
   await renderPage({
     templateName: 'support.html',
     outputPath: 'support/index.html',
@@ -89,7 +93,11 @@ export async function buildContentPages(context) {
       HERO_EYEBROW: escapeHtml(support.hero.eyebrow),
       HERO_HEADING: escapeHtml(support.hero.heading),
       HERO_DESCRIPTION: escapeHtml(support.hero.description),
-      SUPPORT_CARDS: supportCards
+      SUPPORT_CARDS: supportCards,
+      DOCUMENTS_EYEBROW: escapeHtml(support.documents?.eyebrow || 'Documents'),
+      DOCUMENTS_HEADING: escapeHtml(support.documents?.heading || 'Documents'),
+      DOCUMENTS_DESCRIPTION: escapeHtml(support.documents?.description || ''),
+      SUPPORT_DOCUMENTS: supportDocuments
     }
   });
 

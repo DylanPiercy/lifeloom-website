@@ -2,7 +2,7 @@ import path from 'node:path';
 import { createBuildContext } from './lib/build-context.mjs';
 import { isMainModule } from './lib/module.mjs';
 import { createPageRenderer } from './lib/page-renderer.mjs';
-import { escapeHtml, getAppPresentation, readJson, renderAppCard } from './lib/render.mjs';
+import { escapeHtml, getAppPresentation, readJson, renderAppAvailability, renderAppCard, renderAppFeatures, renderReleaseStatus } from './lib/render.mjs';
 
 export async function buildAppPages(context) {
   context ??= await createBuildContext();
@@ -17,9 +17,8 @@ export async function buildAppPages(context) {
 
   for (const app of apps) {
     const presentation = getAppPresentation(app, site, context.sharedTokens);
-    const features = (app.features || [])
-      .map((feature, index) => `<article class="app-product-feature"><span class="app-product-feature-number">${String(index + 1).padStart(2, '0')}</span><div><h3>${escapeHtml(feature.title)}</h3><p>${escapeHtml(feature.description)}</p></div></article>`)
-      .join('');
+    const features = renderAppFeatures(partials.appFeature, app.features || [], context.sharedTokens);
+    const availability = renderAppAvailability(partials.appAvailability, app, site, context.sharedTokens, presentation);
     const heroHighlights = (app.features || [])
       .slice(0, 3)
       .map((feature) => `<span>${escapeHtml(feature.title)}</span>`)
@@ -41,9 +40,7 @@ export async function buildAppPages(context) {
         NAME: escapeHtml(app.name),
         APP_COLOUR: escapeHtml(presentation.colour),
         APP_LOGO_ASSET: escapeHtml(presentation.logoAsset),
-        APP_STATUS: presentation.comingSoon
-          ? `<span class="app-status">${escapeHtml(site.appUi.comingSoon)}</span>`
-          : '',
+        APP_STATUS: renderReleaseStatus(app, site),
         HERO_HIGHLIGHTS: heroHighlights,
         ACTION_ALL_APPS: escapeHtml(site.appUi.allApps || 'All Apps'),
         ACTION_EXPLORE_FEATURES: escapeHtml(site.appUi.exploreFeatures || 'Explore Features'),
@@ -60,15 +57,7 @@ export async function buildAppPages(context) {
         SECTION_HEADING: escapeHtml(app.section?.heading),
         SECTION_DESCRIPTION: escapeHtml(app.section?.description),
         FEATURES: features,
-        AVAILABILITY_EYEBROW: escapeHtml(app.availability?.eyebrow || site.appUi.availability),
-        AVAILABILITY_HEADING: escapeHtml(app.availability?.heading || `Get ${app.name}.`),
-        AVAILABILITY_PLACEHOLDER: escapeHtml(app.availability?.placeholder || site.appUi.storePlaceholder),
-        AVAILABILITY_ACTIONS: app.availability?.status === 'coming-soon'
-          ? `<span class="status-pill">${escapeHtml(site.appUi.comingSoon)}</span>`
-          : `<div class="hero-actions"><a class="button button-primary" href="#" data-store-link="${escapeHtml(app.availability?.googlePlayKey || '')}" hidden>${escapeHtml(site.appUi.googlePlay)}</a><a class="button button-primary" href="#" data-store-link="${escapeHtml(app.availability?.appStoreKey || '')}" hidden>${escapeHtml(site.appUi.appStore)}</a></div>`,
-        PRIVACY_ACTION: app.privacyUrl
-          ? `<a class="button button-secondary" href="${escapeHtml(app.privacyUrl)}">${escapeHtml(site.actions.privacyPolicy)}</a>`
-          : ''
+        APP_AVAILABILITY: availability
       }
     });
   }
