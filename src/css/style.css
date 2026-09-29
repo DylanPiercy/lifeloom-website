@@ -441,16 +441,18 @@ html[data-theme="light"] .theme-toggle::before { content: "☾"; }
   box-shadow:
     0 24px 55px color-mix(in srgb, var(--app-card-colour) 24%, rgba(0,0,0,.28)),
     inset 0 1px 0 rgba(255,255,255,.08);
+  overflow: hidden;
   backdrop-filter: blur(12px);
   transition: transform .28s ease;
 }
 .app-card:hover .app-card-icon-shell { transform: scale(1.045); }
 .app-card .app-card-icon {
-  width: 88px;
-  height: 88px;
+  display: block;
+  width: 100%;
+  height: 100%;
   margin: 0;
-  border-radius: 22px;
-  object-fit: contain;
+  border-radius: inherit;
+  object-fit: cover;
 }
 .app-card-watermark {
   position: absolute;
@@ -1006,7 +1008,6 @@ html[data-theme="light"] .theme-toggle::before { content: "☾"; }
   .app-card-content { padding: 30px 24px 34px; }
   .app-card h2 { font-size: clamp(2.25rem, 12vw, 3.5rem); }
   .app-card-icon-shell { width: 108px; height: 108px; border-radius: 28px; }
-  .app-card .app-card-icon { width: 72px; height: 72px; border-radius: 18px; }
   .app-card-orbit-large { width: 220px; height: 220px; }
   .app-card-orbit-small { width: 158px; height: 158px; }
   .app-card-watermark { left: 20px; bottom: 13px; max-width: calc(100% - 40px); font-size: clamp(2.2rem, 13vw, 3.5rem); }
