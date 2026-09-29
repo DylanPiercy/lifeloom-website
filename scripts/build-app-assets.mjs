@@ -1,6 +1,7 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { createBuildContext } from './lib/build-context.mjs';
+import { assertFilesExist } from './lib/assets.mjs';
 import { isMainModule } from './lib/module.mjs';
 
 const DIRECTORY_KEYS = new Set(['sourceDirectory', 'publicDirectory']);
@@ -33,25 +34,19 @@ async function copyAppAssets(root, app) {
 
   const sourceDir = path.resolve(root, sourceDirectory);
   const outputDir = path.join(root, 'public', publicDirectory.replace(/^\/+/, ''));
+  const sources = files.map((fileName) => path.join(sourceDir, fileName));
+  await assertFilesExist(root, sources, `${app.name} asset`);
+
   await fs.rm(outputDir, { recursive: true, force: true });
   await fs.mkdir(outputDir, { recursive: true });
 
-  let copied = 0;
-  for (const fileName of files) {
-    const source = path.join(sourceDir, fileName);
-    try {
-      await fs.access(source);
-    } catch {
-      console.warn(`${app.name} asset not found: ${path.relative(root, source)}`);
-      continue;
-    }
-
-    await fs.copyFile(source, path.join(outputDir, path.basename(fileName)));
-    copied += 1;
+  for (let index = 0; index < files.length; index += 1) {
+    const fileName = files[index];
+    await fs.copyFile(sources[index], path.join(outputDir, path.basename(fileName)));
   }
 
-  console.log(`Prepared ${copied}/${files.length} ${app.name} asset${files.length === 1 ? '' : 's'}.`);
-  return { copied, configured: files.length };
+  console.log(`Prepared ${files.length}/${files.length} ${app.name} asset${files.length === 1 ? '' : 's'}.`);
+  return { copied: files.length, configured: files.length };
 }
 
 export async function buildAppAssets(context) {

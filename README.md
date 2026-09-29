@@ -20,7 +20,7 @@ src/                            Website source
 ├── templates/                  Page templates and reusable partials
 ├── css/                        Website styles
 ├── js/                         Browser JavaScript
-└── static/                     Files copied to the site root
+└── static/                     Root files copied as-is (for example robots.txt)
 
 scripts/                        Node build tooling
 config/                         Local/environment configuration
@@ -35,8 +35,10 @@ public/                         Generated Firebase Hosting output (ignored)
 2. Deletes and recreates `public/`.
 3. Copies CSS, JavaScript, static files and shared media.
 4. Copies configured LifeLoom and app assets.
-5. Generates canonical-domain JavaScript.
-6. Generates HTML from the JSON content and reusable templates.
+5. Validates every configured local brand/app asset exists in the generated output.
+6. Generates canonical-domain JavaScript.
+7. Generates HTML from the JSON content and reusable templates.
+8. Generates `sitemap.xml` from the current apps and published legal documents.
 
 Shared rendering logic lives under `scripts/lib/`. Site-wide HTML is extracted into partials such as:
 
@@ -139,9 +141,11 @@ Focused build commands are also available:
 npm run build:static
 npm run build:brand
 npm run build:app-assets
+npm run build:validate-assets
 npm run build:canonical
 npm run build:content
 npm run build:apps
+npm run build:sitemap
 ```
 
 For normal content/style work, `npm run build` is sufficient. Use `npm run prepare` when you need the local support/store configuration regenerated.
@@ -251,7 +255,7 @@ Important fields include:
 - Store/web buttons remain hidden until the app is released and a configured link exists.
 - `availability.links` can reference keys from `config/site.local.json` or use direct public URLs.
 
-App media is copied from the app's configured `assets.sourceDirectory` into its configured public directory during the build.
+App media is copied from the app's configured `assets.sourceDirectory` into its configured public directory during the build. Configured local assets are strict: if a referenced logo, brand image, favicon, social image or other configured app asset is missing, the build fails instead of generating a broken image reference.
 
 ## Adding an app
 
@@ -261,7 +265,23 @@ App media is copied from the app's configured `assets.sourceDirectory` into its 
 4. Add any required store-link keys to `config/site.example.json` and your local `config/site.local.json`.
 5. Run `npm run build` and verify the catalogue/detail page locally.
 
-The catalogue and detail pages are generated automatically; app-specific HTML pages should not be created manually.
+The catalogue and detail pages are generated automatically; app-specific HTML pages should not be created manually. The app route is also added to the generated sitemap automatically.
+
+
+## Sitemap and indexing
+
+`public/sitemap.xml` is generated during every full build. Do not maintain a static sitemap by hand.
+
+The generator includes:
+
+- the homepage
+- the Apps catalogue
+- every app defined in `src/content/apps/`
+- Support
+- the Legal index
+- every legal document with `published: true`
+
+Published legal documents use `seo.canonicalPath` for their sitemap URL. `src/static/robots.txt` points search engines to the generated sitemap.
 
 ## Styling and browser behaviour
 

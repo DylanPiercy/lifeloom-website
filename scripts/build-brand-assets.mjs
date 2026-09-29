@@ -1,6 +1,7 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { createBuildContext } from './lib/build-context.mjs';
+import { assertFilesExist } from './lib/assets.mjs';
 import { isMainModule } from './lib/module.mjs';
 
 function getConfiguredBrandAssets(site) {
@@ -40,24 +41,18 @@ export async function buildBrandAssets(context) {
   const outputDir = path.join(root, 'public', publicDirectory.replace(/^\/+/, ''));
   const assets = [...new Set(getConfiguredBrandAssets(site))];
 
+  const sources = assets.map((fileName) => path.join(sourceDir, fileName));
+  await assertFilesExist(root, sources, 'LifeLoom asset');
+
   await fs.rm(outputDir, { recursive: true, force: true });
   await fs.mkdir(outputDir, { recursive: true });
 
-  let copied = 0;
-  for (const fileName of assets) {
-    const source = path.join(sourceDir, fileName);
-    try {
-      await fs.access(source);
-    } catch {
-      console.warn(`LifeLoom logo not found: ${path.relative(root, source)}`);
-      continue;
-    }
-
-    await fs.copyFile(source, path.join(outputDir, path.basename(fileName)));
-    copied += 1;
+  for (let index = 0; index < assets.length; index += 1) {
+    const fileName = assets[index];
+    await fs.copyFile(sources[index], path.join(outputDir, path.basename(fileName)));
   }
 
-  console.log(`Prepared ${copied}/${assets.length} LifeLoom logo asset${copied === 1 ? '' : 's'}.`);
+  console.log(`Prepared ${assets.length}/${assets.length} LifeLoom logo asset${assets.length === 1 ? '' : 's'}.`);
 }
 
 if (isMainModule(import.meta.url)) {

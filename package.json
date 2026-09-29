@@ -7,9 +7,11 @@
     "build:static": "node scripts/build-static-assets.mjs",
     "build:brand": "node scripts/build-brand-assets.mjs",
     "build:app-assets": "node scripts/build-app-assets.mjs",
+    "build:validate-assets": "node scripts/validate-configured-assets.mjs",
     "build:canonical": "node scripts/build-canonical-domain.mjs",
     "build:content": "node scripts/build-content-pages.mjs",
     "build:apps": "node scripts/build-app-pages.mjs",
+    "build:sitemap": "node scripts/build-sitemap.mjs",
     "prepare": "npm run build && node scripts/prepare-site.mjs",
     "serve": "npm run prepare && firebase emulators:start --only hosting",
     "deploy": "npm run prepare && firebase deploy --only hosting"
