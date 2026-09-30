@@ -60,13 +60,13 @@ export async function buildAppPages(context) {
 
   const appCards = [...apps]
     .sort((a, b) => (a.card?.order ?? Number.MAX_SAFE_INTEGER) - (b.card?.order ?? Number.MAX_SAFE_INTEGER))
-    .map((app) => renderAppCard(partials.appCard, app, site, context.sharedTokens))
+    .map((app) => renderAppCard(partials.appCard, partials.appExploreButton, app, site, context.sharedTokens))
     .join('');
 
   await renderPage({
     templateName: 'apps-index.html',
     outputPath: 'apps/index.html',
-    sourceLabel: 'src/templates/apps-index.html + src/templates/partials/app-card.html + src/content/apps/index.json + src/content/apps/*.json + src/content/site.json',
+    sourceLabel: 'src/templates/apps-index.html + src/templates/partials/app-card.html + src/templates/partials/app-explore-button.html + src/content/apps/index.json + src/content/apps/*.json + src/content/site.json',
     activePage: 'apps',
     values: {
       TITLE: escapeHtml(appsIndex.seo.title),

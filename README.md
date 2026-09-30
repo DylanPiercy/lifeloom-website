@@ -48,10 +48,13 @@ src/templates/partials/site-header.html
 src/templates/partials/site-footer.html
 src/templates/partials/site-scripts.html
 src/templates/partials/app-card.html
+src/templates/partials/app-explore-button.html
 src/templates/partials/app-feature.html
 src/templates/partials/app-availability.html
 src/templates/partials/support-document-card.html
 ```
+
+The Apps catalogue uses `app-card.html` for each card and the nested `app-explore-button.html` partial for the reusable, colour-aware Explore App action.
 
 Do not edit files in `public/`; change the source and rebuild instead.
 

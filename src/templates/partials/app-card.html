@@ -1,4 +1,4 @@
-<a class="app-card" style="--app-card-colour:{{APP_COLOUR}}" href="/apps/{{APP_SLUG}}/" aria-label="{{APP_ACTION_LABEL}}: {{APP_NAME}}">
+<article class="app-card" style="--app-card-colour:{{APP_COLOUR}}">
   <div class="app-card-visual" aria-hidden="true">
     <span class="app-card-glow"></span>
     <span class="app-card-orbit app-card-orbit-large"></span>
@@ -17,9 +17,6 @@
     <h2>{{APP_NAME}}</h2>
     <p>{{APP_SUMMARY}}</p>
     <div class="app-card-highlights" aria-hidden="true">{{APP_HIGHLIGHTS}}</div>
-    <span class="app-card-action" aria-hidden="true">
-      <span>{{APP_ACTION_LABEL}}</span>
-      <strong><span>→</span></strong>
-    </span>
+    {{APP_EXPLORE_BUTTON}}
   </div>
-</a>
+</article>

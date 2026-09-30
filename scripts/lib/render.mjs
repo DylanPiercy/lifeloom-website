@@ -116,23 +116,40 @@ export function renderReleaseStatus(app, site) {
   return `<span class="app-status" data-release-status data-release-date="${escapeHtml(releaseDate)}" data-coming-soon-label="${escapeHtml(site.appUi?.comingSoon || 'Coming Soon')}" data-coming-on-label="${escapeHtml(site.appUi?.comingOn || 'Coming on')}" data-released-label="${escapeHtml(site.appUi?.released || 'Released')}">${escapeHtml(releaseStatusText(app, site))}</span>`;
 }
 
-export function renderAppCard(template, app, site, sharedTokens) {
+export function renderAppExploreButton(template, { colour, href, label, ariaLabel }, sharedTokens = {}) {
+  return replaceTokens(template, {
+    ...sharedTokens,
+    APP_EXPLORE_COLOUR: escapeHtml(colour),
+    APP_EXPLORE_HREF: escapeHtml(href),
+    APP_EXPLORE_LABEL: escapeHtml(label),
+    APP_EXPLORE_ARIA_LABEL: escapeHtml(ariaLabel || label)
+  });
+}
+
+export function renderAppCard(template, exploreButtonTemplate, app, site, sharedTokens) {
   const { colour, logoAsset } = getAppPresentation(app, site, sharedTokens);
   const highlights = (app.features || [])
     .slice(0, 3)
     .map((feature) => `<span>${escapeHtml(feature.title)}</span>`)
     .join('');
+  const actionLabel = site.appUi.viewApp || 'Explore App';
+  const appHref = `/apps/${app.slug}/`;
+  const exploreButton = renderAppExploreButton(exploreButtonTemplate, {
+    colour,
+    href: appHref,
+    label: actionLabel,
+    ariaLabel: `${actionLabel}: ${app.name}`
+  }, sharedTokens);
 
   return replaceTokens(template, {
     ...sharedTokens,
-    APP_SLUG: escapeHtml(app.slug),
     APP_NAME: escapeHtml(app.name),
     APP_SUMMARY: escapeHtml(app.summary),
     APP_EYEBROW: escapeHtml(app.hero?.eyebrow || site.appUi?.appEyebrow || 'A LifeLoom app'),
     APP_COLOUR: escapeHtml(colour),
     APP_LOGO_ASSET: escapeHtml(logoAsset),
     APP_HIGHLIGHTS: highlights,
-    APP_ACTION_LABEL: escapeHtml(site.appUi.viewApp || 'Explore App'),
+    APP_EXPLORE_BUTTON: exploreButton,
     APP_STATUS: renderReleaseStatus(app, site)
   });
 }

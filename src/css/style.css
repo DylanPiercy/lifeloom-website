@@ -516,7 +516,8 @@ html[data-theme="light"] .theme-toggle::before { content: "☾"; }
   font-size: .78rem;
   font-weight: 700;
 }
-.app-card-action {
+.app-explore-button {
+  --app-action-colour: var(--brand);
   display: inline-flex;
   align-items: center;
   gap: 12px;
@@ -524,27 +525,36 @@ html[data-theme="light"] .theme-toggle::before { content: "☾"; }
   margin-top: 30px;
   color: var(--text);
   font-weight: 800;
+  text-decoration: none;
 }
-.app-card-action strong {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.app-explore-button-icon {
+  display: grid;
+  place-items: center;
   width: 36px;
   height: 36px;
-  padding: 0;
+  flex: 0 0 36px;
   border-radius: 50%;
-  background: var(--app-card-colour);
+  background: var(--app-action-colour);
   color: #0b0d12;
-  font-size: 1.25rem;
-  line-height: 1;
   transition: transform .22s ease;
 }
-.app-card-action strong span {
+.app-explore-button-icon svg {
   display: block;
-  line-height: 1;
-  transform: translate(-1px, -1px);
+  width: 18px;
+  height: 18px;
+  overflow: visible;
 }
-.app-card:hover .app-card-action strong { transform: translateX(4px); }
+.app-explore-button-icon path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.app-explore-button:hover .app-explore-button-icon,
+.app-explore-button:focus-visible .app-explore-button-icon,
+.app-card:hover .app-explore-button-icon { transform: translateX(4px); }
 .app-card .app-status {
   position: static;
   padding: 6px 10px;
