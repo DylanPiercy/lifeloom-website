@@ -11,7 +11,8 @@ const PARTIAL_FILES = {
   scripts: 'site-scripts.html',
   appCard: 'app-card.html',
   appFeature: 'app-feature.html',
-  appAvailability: 'app-availability.html'
+  appAvailability: 'app-availability.html',
+  supportDocumentCard: 'support-document-card.html'
 };
 
 function normaliseAssetPath(value, basePath = '') {

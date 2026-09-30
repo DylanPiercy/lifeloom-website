@@ -35,7 +35,7 @@ function routeFromOutputPath(outputPath) {
 async function getPublishedLegalRoutes(contentDir) {
   const legalDir = path.join(contentDir, 'legal');
   const files = (await fs.readdir(legalDir))
-    .filter((file) => file.endsWith('.json') && file !== 'index.json')
+    .filter((file) => file.endsWith('.json'))
     .sort();
 
   const routes = [];
@@ -68,7 +68,6 @@ export async function buildSitemap(context) {
     '/apps/',
     ...apps.map((app) => `/apps/${app.slug}/`),
     '/support/',
-    '/legal/',
     ...legalRoutes
   ];
 

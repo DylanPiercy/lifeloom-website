@@ -526,16 +526,23 @@ html[data-theme="light"] .theme-toggle::before { content: "☾"; }
   font-weight: 800;
 }
 .app-card-action strong {
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 36px;
   height: 36px;
+  padding: 0;
   border-radius: 50%;
   background: var(--app-card-colour);
   color: #0b0d12;
   font-size: 1.25rem;
   line-height: 1;
   transition: transform .22s ease;
+}
+.app-card-action strong span {
+  display: block;
+  line-height: 1;
+  transform: translate(-1px, -1px);
 }
 .app-card:hover .app-card-action strong { transform: translateX(4px); }
 .app-card .app-status {
@@ -1021,13 +1028,8 @@ html[data-theme="light"] .theme-toggle::before { content: "☾"; }
 .support-document-link small { display: block; margin-top: 4px; color: var(--muted); }
 .support-document-arrow { color: var(--brand); font-size: 1.35rem; font-weight: 800; }
 
-.legal-list { display: grid; gap: 12px; }
-.legal-link { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px 22px; background: var(--card-bg); border: 1px solid var(--line); border-radius: 18px; text-decoration: none; }
-.legal-link:hover { border-color: var(--brand); }
-.legal-link small { display: block; color: var(--muted); margin-top: 3px; }
-
 .site-footer { margin-top: 30px; padding: 60px 0 28px; border-top: 1px solid var(--line); }
-.footer-grid { display: grid; grid-template-columns: 1.6fr repeat(3, .7fr); gap: 30px; }
+.footer-grid { display: grid; grid-template-columns: 1.6fr repeat(2, .7fr); gap: 30px; }
 .footer-brand { max-width: 310px; }
 .footer-brand p { color: var(--muted); font-size: .92rem; }
 .footer-col h3 { font-size: .9rem; letter-spacing: 0; margin-bottom: 12px; }
@@ -1138,7 +1140,12 @@ html[data-theme="light"] .theme-toggle::before { content: "☾"; }
   .apps-placeholder-grid { grid-template-columns: 1fr; }
   .app-placeholder-card:nth-child(n+2) { display: none; }
   .section-heading p { margin-top: 12px; }
-  .app-copy { padding: 34px 24px; }
+  .featured-app-badge {
+    position: static;
+    margin: 24px 24px 0;
+    justify-self: start;
+  }
+  .app-copy { padding: 24px 24px 34px; }
   .app-art { min-height: 420px; }
   .phone { width: 58%; min-width: 200px; }
   .feature-list { grid-template-columns: 1fr; }

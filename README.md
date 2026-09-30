@@ -50,6 +50,7 @@ src/templates/partials/site-scripts.html
 src/templates/partials/app-card.html
 src/templates/partials/app-feature.html
 src/templates/partials/app-availability.html
+src/templates/partials/support-document-card.html
 ```
 
 Do not edit files in `public/`; change the source and rebuild instead.
@@ -181,7 +182,7 @@ Canonical redirect settings are controlled by `src/content/site.json`.
 - brand name and slogan
 - navigation/footer labels
 - shared app UI labels
-- legal navigation labels
+- legal document navigation labels
 - LifeLoom asset filenames and public paths
 - favicon and social image
 - canonical-domain redirects
@@ -210,6 +211,8 @@ src/content/support.json
 src/content/apps/
 src/content/legal/
 ```
+
+Published privacy/legal documents are linked from the **Documents** section on the Support page. There is no separate legal index page. Document cards are rendered through the shared `src/templates/partials/support-document-card.html` partial.
 
 ### App definitions
 
@@ -278,7 +281,6 @@ The generator includes:
 - the Apps catalogue
 - every app defined in `src/content/apps/`
 - Support
-- the Legal index
 - every legal document with `published: true`
 
 Published legal documents use `seo.canonicalPath` for their sitemap URL. `src/static/robots.txt` points search engines to the generated sitemap.

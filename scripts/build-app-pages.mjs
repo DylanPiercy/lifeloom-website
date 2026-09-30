@@ -29,10 +29,6 @@ export async function buildAppPages(context) {
       outputPath: `apps/${app.slug}/index.html`,
       sourceLabel: `src/templates/app-page.html + src/content/apps/${app.slug}.json + src/content/site.json`,
       activePage: 'apps',
-      footerOptions: {
-        appName: app.name,
-        appPrivacyUrl: app.privacyUrl
-      },
       values: {
         TITLE: escapeHtml(`${app.name} — ${site.brandName}`),
         META_DESCRIPTION: escapeHtml(app.metaDescription),

@@ -15,12 +15,8 @@
   "footer": {
     "appsHeading": "Apps",
     "allApps": "All apps",
-    "legalHeading": "Legal",
-    "legal": "Legal",
-    "privacy": "Privacy",
-    "lifeLoomPrivacy": "LifeLoom privacy",
-    "home": "Home",
-    "supportHeading": "Support"
+    "supportHeading": "Support",
+    "documents": "Documents"
   },
   "actions": {
     "seeOurApps": "See our apps",

@@ -3,7 +3,7 @@ import path from 'node:path';
 import { createBuildContext } from './lib/build-context.mjs';
 import { isMainModule } from './lib/module.mjs';
 import { createPageRenderer } from './lib/page-renderer.mjs';
-import { escapeHtml, getAppPresentation, readJson } from './lib/render.mjs';
+import { escapeHtml, getAppPresentation, readJson, renderSupportDocumentCards } from './lib/render.mjs';
 
 export async function buildContentPages(context) {
   context ??= await createBuildContext();
@@ -78,14 +78,16 @@ export async function buildContentPages(context) {
     return `<article class="support-card">${icon}<h3>${escapeHtml(card.title)}</h3><p class="muted">${escapeHtml(card.description)}</p>${link}</article>`;
   }).join('');
 
-  const supportDocuments = (support.documents?.items || []).map((document) =>
-    `<a class="support-document-link" href="${escapeHtml(document.href)}"><span><strong>${escapeHtml(document.title)}</strong><small>${escapeHtml(document.description)}</small></span><span class="support-document-arrow" aria-hidden="true">→</span></a>`
-  ).join('');
+  const supportDocuments = renderSupportDocumentCards(
+    context.partials.supportDocumentCard,
+    support.documents?.items || [],
+    sharedTokens
+  );
 
   await renderPage({
     templateName: 'support.html',
     outputPath: 'support/index.html',
-    sourceLabel: 'src/templates/support.html + src/content/support.json + src/content/site.json',
+    sourceLabel: 'src/templates/support.html + src/templates/partials/support-document-card.html + src/content/support.json + src/content/site.json',
     activePage: 'support',
     values: {
       TITLE: escapeHtml(support.seo.title),
@@ -101,25 +103,6 @@ export async function buildContentPages(context) {
     }
   });
 
-  const legalIndex = await readJson(path.join(contentDir, 'legal', 'index.json'));
-  const legalDocuments = legalIndex.documents
-    .map((document) => `<a class="legal-link" href="${escapeHtml(document.href)}"><span><strong>${escapeHtml(document.title)}</strong><small>${escapeHtml(document.description)}</small></span><span aria-hidden="true">→</span></a>`)
-    .join('');
-
-  await renderPage({
-    templateName: 'legal-index.html',
-    outputPath: 'legal/index.html',
-    sourceLabel: 'src/templates/legal-index.html + src/content/legal/index.json + src/content/site.json',
-    values: {
-      TITLE: escapeHtml(legalIndex.seo.title),
-      META_DESCRIPTION: escapeHtml(legalIndex.seo.description),
-      HERO_EYEBROW: escapeHtml(legalIndex.hero.eyebrow),
-      HERO_HEADING: escapeHtml(legalIndex.hero.heading),
-      HERO_DESCRIPTION: escapeHtml(legalIndex.hero.description),
-      LEGAL_DOCUMENTS: legalDocuments
-    }
-  });
-
   function renderLegalParagraph(paragraph) {
     if (typeof paragraph === 'string') return `<p>${escapeHtml(paragraph)}</p>`;
     const subject = paragraph.supportSubject
@@ -129,7 +112,7 @@ export async function buildContentPages(context) {
   }
 
   const legalFiles = (await fs.readdir(path.join(contentDir, 'legal')))
-    .filter((file) => file.endsWith('.json') && file !== 'index.json')
+    .filter((file) => file.endsWith('.json'))
     .sort();
 
   for (const file of legalFiles) {

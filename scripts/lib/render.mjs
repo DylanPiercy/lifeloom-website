@@ -25,6 +25,16 @@ export async function readJson(filePath) {
   return JSON.parse(await fs.readFile(filePath, 'utf8'));
 }
 
+
+export function renderSupportDocumentCards(template, documents = [], sharedTokens = {}) {
+  return documents.map((document) => replaceTokens(template, {
+    ...sharedTokens,
+    DOCUMENT_HREF: escapeHtml(document.href),
+    DOCUMENT_TITLE: escapeHtml(document.title),
+    DOCUMENT_DESCRIPTION: escapeHtml(document.description)
+  })).join('');
+}
+
 export function renderFooterAppLinks(apps = []) {
   return apps.map((app) => `<a href="/apps/${escapeHtml(app.slug)}/">${escapeHtml(app.name)}</a>`).join('');
 }
@@ -240,18 +250,13 @@ export function renderAppAvailability(template, app, site, sharedTokens, present
 
 
 export function renderSiteFooter(template, site, apps, sharedTokens, options = {}) {
-  const legalLinks = options.appPrivacyUrl
-    ? `<a href="${escapeHtml(options.appPrivacyUrl)}">${escapeHtml(options.appName)} privacy</a><a href="/legal/privacy/">${escapeHtml(site.footer.lifeLoomPrivacy)}</a>`
-    : `<a href="/legal/">${escapeHtml(site.footer.legal)}</a><a href="/legal/privacy/">${escapeHtml(site.footer.privacy)}</a>`;
-
   return replaceTokens(template, {
     ...sharedTokens,
     FOOTER_APPS_HEADING: escapeHtml(site.footer.appsHeading),
     FOOTER_ALL_APPS: escapeHtml(site.footer.allApps),
     FOOTER_APP_LINKS: renderFooterAppLinks(apps),
     FOOTER_SUPPORT_HEADING: escapeHtml(site.footer.supportHeading),
-    FOOTER_LEGAL_HEADING: escapeHtml(site.footer.legalHeading),
-    FOOTER_LEGAL_LINKS: legalLinks,
+    FOOTER_DOCUMENTS: escapeHtml(site.footer.documents),
     FOOTER_BOTTOM_EXTRA: options.showDomain ? `<span>${escapeHtml(site.domain)}</span>` : ''
   });
 }
