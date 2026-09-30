@@ -3,7 +3,7 @@ import path from 'node:path';
 import { createBuildContext } from './lib/build-context.mjs';
 import { isMainModule } from './lib/module.mjs';
 import { createPageRenderer } from './lib/page-renderer.mjs';
-import { escapeHtml, getAppPresentation, readJson, renderSupportDocumentCards } from './lib/render.mjs';
+import { escapeHtml, getAppPresentation, readJson, renderAppPlaceholderCards, renderSupportDocumentCards } from './lib/render.mjs';
 
 export async function buildContentPages(context) {
   context ??= await createBuildContext();
@@ -28,6 +28,11 @@ export async function buildContentPages(context) {
   const featuredPresentation = featuredApp
     ? getAppPresentation(featuredApp, site, sharedTokens)
     : { logoAsset: sharedTokens.APP_PLACEHOLDER_ASSET };
+  const appPlaceholderCards = renderAppPlaceholderCards(
+    context.partials.appPlaceholderCard,
+    home.appsSection.placeholderCardCount ?? 3,
+    sharedTokens
+  );
 
   await renderPage({
     templateName: 'home.html',
@@ -54,6 +59,7 @@ export async function buildContentPages(context) {
       FEATURED_ACTION: escapeHtml(home.appsSection.featuredAction),
       FEATURED_PREVIEW_PRIMARY: escapeHtml(home.appsSection.previewPrimary),
       FEATURED_PREVIEW_SECONDARY: escapeHtml(home.appsSection.previewSecondary),
+      APP_PLACEHOLDER_CARDS: appPlaceholderCards,
       EXPLORE_ALL_APPS_ACTION: escapeHtml(home.appsSection.exploreAllAction),
       ABOUT_STRIP_EYEBROW: escapeHtml(home.aboutStrip.eyebrow),
       ABOUT_STRIP_HEADING: escapeHtml(home.aboutStrip.heading),

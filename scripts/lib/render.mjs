@@ -126,6 +126,15 @@ export function renderAppExploreButton(template, { colour, href, label, ariaLabe
   });
 }
 
+export function renderAppPlaceholderCards(template, count = 3, sharedTokens = {}) {
+  const parsedCount = Number(count);
+  if (!Number.isInteger(parsedCount) || parsedCount < 0) {
+    throw new Error('Homepage placeholder card count must be a non-negative integer.');
+  }
+
+  return Array.from({ length: parsedCount }, () => replaceTokens(template, sharedTokens)).join('');
+}
+
 export function renderAppCard(template, exploreButtonTemplate, app, site, sharedTokens) {
   const { colour, logoAsset } = getAppPresentation(app, site, sharedTokens);
   const highlights = (app.features || [])

@@ -13,6 +13,7 @@ const PARTIAL_FILES = {
   appExploreButton: 'app-explore-button.html',
   appFeature: 'app-feature.html',
   appAvailability: 'app-availability.html',
+  appPlaceholderCard: 'app-placeholder-card.html',
   supportDocumentCard: 'support-document-card.html'
 };
 

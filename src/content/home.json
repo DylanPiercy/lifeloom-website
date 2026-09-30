@@ -1,8 +1,8 @@
 {
   "seo": {
-    "title": "LifeLoom — Built for life beyond the screen.",
-    "description": "LifeLoom creates mobile apps designed to enhance real-world activities and experiences — built for life beyond the screen.",
-    "ogTitle": "LifeLoom — Built for life beyond the screen.",
+    "title": "LifeLoom \u2014 Built for life beyond the screen.",
+    "description": "LifeLoom creates mobile apps designed to enhance real-world activities and experiences \u2014 built for life beyond the screen.",
+    "ogTitle": "LifeLoom \u2014 Built for life beyond the screen.",
     "ogDescription": "Mobile apps designed to enhance real-world activities and experiences."
   },
   "hero": {
@@ -26,7 +26,8 @@
     "featuredAction": "Explore Rivalry",
     "previewPrimary": "Your group",
     "previewSecondary": "Leaderboard",
-    "exploreAllAction": "Explore All Apps"
+    "exploreAllAction": "Explore All Apps",
+    "placeholderCardCount": 3
   },
   "aboutStrip": {
     "eyebrow": "LifeLoom",
