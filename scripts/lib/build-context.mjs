@@ -10,6 +10,7 @@ const PARTIAL_FILES = {
   footer: 'site-footer.html',
   scripts: 'site-scripts.html',
   appCard: 'app-card.html',
+  featuredAppCard: 'featured-app-card.html',
   appExploreButton: 'app-explore-button.html',
   appFeature: 'app-feature.html',
   appAvailability: 'app-availability.html',

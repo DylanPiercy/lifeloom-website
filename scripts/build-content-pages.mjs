@@ -3,7 +3,7 @@ import path from 'node:path';
 import { createBuildContext } from './lib/build-context.mjs';
 import { isMainModule } from './lib/module.mjs';
 import { createPageRenderer } from './lib/page-renderer.mjs';
-import { escapeHtml, getAppPresentation, readJson, renderAppPlaceholderCards, renderSupportDocumentCards } from './lib/render.mjs';
+import { escapeHtml, getAppPresentation, readJson, renderAppPlaceholderCards, renderFeaturedAppCard, renderSupportDocumentCards } from './lib/render.mjs';
 
 export async function buildContentPages(context) {
   context ??= await createBuildContext();
@@ -20,14 +20,18 @@ export async function buildContentPages(context) {
   await fs.rm(path.join(publicDir, 'about'), { recursive: true, force: true });
 
   const home = await readJson(path.join(contentDir, 'home.json'));
-  const homeTags = home.appsSection.featuredTags
-    .map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`)
-    .join('');
-
   const featuredApp = apps.find((app) => app.slug === home.appsSection.featuredAppSlug);
-  const featuredPresentation = featuredApp
-    ? getAppPresentation(featuredApp, site, sharedTokens)
-    : { logoAsset: sharedTokens.APP_PLACEHOLDER_ASSET };
+  if (!featuredApp) {
+    throw new Error(`Homepage featured app not found: ${home.appsSection.featuredAppSlug}`);
+  }
+  const featuredAppCard = renderFeaturedAppCard(
+    context.partials.featuredAppCard,
+    context.partials.appExploreButton,
+    featuredApp,
+    home.appsSection,
+    site,
+    sharedTokens
+  );
   const appPlaceholderCards = renderAppPlaceholderCards(
     context.partials.appPlaceholderCard,
     home.appsSection.placeholderCardCount ?? 3,
@@ -37,7 +41,7 @@ export async function buildContentPages(context) {
   await renderPage({
     templateName: 'home.html',
     outputPath: 'index.html',
-    sourceLabel: 'src/templates/home.html + src/content/home.json + src/content/site.json',
+    sourceLabel: 'src/templates/home.html + src/templates/partials/featured-app-card.html + src/templates/partials/app-explore-button.html + src/templates/partials/app-placeholder-card.html + src/content/home.json + src/content/apps/*.json + src/content/site.json',
     activePage: 'home',
     footerOptions: { showDomain: true },
     values: {
@@ -50,15 +54,7 @@ export async function buildContentPages(context) {
       HERO_DESCRIPTION: escapeHtml(home.hero.description),
       HERO_PRIMARY_ACTION: escapeHtml(home.hero.primaryAction),
       APPS_EYEBROW: escapeHtml(home.appsSection.eyebrow),
-      FEATURED_EYEBROW: escapeHtml(home.appsSection.featuredEyebrow),
-      FEATURED_APP_SLUG: escapeHtml(home.appsSection.featuredAppSlug),
-      FEATURED_APP_NAME: escapeHtml(home.appsSection.featuredAppName),
-      FEATURED_APP_LOGO_ASSET: escapeHtml(featuredPresentation.logoAsset),
-      FEATURED_DESCRIPTION: escapeHtml(home.appsSection.featuredDescription),
-      FEATURED_TAGS: homeTags,
-      FEATURED_ACTION: escapeHtml(home.appsSection.featuredAction),
-      FEATURED_PREVIEW_PRIMARY: escapeHtml(home.appsSection.previewPrimary),
-      FEATURED_PREVIEW_SECONDARY: escapeHtml(home.appsSection.previewSecondary),
+      FEATURED_APP_CARD: featuredAppCard,
       APP_PLACEHOLDER_CARDS: appPlaceholderCards,
       EXPLORE_ALL_APPS_ACTION: escapeHtml(home.appsSection.exploreAllAction),
       ABOUT_STRIP_EYEBROW: escapeHtml(home.aboutStrip.eyebrow),

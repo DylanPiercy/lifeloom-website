@@ -48,13 +48,16 @@ src/templates/partials/site-header.html
 src/templates/partials/site-footer.html
 src/templates/partials/site-scripts.html
 src/templates/partials/app-card.html
+src/templates/partials/featured-app-card.html
 src/templates/partials/app-explore-button.html
 src/templates/partials/app-feature.html
 src/templates/partials/app-availability.html
+src/templates/partials/app-placeholder-card.html
 src/templates/partials/support-document-card.html
 ```
 
-The Apps catalogue uses `app-card.html` for each card and the nested `app-explore-button.html` partial for the reusable, colour-aware Explore App action.
+The Apps catalogue uses `app-card.html` for each card and the nested `app-explore-button.html` partial for the reusable, colour-aware Explore App action. The homepage featured app uses `featured-app-card.html` and reuses the same Explore App action component.
+The homepage app-discovery placeholders use `app-placeholder-card.html`; the number rendered is controlled by `appsSection.placeholderCardCount` in `src/content/home.json`.
 
 Do not edit files in `public/`; change the source and rebuild instead.
 

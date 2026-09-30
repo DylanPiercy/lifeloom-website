@@ -37,20 +37,7 @@
   <section class="section" id="apps">
     <div class="container">
       <div class="apps-section-kicker"><span class="eyebrow">{{APPS_EYEBROW}}</span></div>
-      <article class="app-feature">
-        <span class="featured-app-badge">{{FEATURED_EYEBROW}}</span>
-        <div class="app-copy">
-          <img class="app-icon" src="{{FEATURED_APP_LOGO_ASSET}}?v={{ASSET_VERSION}}" alt="{{FEATURED_APP_NAME}} app icon">
-          <h2>{{FEATURED_APP_NAME}}</h2>
-          <p>{{FEATURED_DESCRIPTION}}</p>
-          <div class="app-tags">{{FEATURED_TAGS}}</div>
-          <div><a class="button button-secondary" href="/apps/{{FEATURED_APP_SLUG}}/">{{FEATURED_ACTION}} <span aria-hidden="true">→</span></a></div>
-        </div>
-        <div class="app-art" aria-hidden="true">
-          <div class="phone one"><div class="phone-notch"></div><div class="phone-ui"><div class="mini-title">{{FEATURED_PREVIEW_PRIMARY}}</div><div class="mini-card"></div><div class="mini-row"><div></div><div></div></div></div></div>
-          <div class="phone two"><div class="phone-notch"></div><div class="phone-ui"><div class="mini-title">{{FEATURED_PREVIEW_SECONDARY}}</div><div class="mini-card"></div><div class="mini-card"></div><div class="mini-card"></div></div></div>
-        </div>
-      </article>
+      {{FEATURED_APP_CARD}}
 
       <div class="apps-discovery">
         <div class="apps-placeholder-grid" aria-hidden="true">

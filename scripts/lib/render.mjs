@@ -126,6 +126,33 @@ export function renderAppExploreButton(template, { colour, href, label, ariaLabe
   });
 }
 
+export function renderFeaturedAppCard(template, exploreButtonTemplate, app, homeSection, site, sharedTokens) {
+  const { colour, logoAsset } = getAppPresentation(app, site, sharedTokens);
+  const actionLabel = homeSection.featuredAction || site.appUi?.viewApp || 'Explore App';
+  const exploreButton = renderAppExploreButton(exploreButtonTemplate, {
+    colour,
+    href: `/apps/${app.slug}/`,
+    label: actionLabel,
+    ariaLabel: `${actionLabel}: ${app.name}`
+  }, sharedTokens);
+  const tags = (homeSection.featuredTags || [])
+    .map((tag) => `<span>${escapeHtml(tag)}</span>`)
+    .join('');
+
+  return replaceTokens(template, {
+    ...sharedTokens,
+    FEATURED_EYEBROW: escapeHtml(homeSection.featuredEyebrow || 'Featured App'),
+    FEATURED_DESCRIPTION: escapeHtml(homeSection.featuredDescription || app.summary || ''),
+    FEATURED_TAGS: tags,
+    APP_NAME: escapeHtml(app.name),
+    APP_EYEBROW: escapeHtml(app.hero?.eyebrow || site.appUi?.appEyebrow || 'A LifeLoom app'),
+    APP_COLOUR: escapeHtml(colour),
+    APP_LOGO_ASSET: escapeHtml(logoAsset),
+    APP_STATUS: renderReleaseStatus(app, site),
+    APP_EXPLORE_BUTTON: exploreButton
+  });
+}
+
 export function renderAppPlaceholderCards(template, count = 3, sharedTokens = {}) {
   const parsedCount = Number(count);
   if (!Number.isInteger(parsedCount) || parsedCount < 0) {

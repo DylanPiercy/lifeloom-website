@@ -1,8 +1,8 @@
 {
   "seo": {
-    "title": "LifeLoom \u2014 Built for life beyond the screen.",
-    "description": "LifeLoom creates mobile apps designed to enhance real-world activities and experiences \u2014 built for life beyond the screen.",
-    "ogTitle": "LifeLoom \u2014 Built for life beyond the screen.",
+    "title": "LifeLoom — Built for life beyond the screen.",
+    "description": "LifeLoom creates mobile apps designed to enhance real-world activities and experiences — built for life beyond the screen.",
+    "ogTitle": "LifeLoom — Built for life beyond the screen.",
     "ogDescription": "Mobile apps designed to enhance real-world activities and experiences."
   },
   "hero": {
@@ -15,7 +15,6 @@
     "eyebrow": "Our apps",
     "featuredEyebrow": "Featured app",
     "featuredAppSlug": "rivalry",
-    "featuredAppName": "Rivalry",
     "featuredDescription": "Private competition between friends. Track results, rankings and stats across the activities your group actually cares about.",
     "featuredTags": [
       "Races",
@@ -24,8 +23,6 @@
       "Poker"
     ],
     "featuredAction": "Explore Rivalry",
-    "previewPrimary": "Your group",
-    "previewSecondary": "Leaderboard",
     "exploreAllAction": "Explore All Apps",
     "placeholderCardCount": 3
   },
