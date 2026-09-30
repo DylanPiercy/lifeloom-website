@@ -522,10 +522,29 @@ html[data-theme="light"] .theme-toggle::before { content: "☾"; }
   align-items: center;
   gap: 12px;
   width: fit-content;
+  min-height: 48px;
   margin-top: 30px;
+  padding: 5px 6px 5px 16px;
+  border: 1px solid color-mix(in srgb, var(--app-action-colour) 52%, var(--line));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--app-action-colour) 7%, var(--surface-soft));
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--app-action-colour) 12%, transparent);
   color: var(--text);
   font-weight: 800;
+  line-height: 1;
   text-decoration: none;
+  transition: transform .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
+}
+.app-explore-button:hover,
+.app-explore-button:focus-visible {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--app-action-colour) 82%, var(--line));
+  background: color-mix(in srgb, var(--app-action-colour) 13%, var(--surface-soft));
+  box-shadow: 0 10px 26px color-mix(in srgb, var(--app-action-colour) 14%, transparent);
+}
+.app-explore-button:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--app-action-colour) 78%, white);
+  outline-offset: 3px;
 }
 .app-explore-button-icon {
   display: grid;
@@ -533,9 +552,11 @@ html[data-theme="light"] .theme-toggle::before { content: "☾"; }
   width: 36px;
   height: 36px;
   flex: 0 0 36px;
+  border: 1px solid color-mix(in srgb, var(--app-action-colour) 76%, transparent);
   border-radius: 50%;
   background: var(--app-action-colour);
   color: #0b0d12;
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--app-action-colour) 20%, transparent);
   transition: transform .22s ease;
 }
 .app-explore-button-icon svg {
@@ -553,8 +574,7 @@ html[data-theme="light"] .theme-toggle::before { content: "☾"; }
   vector-effect: non-scaling-stroke;
 }
 .app-explore-button:hover .app-explore-button-icon,
-.app-explore-button:focus-visible .app-explore-button-icon,
-.app-card:hover .app-explore-button-icon { transform: translateX(4px); }
+.app-explore-button:focus-visible .app-explore-button-icon { transform: translateX(3px); }
 .app-card .app-status {
   position: static;
   padding: 6px 10px;
