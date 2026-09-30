@@ -56,7 +56,7 @@ src/templates/partials/app-placeholder-card.html
 src/templates/partials/support-document-card.html
 ```
 
-The Apps catalogue uses `app-card.html` for each card and the nested `app-explore-button.html` partial for the reusable, colour-aware Explore App action. The homepage featured app uses `featured-app-card.html` and reuses the same Explore App action component.
+The Apps catalogue uses `app-card.html` for each card and the nested `app-explore-button.html` partial for the reusable Explore action. The renderer accepts the app object directly and derives the app name, route and accent colour automatically, producing labels such as `Explore Rivalry`. The homepage featured app uses `featured-app-card.html` and reuses the same component.
 The homepage app-discovery placeholders use `app-placeholder-card.html`; the number rendered is controlled by `appsSection.placeholderCardCount` in `src/content/home.json`.
 
 Do not edit files in `public/`; change the source and rebuild instead.

@@ -116,25 +116,23 @@ export function renderReleaseStatus(app, site) {
   return `<span class="app-status" data-release-status data-release-date="${escapeHtml(releaseDate)}" data-coming-soon-label="${escapeHtml(site.appUi?.comingSoon || 'Coming Soon')}" data-coming-on-label="${escapeHtml(site.appUi?.comingOn || 'Coming on')}" data-released-label="${escapeHtml(site.appUi?.released || 'Released')}">${escapeHtml(releaseStatusText(app, site))}</span>`;
 }
 
-export function renderAppExploreButton(template, { colour, href, label, ariaLabel }, sharedTokens = {}) {
+export function renderAppExploreButton(template, app, site, sharedTokens = {}) {
+  const { colour } = getAppPresentation(app, site, sharedTokens);
+  const actionPrefix = String(site.appUi?.exploreAppAction || 'Explore').trim();
+  const label = `${actionPrefix} ${app.name}`.trim();
+
   return replaceTokens(template, {
     ...sharedTokens,
     APP_EXPLORE_COLOUR: escapeHtml(colour),
-    APP_EXPLORE_HREF: escapeHtml(href),
+    APP_EXPLORE_HREF: escapeHtml(`/apps/${app.slug}/`),
     APP_EXPLORE_LABEL: escapeHtml(label),
-    APP_EXPLORE_ARIA_LABEL: escapeHtml(ariaLabel || label)
+    APP_EXPLORE_ARIA_LABEL: escapeHtml(label)
   });
 }
 
 export function renderFeaturedAppCard(template, exploreButtonTemplate, app, homeSection, site, sharedTokens) {
   const { colour, logoAsset } = getAppPresentation(app, site, sharedTokens);
-  const actionLabel = homeSection.featuredAction || site.appUi?.viewApp || 'Explore App';
-  const exploreButton = renderAppExploreButton(exploreButtonTemplate, {
-    colour,
-    href: `/apps/${app.slug}/`,
-    label: actionLabel,
-    ariaLabel: `${actionLabel}: ${app.name}`
-  }, sharedTokens);
+  const exploreButton = renderAppExploreButton(exploreButtonTemplate, app, site, sharedTokens);
   const tags = (homeSection.featuredTags || [])
     .map((tag) => `<span>${escapeHtml(tag)}</span>`)
     .join('');
@@ -168,14 +166,7 @@ export function renderAppCard(template, exploreButtonTemplate, app, site, shared
     .slice(0, 3)
     .map((feature) => `<span>${escapeHtml(feature.title)}</span>`)
     .join('');
-  const actionLabel = site.appUi.viewApp || 'Explore App';
-  const appHref = `/apps/${app.slug}/`;
-  const exploreButton = renderAppExploreButton(exploreButtonTemplate, {
-    colour,
-    href: appHref,
-    label: actionLabel,
-    ariaLabel: `${actionLabel}: ${app.name}`
-  }, sharedTokens);
+  const exploreButton = renderAppExploreButton(exploreButtonTemplate, app, site, sharedTokens);
 
   return replaceTokens(template, {
     ...sharedTokens,
